@@ -11,9 +11,9 @@ export default function Home({ projects, blogs }) {
   return (
       <main className="overflow-hidden">
         <Hero />
-        <Skills /> 
-        <Projects projects={projects} /> 
         <Blogs blogs={blogs} />
+        {/* <Skills />  */}
+        <Projects projects={projects} /> 
       </main>
   );
 }
