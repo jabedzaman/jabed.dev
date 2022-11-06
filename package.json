@@ -27,6 +27,7 @@
     "react-lazy-load-image-component": "^1.5.1",
     "react-portable-text": "^0.4.3",
     "react-scroll": "^1.8.5",
+    "react-simple-typewriter": "^4.0.5",
     "rehype-highlight": "^5.0.2",
     "sitemap": "^7.1.1",
     "swr": "^1.2.2"
