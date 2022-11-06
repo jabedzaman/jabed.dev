@@ -1,0 +1,97 @@
+---
+title: Building a Nodejs app with Docker
+description: A guide to how to build dockerimage for a node application
+index : 1
+date: Oct 28, 2022
+author: Jabed
+read: 3
+---
+# {frontmatter.title}
+{frontmatter.author} / {frontmatter.date}
+
+Ok the first question is why we need docker? and what is it actually?
+Docker is actually a container. To understand properly let us take an example of person A working in a group of 4 people.The other three can be related as person B, C and D.
+
+So Person A creates a nextjs application with nextjs version that requires version of node 14 + to be installed on your local machine to run that app. He shares the source code repo with the other three person. Person B and D had node 14 + and person C had node 12.
+Now person C wont be able to test the application on his system. To resolve this issue we take the help of docker.
+
+Docker creates a container with the respective dependencies to run the application without changing the dependencies on your local host machine. 
+
+**Docker image ** is the file which contains all the necessary dependency and configuration which are required to run an application (executable format of an application), we can find docker images in public repositories (docker hub, ECR, …)
+
+### Creating a docker file
+- **Make sure you have docker desktop installed**
+- First create a file in the root directory of your application with the file name Dockerfile.
+Add the following code to it (This is particular to nextjs application which uses npm)
+
+```bash
+
+// Dockerfile
+# Install dependencies only when needed
+FROM node:16-alpine AS deps
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm install --frozen-lockfile
+
+# Rebuild the source code only when needed
+FROM node:16-alpine AS builder
+
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
+
+COPY . .
+
+RUN npm run build
+
+# Production image, copy all the files and run next
+FROM node:16-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV production
+
+RUN addgroup --system --gid 1001 bloggroup
+RUN adduser --system --uid 1001 bloguser
+
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/package.json ./package.json
+
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=builder --chown=bloguser:bloggroup /app/.next/standalone ./
+COPY --from=builder --chown=bloguser:bloggroup /app/.next/static ./.next/static
+
+USER bloguser
+
+EXPOSE 3000
+
+ENV PORT 3000
+
+CMD ["node", "server.js"]
+
+```
+
+- create a file with file name '.dockerignore'
+
+```bash
+node_modules
+.next
+.github
+.husky
+```
+
+- If you have the docker extension then you can directly create the docker image by right-clicking on the docker image and selecting ```Build Image...```
+
+
+![image.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1666834826895/GC6NhcwNL.png)
+
+You can now build using the `docker build [OPTIONS] PATH | URL | -` command
+
+
+You can push the docker image to docker hub. By signing up there and then creating a repo. you can push the image by either using docker desktop or the ` docker push [OPTIONS] NAME[:TAG]` command.
+
+
+![dockerpush.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1666917856037/GbqlUzMno.png)
+
+**And thats all you are done**
