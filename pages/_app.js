@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap"
           rel="stylesheet"
         />
       </Head>
