@@ -20,7 +20,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           rel="stylesheet"
         />
       </Head>
-      <Header />
+      <div className=" z-50 sticky top-0">
+        <Header />
+      </div>
       <Component {...pageProps} />
       <Footer />
     </ThemeProvider>
