@@ -3,6 +3,7 @@ import "../styles/global.css";
 import Head from "next/head";
 import { ThemeProvider } from "next-themes";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
@@ -21,6 +22,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       </Head>
       <Header />
       <Component {...pageProps} />
+      <Footer />
     </ThemeProvider>
   );
 }
