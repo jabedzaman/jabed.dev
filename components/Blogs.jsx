@@ -28,7 +28,7 @@ export default function Blogs({ blogs }) {
                   passHref
                   href={`blogs/${blog.filePath.replace(/\.mdx?$/, "")}`}
                 >
-                  <p className="text-indigo-500 lg:text-lg text-smcursor-pointer inline-flex items-center mt-4">
+                  <p className="text-indigo-500 lg:text-lg text-sm cursor-pointer inline-flex items-center mt-4">
                     Read More
                     <svg
                       className="w-4 h-4 ml-2"
