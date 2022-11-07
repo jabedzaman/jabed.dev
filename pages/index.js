@@ -6,6 +6,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { BLOGS_PATH, blogFilePaths, projectFilePaths, PROJECTS_PATH } from "../utils/mdxUtils" 
+import Contact from "../components/Contact";
 
 export default function Home({ projects, blogs }) {
   return (
@@ -14,6 +15,9 @@ export default function Home({ projects, blogs }) {
         <Blogs blogs={blogs} />
         {/* <Skills />  */}
         <Projects projects={projects} /> 
+        <div id="Contact">
+          <Contact/>
+        </div>
       </main>
   );
 }

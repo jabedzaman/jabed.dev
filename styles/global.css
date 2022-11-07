@@ -15,5 +15,11 @@
     .skills{
         @apply text-gray-500 dark:text-gray-300 h-6 w-6
     }
+    .contactLabel{
+        @apply block text-sm font-medium dark:text-gray-400 text-gray-700
+    }
+    .contactInput{
+        @apply py-3 px-4 block w-full shadow-sm  focus:ring-gray-500 focus:border-gray-500 border-gray-300 dark:border-gray-700 rounded-md bg-[#fcfcfc] dark:bg-[#171717]
+    }
   }
   
