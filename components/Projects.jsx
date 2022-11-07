@@ -11,8 +11,7 @@ function Projects({ projects }) {
           Projects
         </h2>
         <p className="mt-2 text-lg lg:px-0 px-2 text-gray-600 dark:text-gray-400">
-          Some of the side projects I have been working on in the last few
-          months.
+          Some of the my projects
         </p>
         <div className="grid grid-cols-4 gap-8 mt-10 sm:grid-cols-8 lg:grid-cols-8 sm:px-8 xl:px-0">
           {projects.map((project, key) => {
