@@ -14,6 +14,14 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
+        <meta
+          name="description"
+          content="Jabed, a full stack web developer based in India. This is his personal Portfolio Website"
+        />
+        <meta
+          name="keywords"
+          content="jabed, developer, freelancer, full-stack-developer, web-developer, technical-blogs, computer-science"
+        />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap"
