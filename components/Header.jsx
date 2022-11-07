@@ -34,7 +34,7 @@ function Header() {
           </div>
           <div className="flex space-x-10 items-center ">
             <div
-              className="text-gray-700 cursor-pointer dark:bg-[#171717] bg-[#fcfcfc] dark:text-gray-300 p-1 rounded-full"
+              className="text-gray-700 cursor-pointer dark:bg-[#171717] hover:text-gray-500 bg-[#fcfcfc] dark:text-gray-300 p-1 rounded-full"
               onClick={toggleTheme}
             >
               {theme === "dark" ? <FaSun /> : <BsFillMoonStarsFill />}
