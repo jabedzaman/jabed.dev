@@ -12,7 +12,7 @@ function Header() {
   return (
     <header className="font-poppins">
       <div className=" dark:bg-[#171717] bg-[#fcfcfc] shadow-lg dark:shadow-[#171717]/40 dark:border-[#171717] border-b">
-        <div className="py-5 mx-auto flex max-w-5xl text-lg items-center justify-between text-black dark:text-gray-200">
+        <div className="lg:px-0 px-5 py-5 mx-auto flex max-w-5xl text-lg items-center justify-between text-black dark:text-gray-200">
           <div className="flex space-x-6 my-3">
             <div>
               <h3 className="headerItem">
