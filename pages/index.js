@@ -1,24 +1,33 @@
 import Hero from "../components/Hero";
-import Skills from "../components/Skills"; 
-import Projects from "../components/Projects"; 
-import Blogs from "../components/Blogs"; 
+import Skills from "../components/Skills";
+import Projects from "../components/Projects";
+import Blogs from "../components/Blogs";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { BLOGS_PATH, blogFilePaths, projectFilePaths, PROJECTS_PATH } from "../utils/mdxUtils" 
+import {
+  BLOGS_PATH,
+  blogFilePaths,
+  projectFilePaths,
+  PROJECTS_PATH,
+} from "../utils/mdxUtils";
 import Contact from "../components/Contact";
 
 export default function Home({ projects, blogs }) {
   return (
-      <main className="overflow-hidden">
+    <main className="overflow-hidden">
+      <div id="Hero">
         <Hero />
-        <Blogs blogs={blogs} />
-        {/* <Skills />  */}
-        <Projects projects={projects} /> 
-        <div id="Contact">
-          <Contact/>
-        </div>
-      </main>
+      </div>
+      <Blogs blogs={blogs} />
+      {/* <Skills />  */}
+      <div id="Projects">
+        <Projects projects={projects} />
+      </div>
+      <div id="Contact">
+        <Contact />
+      </div>
+    </main>
   );
 }
 export function getStaticProps() {
@@ -50,4 +59,3 @@ export function getStaticProps() {
   blogs.sort(compare);
   return { props: { blogs, projects } };
 }
-
