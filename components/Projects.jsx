@@ -11,7 +11,7 @@ function Projects({ projects }) {
           Projects
         </h2>
         <p className="mt-2 text-lg lg:px-0 px-2 text-gray-600 dark:text-gray-400">
-          Some of the my projects
+          Some of my featured projects
         </p>
         <div className="grid grid-cols-4 gap-8 mt-10 sm:grid-cols-8 lg:grid-cols-8 sm:px-8 xl:px-0">
           {projects.map((project, key) => {
@@ -21,7 +21,7 @@ function Projects({ projects }) {
                 passHref
                 href={`projects/${project.filePath.replace(/\.mdx?$/, "")}`}
               >
-                <div className="relative cursor-pointer hover:scale-105 transition  p-3 flex flex-col justify-between col-span-4 space-y-3 overflow-hidden">
+                <div className="relative cursor-pointer lg:hover:scale-105 transition  p-3 flex flex-col justify-between col-span-4 space-y-3 overflow-hidden">
                   <LazyLoadImage
                     effect="blur"
                     className="m-0"
