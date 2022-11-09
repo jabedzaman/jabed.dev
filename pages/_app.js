@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-script-in-head */
+/* eslint-disable @next/next/inline-script-id */
 /* eslint-disable @next/next/no-page-custom-font */
 import "../styles/global.css";
 import Head from "next/head";
@@ -8,7 +10,7 @@ import Footer from "../components/Footer";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="light">
+    <ThemeProvider attribute="class" defaultTheme="light"> 
       <Head>
         <Script
           strategy="lazyOnload"
