@@ -1,6 +1,4 @@
 /* eslint-disable @next/next/no-script-in-head */
-/* eslint-disable @next/next/inline-script-id */
-/* eslint-disable @next/next/no-page-custom-font */
 import "../styles/global.css";
 import Head from "next/head";
 import Script from "next/script";
@@ -10,15 +8,15 @@ import Footer from "../components/Footer";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="light"> 
-      <Head>
-        <Script
-          strategy="lazyOnload"
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
-        />
+    <ThemeProvider attribute="class" defaultTheme="light">
+      <Script
+        strategy="lazyOnload"
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+      />
 
-        <Script strategy="lazyOnload">
-          {`
+       {/* eslint-disable-next-line @next/next/inline-script-id */}
+      <Script strategy="lazyOnload">
+        {`
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
@@ -26,8 +24,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         page_path: window.location.pathname,
         });
     `}
-        </Script>
-
+      </Script>
+      <Head>
         <title>Jabed</title>
         <meta
           name="viewport"
