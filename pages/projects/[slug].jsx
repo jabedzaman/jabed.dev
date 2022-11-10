@@ -4,21 +4,21 @@ import Head from "next/head";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
 import rehypeHighlight from "rehype-highlight";
-import { PROJECTS_PATH, projectFilePaths } from "../../utils/mdxUtils.js"; 
-import "highlight.js/styles/atom-one-dark.css"; 
+import { PROJECTS_PATH, projectFilePaths } from "../../utils/mdxUtils.js";
+import "highlight.js/styles/atom-one-dark.css";
+import Layout from "../../components/Layout.jsx";
 
 export default function Project({ source }) {
-
   return (
-    <article className="max-w-4xl font-poppins mx-auto p-5 prose prose-a:no-underline prose-a:text-[#00B6FE]  dark:prose-pre:border-[#0D1117] lg:prose-xl dark:prose-invert prose-pre:border prose-pre:p-0 lg:prose-pre:p-0 prose-pre:bg-[#FFFFFF] dark:prose-pre:bg-[#0D1117]">
-      
+    <Layout>
+      <article className="max-w-4xl font-poppins mx-auto p-5 prose prose-a:no-underline prose-a:text-[#00B6FE]  dark:prose-pre:border-[#0D1117] lg:prose-xl dark:prose-invert prose-pre:border prose-pre:p-0 lg:prose-pre:p-0 prose-pre:bg-[#FFFFFF] dark:prose-pre:bg-[#0D1117]">
         <Head>
           <title>{source.frontmatter.title}</title>
           <meta name="description" content={source.frontmatter.description} />
         </Head>
-        <MDXRemote {...source}/> 
-     
-    </article>
+        <MDXRemote {...source} />
+      </article>
+    </Layout>
   );
 }
 

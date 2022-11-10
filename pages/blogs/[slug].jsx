@@ -5,18 +5,21 @@ import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
 import rehypeHighlight from "rehype-highlight";
 import { BLOGS_PATH, blogFilePaths } from "../../utils/mdxUtils";
-import "highlight.js/styles/atom-one-dark.css"; 
+import "highlight.js/styles/atom-one-dark.css";
+import Layout from "../../components/Layout";
 
 export default function Blog({ source }) {
   return (
-    <article className="max-w-4xl li prose-a:no-underline prose-a:font-bold   prose-a:text-[#00B6FE]  font-poppins mx-auto p-5 prose  dark:prose-pre:border-[#0D1117] lg:prose-xl dark:prose-invert prose-pre:border prose-pre:p-0 lg:prose-pre:p-0 prose-pre:bg-[#FFFFFF] dark:prose-pre:bg-[#0D1117]">
-      <Head>
-        <title>{source.frontmatter.title}</title>
-        <meta name="description" content={source.frontmatter.description} />
-      </Head>
+    <Layout>
+      <article className="max-w-4xl li prose-a:no-underline prose-a:font-bold   prose-a:text-[#00B6FE]  font-poppins mx-auto p-5 prose  dark:prose-pre:border-[#0D1117] lg:prose-xl dark:prose-invert prose-pre:border prose-pre:p-0 lg:prose-pre:p-0 prose-pre:bg-[#FFFFFF] dark:prose-pre:bg-[#0D1117]">
+        <Head>
+          <title>{source.frontmatter.title}</title>
+          <meta name="description" content={source.frontmatter.description} />
+        </Head>
 
-      <MDXRemote {...source} />
-    </article>
+        <MDXRemote {...source} />
+      </article>
+    </Layout>
   );
 }
 
