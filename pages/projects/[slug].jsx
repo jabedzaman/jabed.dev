@@ -7,6 +7,7 @@ import rehypeHighlight from "rehype-highlight";
 import { PROJECTS_PATH, projectFilePaths } from "../../utils/mdxUtils.js";
 import "highlight.js/styles/atom-one-dark.css";
 import Layout from "../../components/Layout.jsx";
+import Backbtn from "../../components/Backbtn.jsx";
 
 export default function Project({ source }) {
   return (
@@ -16,6 +17,7 @@ export default function Project({ source }) {
           <title>{source.frontmatter.title}</title>
           <meta name="description" content={source.frontmatter.description} />
         </Head>
+        <Backbtn/>
         <MDXRemote {...source} />
       </article>
     </Layout>

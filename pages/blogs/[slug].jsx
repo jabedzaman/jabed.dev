@@ -7,6 +7,7 @@ import rehypeHighlight from "rehype-highlight";
 import { BLOGS_PATH, blogFilePaths } from "../../utils/mdxUtils";
 import "highlight.js/styles/atom-one-dark.css";
 import Layout from "../../components/Layout";
+import Backbtn from "../../components/Backbtn";
 
 export default function Blog({ source }) {
   return (
@@ -16,7 +17,7 @@ export default function Blog({ source }) {
           <title>{source.frontmatter.title}</title>
           <meta name="description" content={source.frontmatter.description} />
         </Head>
-
+        <Backbtn/>
         <MDXRemote {...source} />
       </article>
     </Layout>

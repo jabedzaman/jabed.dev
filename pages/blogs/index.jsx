@@ -4,6 +4,7 @@ import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
 import Layout from "../../components/Layout";
+import Backbtn from "../../components/Backbtn";
 
 export default function Blogs({ blogs }) {
   return (
@@ -17,6 +18,7 @@ export default function Blogs({ blogs }) {
             At my leisure time I use to write articles. Feel free to check them
             out.
           </p>
+          <Backbtn/>
           {blogs.map((blog, key) => {
             return (
               <Link
