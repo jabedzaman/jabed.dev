@@ -1,5 +1,4 @@
-import Hero from "../components/Hero";
-import Skills from "../components/Skills";
+import Hero from "../components/Hero"; 
 import Projects from "../components/Projects";
 import Blogs from "../components/Blogs";
 import fs from "fs";
@@ -12,6 +11,7 @@ import {
   PROJECTS_PATH,
 } from "../utils/mdxUtils";
 import Contact from "../components/Contact";
+import Skills from "../components/Skills";
 
 export default function Home({ projects, blogs }) {
   return (
@@ -19,8 +19,8 @@ export default function Home({ projects, blogs }) {
       <div id="Hero">
         <Hero />
       </div>
-      <Blogs blogs={blogs} />
-      {/* <Skills />  */}
+      <Blogs blogs={blogs} /> 
+      {/* <Skills/> */}
       <div id="Projects">
         <Projects projects={projects} />
       </div>

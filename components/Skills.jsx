@@ -1,5 +1,5 @@
 import React from "react";
-import { 
+import {
   SiFigma,
   SiFirebase,
   SiNextdotjs,
@@ -17,7 +17,7 @@ import {
   SiSupabase,
   SiHeroku,
   SiGit,
-  SiGithub, 
+  SiGithub,
   SiManjaro,
   SiDebian,
   SiLinux,
@@ -26,6 +26,7 @@ import {
   SiAdobexd,
   SiGimp,
 } from "react-icons/si";
+import Marquee from "react-fast-marquee";
 
 function Skills() {
   return (
@@ -38,81 +39,83 @@ function Skills() {
           These are the tools and technolgies I am skilled in ...
         </p>
         <div className="grid gird-cols-3 grid-flow-col my-10">
-          <div className="p-1">
-          <SiHtml5 className="skills" />
-          </div>
-          <div className="p-1">
-          <SiCss3 className="skills" />
-          </div>
-          <div className="p-1">
-          <SiJavascript className="skills" />
-          </div>
-          <div className="p-1">
-          <SiTypescript className="skills" />
-          </div>
-          <div className="p-1">
-          <SiPython className="skills" />
-          </div>
-          <div className="p-1">
-          <SiReact className="skills" />
-          </div>
-          <div className="p-1">
-          <SiNextdotjs className="skills" />
-          </div>
-          <div className="p-1">
-          <SiNodedotjs className="skills" />
-          </div>
-          <div className="p-1">
-          <SiTailwindcss className="skills" />
-          </div>
-          <div className="p-1">
-          <SiMongodb className="skills" />
-          </div>
-          <div className="p-1">
-          <SiFirebase className="skills" />
-          </div>
-          <div className="p-1">
-          <SiSupabase className="skills" />
-          </div>
-          <div className="p-1">
-          <SiAuth0 className="skills" />
-          </div>
-          <div className="p-1">
-          <SiStrapi className="skills" />
-          </div>
-          <div className="p-1">
-          <SiVercel className="skills" />
-          </div>
-          <div className="p-1">
-          <SiHeroku className="skills" />
-          </div>
-          <div className="p-1">
-          <SiFigma className="skills" />
-          </div>
-          <div className="p-1">
-          <SiAdobexd className="skills" />
-          </div>
-          <div className="p-1">
-          <SiGimp className="skills" />
-          </div>
-          <div className="p-1">
-          <SiGit className="skills" />
-          </div>
-          <div className="p-1">
-          <SiGithub className="skills" />
-          </div>
-          <div className="p-1">
-          <SiLinux className="skills" />
-          </div>
-          <div className="p-1">
-          <SiManjaro className="skills" />
-          </div>
-          <div className="p-1">
-          <SiDebian className="skills" />
-          </div>
-          <div className="p-1">
-          <SiDocker className="skills" />
-          </div>
+          <Marquee speed={30} pauseOnHover={true}  gradientWidth={100} direction={"right"}>
+            <div className="p-1">
+              <SiHtml5 className="skills" />
+            </div>
+            <div className="p-1">
+              <SiCss3 className="skills" />
+            </div>
+            <div className="p-1">
+              <SiJavascript className="skills" />
+            </div>
+            <div className="p-1">
+              <SiTypescript className="skills" />
+            </div>
+            <div className="p-1">
+              <SiPython className="skills" />
+            </div>
+            <div className="p-1">
+              <SiReact className="skills" />
+            </div>
+            <div className="p-1">
+              <SiNextdotjs className="skills" />
+            </div>
+            <div className="p-1">
+              <SiNodedotjs className="skills" />
+            </div>
+            <div className="p-1">
+              <SiTailwindcss className="skills" />
+            </div>
+            <div className="p-1">
+              <SiMongodb className="skills" />
+            </div>
+            <div className="p-1">
+              <SiFirebase className="skills" />
+            </div>
+            <div className="p-1">
+              <SiSupabase className="skills" />
+            </div>
+            <div className="p-1">
+              <SiAuth0 className="skills" />
+            </div>
+            <div className="p-1">
+              <SiStrapi className="skills" />
+            </div>
+            <div className="p-1">
+              <SiVercel className="skills" />
+            </div>
+            <div className="p-1">
+              <SiHeroku className="skills" />
+            </div>
+            <div className="p-1">
+              <SiFigma className="skills" />
+            </div>
+            <div className="p-1">
+              <SiAdobexd className="skills" />
+            </div>
+            <div className="p-1">
+              <SiGimp className="skills" />
+            </div>
+            <div className="p-1">
+              <SiGit className="skills" />
+            </div>
+            <div className="p-1">
+              <SiGithub className="skills" />
+            </div>
+            <div className="p-1">
+              <SiLinux className="skills" />
+            </div>
+            <div className="p-1">
+              <SiManjaro className="skills" />
+            </div>
+            <div className="p-1">
+              <SiDebian className="skills" />
+            </div>
+            <div className="p-1">
+              <SiDocker className="skills" />
+            </div>
+          </Marquee>
         </div>
       </div>
     </section>
