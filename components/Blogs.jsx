@@ -7,10 +7,10 @@ export default function Blogs({ blogs }) {
       <section className="relative lg:px-0 p-5 py-16 dark:bg-transparent max-w-5xl mx-auto">
         <div className="container  mx-auto ">
           <h3 className="lg:text-3xl text-gray-800 dark:text-gray-300 text-center lg:text-left text-2xl font-bold tracking-tight">
-            Checkout my Blog posts
+            Recent Blog posts
           </h3>
 
-          {blogs.map((blog, key) => {
+          {blogs.slice(-2).reverse().map((blog, key) => {
             return (
               <div key={key} className="py-8 flex flex-wrap md:flex-nowrap">
                 <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
@@ -51,6 +51,23 @@ export default function Blogs({ blogs }) {
               </div>
             );
           })}
+          <div>
+            <Link passHref href="/blogs">
+              <p className="text-indigo-500 lg:text-lg text-sm cursor-pointer inline-flex items-center mt-4">
+                View All
+                <svg  
+
+                  className="w-4 h-4 ml-2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  fill="none"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="M12 5l7 7-7 7"></path>
+                </svg>
+              </p>
+            </Link>
+          </div>
         </div>
       </section>
     </Layout>

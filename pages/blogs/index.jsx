@@ -19,7 +19,7 @@ export default function Blogs({ blogs }) {
             out.
           </p>
           <Backbtn/>
-          {blogs.map((blog, key) => {
+          {blogs.reverse().map((blog, key) => {
             return (
               <Link
                 passHref
