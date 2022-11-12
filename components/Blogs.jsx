@@ -53,7 +53,7 @@ export default function Blogs({ blogs }) {
           })}
           <div>
             <Link passHref href="/blogs">
-              <p className="text-indigo-500 lg:text-lg text-sm cursor-pointer inline-flex items-center mt-4">
+              <p className="text-indigo-500 lg:text-xl lg:justify-start justify-center text-lg cursor-pointer flex items-center mt-4">
                 View All
                 <svg  
 
