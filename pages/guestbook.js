@@ -4,6 +4,23 @@ import { BiPaperPlane } from "react-icons/bi";
 
 function Guestbook() {
   const { data: session } = useSession();
+  const signatures = [
+    {
+      name: "John Doe",
+      text: "This is a test message",
+      date: "2021-09-01",
+    },
+    {
+      name: "Jane Doe",
+      text: "This is another test message",
+      date: "2021-09-02",
+    },
+    {
+      name: "John Doe",
+      text: "This is a test message",
+      date: "2021-09-01",
+    },
+  ];
   return (
     <div className="max-w-5xl mx-auto lg:px-0 px-4 py-6 min-h-screen">
       <Layout>
@@ -31,29 +48,52 @@ function Guestbook() {
                     aria-label="Your message"
                     placeholder="Your message..."
                     required
-                    className="pl-4 pr-32 py-2 mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full border-gray-300 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                    // value={signature}
+                    className="pl-4 pr-32 py-2 mt-1
+                    focus:outline-none focus:ring-1 dark:focus:ring-0 focus:ring-offset-2
+                    focus:ring-blue-500 focus:border-blue-500 block w-full border-gray-300 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                   />
                   <button
-                    className="flex items-center justify-center absolute right-1 top-1 px-4 pt-1 font-medium h-8 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded w-28"
+                    className="flex items-center 
+                    hover:bg-blue-300 hover:dark:bg-gray-900 hover:text-white
+                    justify-center absolute right-1 top-1 px-4 pt-1 font-medium h-8 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded w-28"
                     type="submit"
                   >
-                    Sign
+                    <BiPaperPlane className="mr-1" width={20} height={20} />
                   </button>
                 </form>
-                <div className="flex items-center justify-center my-4 font-bold h-8 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded w-28">
+                <div className="flex items-center  hover:scale-105 duration-150 transform justify-center mt-4 font-bold h-8 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded w-28">
                   <button onClick={signOut}>Sign Out</button>
                 </div>
               </>
             ) : (
-              <div className="flex items-center justify-center my-4 font-bold h-8 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded w-28">
-                <button onClick={signIn}>Sign in</button>
-              </div>
+              <>
+                <div className="flex items-center justify-center hover:scale-105 duration-150 transform my-4 font-bold h-8 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded w-28">
+                  <button onClick={signIn}>Sign in</button>
+                </div>
+                <p className="font-mono text-xs mb-3 text-gray-500">
+                  *you must sign in to continue
+                </p>
+              </>
             )}
-            <p className="text-sm text-gray-800 dark:text-gray-200">
+            <p className="text-sm mt-5 text-gray-400 dark:text-gray-600">
               Your information will not be shared with anyone. It will only be
               used to display your name in message.
             </p>
           </div>
+        </div>
+        <div className="lg:px-10 mx-auto mt-10">
+          {signatures.map((signature, index) => (
+            <div
+              key={index}
+              className="border-b-2 dark:border-[#323231] p-2 pl-0"
+            >
+              <p className="">{signature.text}</p>
+              <p className=" text-gray-400 text-sm my-2">
+                {signature.name} / {signature.date}
+              </p>
+            </div>
+          ))}
         </div>
       </Layout>
     </div>
