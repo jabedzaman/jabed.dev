@@ -2,8 +2,10 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { FaSun } from "react-icons/fa";
 import { BsFillMoonStarsFill } from "react-icons/bs";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 function Header() {
+  const { data: session } = useSession();
   const { theme, setTheme } = useTheme();
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -21,14 +23,13 @@ function Header() {
             </div>
             <div className="hidden md:flex space-x-8">
               <Link href="/blogs" passHref>
-                <h3 className="headerItem">
-                  Blog
-                </h3>
+                <h3 className="headerItem">Blog</h3>
               </Link>
               <Link href="/#Contact" passHref>
-                <h3 className="headerItem">
-                  Contact
-                </h3>
+                <h3 className="headerItem">Contact</h3>
+              </Link>
+              <Link href="/guestbook" passHref>
+                <h3 className="headerItem">Guestbook</h3>
               </Link>
             </div>
           </div>

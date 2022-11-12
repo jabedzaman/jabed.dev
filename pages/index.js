@@ -10,17 +10,15 @@ import {
   projectFilePaths,
   PROJECTS_PATH,
 } from "../utils/mdxUtils";
-import Contact from "../components/Contact";
-import Skills from "../components/Skills";
+import Contact from "../components/Contact"; 
 
 export default function Home({ projects, blogs }) {
   return (
     <main className="overflow-hidden">
       <div id="Hero">
-        <Hero />
+        <Hero /> 
       </div>
-      <Blogs blogs={blogs} /> 
-      {/* <Skills/> */}
+      <Blogs blogs={blogs} />  
       <div id="Projects">
         <Projects projects={projects} />
       </div>
