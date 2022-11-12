@@ -21,6 +21,7 @@ function Guestbook() {
       date: "2021-09-01",
     },
   ];
+  console.log(session);
   return (
     <div className="max-w-5xl mx-auto lg:px-0 px-4 py-6 min-h-screen">
       <Layout>
