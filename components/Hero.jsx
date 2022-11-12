@@ -15,7 +15,7 @@ export default function Hero() {
       <div className="flex mt-20 flex-col space-y-8 items-center justify-center text-center overflow-hidden">
         <LazyLoadImage
           src="https://ik.imagekit.io/jabedzaman/Portfolio/xense_LVL6CXNEs.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1666183592676"
-          className="relative rounded-full h-32 mx-auto object-cover"
+          className="relative rounded-full h-32 flex-grow-0 lg:h-52 mx-auto object-cover"
           alt="Jabed Zaman"
           effect="blur"
         />
