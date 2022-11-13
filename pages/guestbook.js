@@ -9,11 +9,12 @@ import SuccessMessage from "../components/SuccessMessage";
 import ErrorMessage from "../components/ErrorMessage";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { BiPaperPlane } from "react-icons/bi";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 const putEntry = (payload) =>
-fetch("/api/entries", {
-  method: "POST",
+  fetch("/api/entries", {
+    method: "POST",
     body: JSON.stringify(payload),
     headers: {
       "Content-Type": "application/json",
@@ -34,7 +35,6 @@ const useEntriesFlow = ({ fallback }) => {
     onSubmit,
   };
 };
-
 
 const AppHead = () => (
   <Head>
@@ -73,15 +73,15 @@ const EntryForm = ({ onSubmit: onSubmitProp }) => {
 
     setFormState("submitting");
     onSubmitProp(values)
-    .then(() => {
-      setValues(initial);
+      .then(() => {
+        setValues(initial);
         setFormState("submitted");
       })
       .catch(() => {
         setFormState("failed");
       });
   };
-  
+
   const makeOnChange =
     (fieldName) =>
     ({ target: { value } }) =>
@@ -89,8 +89,8 @@ const EntryForm = ({ onSubmit: onSubmitProp }) => {
         ...values,
         [fieldName]: value,
       });
-      
-      return (
+
+  return (
     <>
       <form className="relative my-4" onSubmit={onSubmit}>
         <input
@@ -111,7 +111,7 @@ const EntryForm = ({ onSubmit: onSubmitProp }) => {
           block w-full border-gray-300 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
           aria-label={session?.user?.name || "Your name"}
           placeholder="Your name..."
-          value={session.user.name}
+          value={values.name}
           onChange={makeOnChange("name")}
         />
         <button
@@ -121,7 +121,11 @@ const EntryForm = ({ onSubmit: onSubmitProp }) => {
           type="submit"
           disabled={isSubmitting}
         >
-          {isSubmitting ? <LoadingSpinner /> : "Sign"}
+          {isSubmitting ? (
+            <LoadingSpinner />
+          ) : (
+            <BiPaperPlane className="text-xl" />
+          )}
         </button>
       </form>
       {{
@@ -129,8 +133,8 @@ const EntryForm = ({ onSubmit: onSubmitProp }) => {
 
         submitted: () => (
           <SuccessMessage>Thanks for signing the guestbook.</SuccessMessage>
-          ),
-        }[formState]?.()}
+        ),
+      }[formState]?.()}
     </>
   );
 };
@@ -144,7 +148,7 @@ const Guestbook = ({ fallback }) => {
       <main className="max-w-4xl mx-auto p-4 min-h-screen">
         <AppHead />
         <div
-          className={cn( 
+          className={cn(
             "border border-blue-200 rounded p-6",
             "my-4 w-full dark:border-gray-800 dark:bg-[#0d2a8a2e] bg-blue-50",
             "dark:bg-blue-opaque"
@@ -161,22 +165,18 @@ const Guestbook = ({ fallback }) => {
           <p className="my-1 text-gray-800 dark:text-gray-200">
             Share a message for a future visitor.
           </p>
-          {
-            session ? (
-              <EntryForm onSubmit={onSubmit} />
-            ) : (
-              <button
-
-                className="flex items-center
+          {session ? (
+            <EntryForm onSubmit={onSubmit} />
+          ) : (
+            <button
+              className="flex items-center
                 hover:bg-blue-300 hover:dark:bg-gray-900 hover:text-white
                 justify-center px-4 pt-1 font-medium h-8 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded w-28"
-                onClick={() => signIn()}
-              >
-                Sign in
-              </button>
-            )
-          }
-          {/* <EntryForm onSubmit={onSubmit} /> */}
+              onClick={() => signIn()}
+            >
+              Sign in
+            </button>
+          )}
         </div>
         <div className="mt-4 space-y-8 px-2">
           {entries?.map((entry) => (

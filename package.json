@@ -1,9 +1,11 @@
 {
+  "name": "jabed.dev",
   "private": true,
   "scripts": {
-    "dev": "next",
-    "build": "yarn setup && next build",
-    "start": "next start"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.4",
