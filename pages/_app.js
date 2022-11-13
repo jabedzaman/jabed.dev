@@ -63,12 +63,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             sizes="16x16"
             href="/favicon-16x16.png"
           />
-          <link rel="manifest" href="/site.webmanifest" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap"
-            rel="stylesheet"
-          />
+          <link rel="manifest" href="/site.webmanifest" /> 
         </Head>
         <div className=" z-50 sticky top-0">
           <Header />
