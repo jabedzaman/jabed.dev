@@ -3,8 +3,7 @@
   "scripts": {
     "dev": "next",
     "build": "yarn setup && next build",
-    "start": "next start",
-    "setup": "node ./scripts/setup.js"
+    "start": "next start"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.4",
