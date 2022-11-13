@@ -1,110 +1,202 @@
+import Head from "next/head";
+import { useState } from "react";
+import cn from "classnames";
+import formatDate from "date-fns/format";
+import useSWR, { mutate, SWRConfig } from "swr";
+import "tailwindcss/tailwind.css";
+import { listGuestbookEntries } from "../lib/fauna";
+import SuccessMessage from "../components/SuccessMessage";
+import ErrorMessage from "../components/ErrorMessage";
+import LoadingSpinner from "../components/LoadingSpinner";
 import { useSession, signIn, signOut } from "next-auth/react";
-import Layout from "../components/Layout";
-import { BiPaperPlane } from "react-icons/bi";
 
-function Guestbook() {
+const fetcher = (url) => fetch(url).then((res) => res.json());
+const putEntry = (payload) =>
+fetch("/api/entries", {
+  method: "POST",
+    body: JSON.stringify(payload),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((res) => (res.ok ? res.json() : Promise.reject(res)));
+
+const useEntriesFlow = ({ fallback }) => {
+  const { data: entries } = useSWR("/api/entries", fetcher, {
+    fallbackData: fallback.entries,
+  });
+  const onSubmit = async (payload) => {
+    await putEntry(payload);
+    await mutate("/api/entries");
+  };
+
+  return {
+    entries,
+    onSubmit,
+  };
+};
+
+
+const AppHead = () => (
+  <Head>
+    <title>Guestbook | Jabed</title>
+    <meta charSet="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.png" />
+  </Head>
+);
+
+const EntryItem = ({ entry }) => (
+  <div className="flex flex-col space-y-2">
+    <div className="prose dark:prose-dark w-full">{entry.message}</div>
+    <div className="flex items-center space-x-3">
+      <p className="text-sm text-gray-500">{entry.name}</p>
+      <span className="text-gray-200 dark:text-gray-800">/</span>
+      <p className="text-sm text-gray-400 dark:text-gray-600">
+        {formatDate(new Date(entry.createdAt), "d MMM yyyy 'at' h:mm bb")}
+      </p>
+    </div>
+  </div>
+);
+
+const EntryForm = ({ onSubmit: onSubmitProp }) => {
+  const initial = {
+    name: "",
+    message: "",
+  };
+  const [values, setValues] = useState(initial);
+  const [formState, setFormState] = useState("initial");
+  const isSubmitting = formState === "submitting";
   const { data: session } = useSession();
-  const signatures = [
-    {
-      name: "John Doe",
-      text: "This is a test message",
-      date: "2021-09-01",
-    },
-    {
-      name: "Jane Doe",
-      text: "This is another test message",
-      date: "2021-09-02",
-    },
-    {
-      name: "John Doe",
-      text: "This is a test message",
-      date: "2021-09-01",
-    },
-  ];
-  console.log(session);
-  return (
-    <div className="max-w-5xl mx-auto lg:px-0 px-4 py-6 min-h-screen">
-      <Layout>
-        <div className="my-7">
-          <h2 className="lg:text-3xl mb-2 text-gray-800 dark:text-gray-300 text-left text-2xl font-bold tracking-tight">
-            Guestbook
-          </h2>
-          <p className="lg:text-lg text-gray-600 dark:text-gray-400 text-base font-normal tracking-tight">
-            Leave a comment below. It could be anything – appreciation,
-            information, wisdom, or even humor. Surprise me!
-          </p>
-        </div>
-        <div className="lg:px-10 mx-auto">
-          <div className="bg-blue-50 dark:bg-[#0d2a8a2e] border rounded-lg p-6 border-1 dark:border-gray-700 border-blue-400">
-            <h1 className="text-lg md:text-xl font-bold text-gray-900 dark:text-gray-100">
-              Sign the guestbook
-            </h1>
-            <p className="mt-1 text-gray-800 dark:text-gray-200">
-              Share a message for a future visitor
-            </p>
-            {session ? (
-              <>
-                <form className="relative my-4">
-                  <input
-                    aria-label="Your message"
-                    placeholder="Your message..."
-                    required
-                    // value={signature}
-                    className="pl-4 pr-32 py-2 mt-1
-                    focus:outline-none focus:ring-1 dark:focus:ring-0 focus:ring-offset-2
-                    focus:ring-blue-500 focus:border-blue-500 block w-full border-gray-300 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                  />
-                  <button
-                    className="flex items-center 
+  console.log("Form:session", session);
+  const onSubmit = (ev) => {
+    // ev.preventDefault();
+
+    setFormState("submitting");
+    onSubmitProp(values)
+    .then(() => {
+      setValues(initial);
+        setFormState("submitted");
+      })
+      .catch(() => {
+        setFormState("failed");
+      });
+  };
+  
+  const makeOnChange =
+    (fieldName) =>
+    ({ target: { value } }) =>
+      setValues({
+        ...values,
+        [fieldName]: value,
+      });
+      
+      return (
+    <>
+      <form className="relative my-4" onSubmit={onSubmit}>
+        <input
+          required
+          className="pl-4 pr-32 py-2 mt-1
+          focus:outline-none focus:ring-1 dark:focus:ring-0 focus:ring-offset-2
+          focus:ring-blue-500 focus:border-blue-500 block w-full border-gray-300 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+          aria-label="Your message"
+          placeholder="Your message..."
+          value={values.message}
+          onChange={makeOnChange("message")}
+        />
+        <input
+          required
+          className="pl-4 pr-32 py-2 mt-1
+          focus:outline-none focus:ring-1 dark:focus:ring-0 focus:ring-offset-2
+          focus:ring-blue-500 focus:border-blue-500 
+          block w-full border-gray-300 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+          aria-label={session?.user?.name || "Your name"}
+          placeholder="Your name..."
+          value={session.user.name}
+          onChange={makeOnChange("name")}
+        />
+        <button
+          className="flex items-center 
                     hover:bg-blue-300 hover:dark:bg-gray-900 hover:text-white
                     justify-center absolute right-1 top-1 px-4 pt-1 font-medium h-8 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded w-28"
-                    type="submit"
-                  >
-                    <BiPaperPlane className="mr-1" width={20} height={20} />
-                  </button>
-                </form>
-                <div className="flex flex-row space-x-2 items-center">
-                  <p className="text-gray-800 text-xs lg:text-sm dark:text-gray-200">
+          type="submit"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? <LoadingSpinner /> : "Sign"}
+        </button>
+      </form>
+      {{
+        failed: () => <ErrorMessage>Something went wrong. :(</ErrorMessage>,
 
-                    You are signed in as {session.user.name}
-                  </p> 
-                </div>
-                <div className="flex items-center  hover:scale-105 duration-150 transform justify-center mt-4 font-bold h-8 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded w-28">
-                  <button onClick={signOut}>Sign Out</button>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="flex items-center justify-center hover:scale-105 duration-150 transform my-4 font-bold h-8 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded w-28">
-                  <button onClick={signIn}>Sign in</button>
-                </div>
-                <p className="font-mono text-xs mb-3 text-gray-500">
-                  *you must sign in to continue
-                </p>
-              </>
+        submitted: () => (
+          <SuccessMessage>Thanks for signing the guestbook.</SuccessMessage>
+          ),
+        }[formState]?.()}
+    </>
+  );
+};
+
+const Guestbook = ({ fallback }) => {
+  const { entries, onSubmit } = useEntriesFlow({ fallback });
+  const { data: session } = useSession();
+  console.log("session", session);
+  return (
+    <SWRConfig value={{ fallback }}>
+      <main className="max-w-4xl mx-auto p-4 min-h-screen">
+        <AppHead />
+        <div
+          className={cn( 
+            "border border-blue-200 rounded p-6",
+            "my-4 w-full dark:border-gray-800 dark:bg-[#0d2a8a2e] bg-blue-50",
+            "dark:bg-blue-opaque"
+          )}
+        >
+          <h5
+            className={cn(
+              "text-lg md:text-xl font-bold",
+              " dark:text-gray-100 text-gray-900"
             )}
-            <p className="text-sm mt-5 text-gray-400 dark:text-gray-600">
-              Your information will not be shared with anyone. It will only be
-              used to display your name in message.
-            </p>
-          </div>
+          >
+            Sign the Guestbook
+          </h5>
+          <p className="my-1 text-gray-800 dark:text-gray-200">
+            Share a message for a future visitor.
+          </p>
+          {
+            session ? (
+              <EntryForm onSubmit={onSubmit} />
+            ) : (
+              <button
+
+                className="flex items-center
+                hover:bg-blue-300 hover:dark:bg-gray-900 hover:text-white
+                justify-center px-4 pt-1 font-medium h-8 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded w-28"
+                onClick={() => signIn()}
+              >
+                Sign in
+              </button>
+            )
+          }
+          {/* <EntryForm onSubmit={onSubmit} /> */}
         </div>
-        <div className="lg:px-10 mx-auto mt-10">
-          {signatures.map((signature, index) => (
-            <div
-              key={index}
-              className="border-b-2 dark:border-[#323231] p-2 pl-0"
-            >
-              <p className="">{signature.text}</p>
-              <p className=" text-gray-400 text-sm my-2">
-                {signature.name} / {signature.date}
-              </p>
-            </div>
+        <div className="mt-4 space-y-8 px-2">
+          {entries?.map((entry) => (
+            <EntryItem key={entry._id} entry={entry} />
           ))}
         </div>
-      </Layout>
-    </div>
+      </main>
+    </SWRConfig>
   );
+};
+
+export async function getStaticProps() {
+  const entries = await listGuestbookEntries();
+  return {
+    props: {
+      fallback: {
+        entries,
+      },
+    },
+  };
 }
 
 export default Guestbook;
