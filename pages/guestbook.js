@@ -63,6 +63,12 @@ function Guestbook() {
                     <BiPaperPlane className="mr-1" width={20} height={20} />
                   </button>
                 </form>
+                <div className="flex flex-row space-x-2 items-center">
+                  <p className="text-gray-800 text-xs lg:text-sm dark:text-gray-200">
+
+                    You are signed in as {session.user.name}
+                  </p> 
+                </div>
                 <div className="flex items-center  hover:scale-105 duration-150 transform justify-center mt-4 font-bold h-8 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded w-28">
                   <button onClick={signOut}>Sign Out</button>
                 </div>
