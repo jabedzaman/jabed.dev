@@ -1,16 +1,14 @@
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { FaSun } from "react-icons/fa";
-import { BsFillMoonStarsFill } from "react-icons/bs";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { BsFillMoonStarsFill } from "react-icons/bs"; 
 
 function Header() {
-  const { data: session } = useSession();
   const { theme, setTheme } = useTheme();
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
-  if (theme == null) return null;
+  if (theme == null) return null; 
   return (
     <header className="font-poppins opacity-80">
       <div className=" dark:bg-[#171717] bg-[#fcfcfc] shadow-lg dark:shadow-[#171717]/40 dark:border-[#171717] border-b">
