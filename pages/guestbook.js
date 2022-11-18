@@ -8,7 +8,7 @@ import { listGuestbookEntries } from "../lib/fauna";
 import SuccessMessage from "../components/SuccessMessage";
 import ErrorMessage from "../components/ErrorMessage";
 import LoadingSpinner from "../components/LoadingSpinner";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import { BiPaperPlane } from "react-icons/bi";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
@@ -109,9 +109,9 @@ const EntryForm = ({ onSubmit: onSubmitProp }) => {
           focus:outline-none focus:ring-1 dark:focus:ring-0 focus:ring-offset-2
           focus:ring-blue-500 focus:border-blue-500 
           block w-full border-gray-300 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-          aria-label={session?.user?.name || "Your name"}
-          placeholder="Your name..."
-          value={values.name}
+          aria-label={session?.user?.name}
+          placeholder={session?.user?.name}
+          value={session.user.name}
           onChange={makeOnChange("name")}
         />
         <button
