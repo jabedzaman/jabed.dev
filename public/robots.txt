@@ -1,3 +1,0 @@
-user-agent: *
-Allow: /
-Sitemap: https://jabed.dev/sitemap.xml/
