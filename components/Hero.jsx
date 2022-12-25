@@ -13,7 +13,7 @@ export default function Hero() {
     <div>
       <div className="flex m-20 flex-col space-y-8 items-center justify-center text-center overflow-hidden">
         <LazyLoadImage
-          src="jabed.jpg"
+          src="https://ik.imagekit.io/jabedzaman/Portfolio/jabed_55KEH9h8f.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1671998233332"
           className="relative rounded-full h-32 flex-grow-0 lg:h-52 mx-auto object-cover w-32 lg:w-52 shadow-lg lg:hover:shadow-2xl transition-shadow duration-300 ease-in-out"
           alt="Jabed Zaman"
           effect="blur"
@@ -23,7 +23,7 @@ export default function Hero() {
             Developer
           </h2>
           <h1 className="text-2xl lg:text-4xl font-semibold px-10">
-            <span className="mr-3 text-gray-600 dark:text-gray-300">
+            <span className="mr-3">
               {text}
             </span>
             <Cursor cursorColor="#0492c2" />
