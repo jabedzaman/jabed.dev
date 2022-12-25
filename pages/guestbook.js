@@ -12,9 +12,12 @@ import {
   query,
   Timestamp,
 } from "firebase/firestore";
-import { useSession, signIn} from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
+import Confetti from "react-confetti";
+import useWindowDimensions from "../lib/useWindowDimensions";
 
 function guestbook() {
+  const { height, width } = useWindowDimensions();
   const { data: session } = useSession();
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
@@ -25,7 +28,11 @@ function guestbook() {
         name: session.user.name,
         message: message,
         timestamp: Timestamp.now(),
-      }).then(setSuccess(true));
+      }).then(
+        setTimeout(() => {
+          setSuccess(true);
+        }, 3000)
+      );
     } catch (error) {
       console.log(error);
       setSuccess(false);
@@ -88,10 +95,13 @@ function guestbook() {
       )}
       {/* succes state */}
       {success && (
-        <div className="flex flex-row  items-center justify-center  mt-5 space-x-3 p-3">
-          <Alert severity="success">Message added successfully!</Alert>
-        </div>
-      )} 
+        <>
+          <div className="flex flex-row  items-center justify-center  mt-5 space-x-3 p-3">
+            <Alert severity="success">Message added successfully!</Alert>
+          </div>
+          <Confetti width={width} height={height} />
+        </>
+      )}
       <ul className="flex flex-col items-center justify-center my-10 space-y-3 p-3">
         {messages.map(({ id, name, message, timestamp }) => (
           <Messages
