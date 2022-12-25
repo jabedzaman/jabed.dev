@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Alert from "@mui/material/Alert";
 import Messages from "../components/Messages";
 import { db } from "../firebase";
 import {
@@ -11,11 +12,12 @@ import {
   query,
   Timestamp,
 } from "firebase/firestore";
-import { useSession, signIn } from "next-auth/react";
+import { useSession, signIn} from "next-auth/react";
 
 function guestbook() {
   const { data: session } = useSession();
   const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState(false);
   const addMessage = async (e) => {
     const messageRef = collection(db, "messages");
     try {
@@ -23,9 +25,10 @@ function guestbook() {
         name: session.user.name,
         message: message,
         timestamp: Timestamp.now(),
-      });
+      }).then(setSuccess(true));
     } catch (error) {
       console.log(error);
+      setSuccess(false);
     }
     e.preventDefault();
     console.log(message);
@@ -83,6 +86,12 @@ function guestbook() {
           </Button>
         </div>
       )}
+      {/* succes state */}
+      {success && (
+        <div className="flex flex-row  items-center justify-center  mt-5 space-x-3 p-3">
+          <Alert severity="success">Message added successfully!</Alert>
+        </div>
+      )} 
       <ul className="flex flex-col items-center justify-center my-10 space-y-3 p-3">
         {messages.map(({ id, name, message, timestamp }) => (
           <Messages
