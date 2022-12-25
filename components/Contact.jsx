@@ -42,6 +42,7 @@ function Contact() {
                     <TextField
                         id="outlined-multiline-static"
                         label="Name"
+                        type='text'
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
@@ -49,6 +50,7 @@ function Contact() {
                         id="outlined-multiline-static"
                         label="Email"
                         value={email}
+                        type='email'
                         onChange={(e) => setEmail(e.target.value)}
                         className='text-gray-100 dark:text-gray-800'
                     />
