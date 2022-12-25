@@ -5,11 +5,15 @@ import Header from "../components/Header";
 import { ThemeProvider } from "next-themes";
 import Spotify from "../components/Spotify";
 import Footer from "../components/Footer";
+import { SessionProvider } from "next-auth/react";
 
-export default function App({ Component, pageProps }) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
   return (
-    <>
-      <ThemeProvider>
+    <ThemeProvider defaultTheme="light">
+      <SessionProvider session={session}>
         <Script
           strategy="lazyOnload"
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
@@ -63,9 +67,9 @@ export default function App({ Component, pageProps }) {
         </Head>
         <Header />
         <Component {...pageProps} />
-        <Spotify/>
-        <Footer />  
-      </ThemeProvider>
-    </>
+        <Spotify />
+        <Footer />
+      </SessionProvider>
+    </ThemeProvider>
   );
 }
