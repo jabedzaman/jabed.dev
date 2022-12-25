@@ -14,7 +14,7 @@ export default function Hero() {
       <div className="flex m-20 flex-col space-y-8 items-center justify-center text-center overflow-hidden">
         <LazyLoadImage
           src="jabed.jpg"
-          className="relative rounded-full h-32 flex-grow-0 lg:h-52 mx-auto object-cover w-32 lg:w-52 shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out"
+          className="relative rounded-full h-32 flex-grow-0 lg:h-52 mx-auto object-cover w-32 lg:w-52 shadow-lg lg:hover:shadow-2xl transition-shadow duration-300 ease-in-out"
           alt="Jabed Zaman"
           effect="blur"
         />
