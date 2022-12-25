@@ -4,6 +4,7 @@ import Script from "next/script";
 import Header from "../components/Header";
 import { ThemeProvider } from "next-themes";
 import Spotify from "../components/Spotify";
+import Footer from "../components/Footer";
 
 export default function App({ Component, pageProps }) {
   return (
@@ -63,6 +64,7 @@ export default function App({ Component, pageProps }) {
         <Header />
         <Component {...pageProps} />
         <Spotify/>
+        <Footer />  
       </ThemeProvider>
     </>
   );
