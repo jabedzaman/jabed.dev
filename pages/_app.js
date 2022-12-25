@@ -1,23 +1,23 @@
-/* eslint-disable @next/next/no-script-in-head */
-import "../styles/global.css";
-import { SessionProvider } from "next-auth/react";
+import "../styles/globals.css";
 import Head from "next/head";
 import Script from "next/script";
-import { ThemeProvider } from "next-themes";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
+import { ThemeProvider } from "next-themes";
 import Spotify from "../components/Spotify";
+import Footer from "../components/Footer";
+import { SessionProvider } from "next-auth/react";
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="light">
+    <ThemeProvider defaultTheme="light">
       <SessionProvider session={session}>
         <Script
           strategy="lazyOnload"
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
         />
-
-        {/* eslint-disable-next-line @next/next/inline-script-id */}
         <Script strategy="lazyOnload">
           {`
         window.dataLayer = window.dataLayer || [];
@@ -63,11 +63,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             sizes="16x16"
             href="/favicon-16x16.png"
           />
-          <link rel="manifest" href="/site.webmanifest" /> 
+          <link rel="manifest" href="/site.webmanifest" />
         </Head>
-        <div className=" z-50 sticky top-0">
-          <Header />
-        </div>
+        <Header />
         <Component {...pageProps} />
         <Spotify />
         <Footer />
@@ -75,5 +73,3 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     </ThemeProvider>
   );
 }
-
-export default MyApp;
