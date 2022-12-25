@@ -6,7 +6,7 @@ export default function Home() {
     <main>
       <Hero/>
       <div id="contact">
-        {/* <Contact/> */}
+        <Contact/>
       </div>
     </main>
   );

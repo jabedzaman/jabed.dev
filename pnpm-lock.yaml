@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@emailjs/browser': ^3.10.0
   '@emotion/react': ^11.10.5
   '@emotion/styled': ^11.10.5
   '@heroicons/react': ^2.0.13
@@ -24,6 +25,7 @@ specifiers:
   tailwindcss: ^3.2.4
 
 dependencies:
+  '@emailjs/browser': 3.10.0
   '@emotion/react': 11.10.5_react@18.2.0
   '@emotion/styled': 11.10.5_hp5f5nkljdiwilp4rgxyefcplu
   '@heroicons/react': 2.0.13_react@18.2.0
@@ -119,6 +121,11 @@ packages:
       '@babel/helper-string-parser': 7.19.4
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
+    dev: false
+
+  /@emailjs/browser/3.10.0:
+    resolution: {integrity: sha512-pregUOBkSjjctQoAgn8DcSaeY4ypHjXAJEzWlJysM3RkQXw1ulavfHva3YYeAkxfJ7qbIhpyvRmhyQlgNG4GVg==}
+    engines: {node: '>=14.0.0'}
     dev: false
 
   /@emotion/babel-plugin/11.10.5:
