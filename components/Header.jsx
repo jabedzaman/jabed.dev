@@ -9,7 +9,7 @@ function Header() {
         setTheme(theme === "dark" ? "light" : "dark");
     };
     return (
-        <header className="font-poppins opacity-80 sticky top-0 z-20 bg-white dark:bg-[#1c1b22]">
+        <header className="font-poppins opacity-80 sticky top-0 z-20">
             <div className=" shadow-lg border-b-[#fcfcfc] dark:border-b-gray-900">
                 <div className="lg:px-0 px-5 py-5 mx-auto flex max-w-3xl text-lg items-center justify-between  ">
                     <div className="flex space-x-6 my-3">
