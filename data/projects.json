@@ -12,18 +12,5 @@
     "description": "Currated list of python scripts for various purposes",
     "image": "https://ik.imagekit.io/jabedzaman/Portfolio/python-scripts_3J_53he02.png?ik-sdk-version=javascript-1.4.3&updatedAt=1672004516594",
     "link":"https://github.com/jabedzaman/python-scripts"
-  },
-  {
-    "id": 3,
-    "title": "Weather Here",
-    "description": "A simple weather app that shows the weather of your current location",
-    "image": "https://ik.imagekit.io/jabedzaman/Portfolio/weatherhere_ep6XsOpBs.png?ik-sdk-version=javascript-1.4.3&updatedAt=1672004500125",
-    "link":"https://github.com/jabedzaman/weatherhere"
-  },
-  {
-    "id": 4,
-    "title": "E-bay Clone Thirdweb",
-    "description": "NFT marketplace built on the Foucet blockchain",
-    "image": "https://ik.imagekit.io/jabedzaman/Portfolio/image1_odMSY8_eF.png?ik-sdk-version=javascript-1.4.3&updatedAt=1667779615526"
   }
 ]

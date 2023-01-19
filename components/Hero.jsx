@@ -5,7 +5,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 
 export default function Hero() {
   const [text] = useTypewriter({
-    words: ["Hey! I am Jabed", "developer.js", "<LovetoCode/>"],
+    words: ["Hey! I am Jabed", "developer.tsx"],
     loop: true,
     delaySpeed: 2000,
   });
@@ -19,11 +19,11 @@ export default function Hero() {
           effect="blur"
         />
         <div className="z-20">
-          <h2 className="text-gray-500 text-sm pb-2 tracking-[15px]">
+          <h2 className="text-gray-500 md:text-sm text-xs  pb-2 tracking-[8px] md:tracking-[15px]">
             Developer
           </h2>
-          <h1 className="text-2xl lg:text-4xl font-semibold px-10">
-            <span className="mr-3">
+          <h1 className="text-sm md:text-lg lg:text-4xl font-semibold px-10">
+            <span className="mr-1">
               {text}
             </span>
             <Cursor cursorColor="#0492c2" />

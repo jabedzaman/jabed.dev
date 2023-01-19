@@ -15,6 +15,7 @@ import {
 import { useSession, signIn } from "next-auth/react";
 import Confetti from "react-confetti";
 import useWindowDimensions from "../lib/useWindowDimensions";
+import Spinner from "../components/Spinner";
 
 function guestbook() {
   const { height, width } = useWindowDimensions();
@@ -102,6 +103,7 @@ function guestbook() {
           <Confetti width={width} height={height} />
         </>
       )}
+      {messages.length === 0 && <Spinner />}
       <ul className="flex flex-col items-center justify-center my-10 space-y-3 p-3">
         {messages.map(({ id, name, message, timestamp }) => (
           <Messages
