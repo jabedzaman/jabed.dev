@@ -5,13 +5,14 @@ import Projects from "../components/Projects";
 export default function Home() {
   return (
     <main>
-      <Hero/>
+      <Hero />
       <div id="projects">
-        <Projects/>
+        <Projects />
       </div>
-      <div id="contact">
-        <Contact/>
-      </div>
+      {/* <div id="contact">
+        <Contact />
+      </div> */}
+      <div className="h-20" />
     </main>
   );
 }

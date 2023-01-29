@@ -10,24 +10,27 @@ export default function Hero() {
     delaySpeed: 2000,
   });
   return (
-    <div>
-      <div className="flex m-20 flex-col space-y-8 items-center justify-center text-center overflow-hidden">
-        <LazyLoadImage
-          src="https://ik.imagekit.io/jabedzaman/Portfolio/jabed_55KEH9h8f.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1671998233332"
-          className="relative rounded-full h-32 flex-grow-0 lg:h-52 mx-auto object-cover w-32 lg:w-52 shadow-lg lg:hover:shadow-2xl transition-shadow duration-300 ease-in-out"
-          alt="Jabed Zaman"
-          effect="blur"
-        />
-        <div className="z-20">
-          <h2 className="text-gray-500 md:text-sm text-xs  pb-2 tracking-[8px] md:tracking-[15px]">
-            Developer
-          </h2>
-          <h1 className="text-sm md:text-lg lg:text-4xl font-semibold px-10">
-            <span className="mr-1">
-              {text}
-            </span>
-            <Cursor cursorColor="#0492c2" />
-          </h1>
+    <div className="max-w-3xl mx-auto p-5">
+      <div className="flex md:flex-row flex-col items-center">
+        <div>
+          <LazyLoadImage
+            src="https://avatars.githubusercontent.com/u/99767817?v=4"
+            className="relative rounded-full h-32 flex-grow-0 lg:h-52 mx-auto object-cover w-32 lg:w-52 shadow-lg lg:hover:shadow-2xl transition-shadow duration-300 ease-in-out"
+            alt="Jabed Zaman"
+            effect="blur"
+          />
+        </div>
+        <div>
+          <div className="z-20">
+            <h1 className="text-lg md:text-left text-center lg:mt-0 mt-4 md:text-2xl lg:text-4xl font-semibold px-10">
+              <span className="mr-1">{text}</span>
+              <Cursor cursorColor="#0492c2" />
+            </h1>
+            <p className="text-xs md:text-sm max-w-sm lg:text-base text-gray-500 px-10">
+              I am a self-taught web developer. I love to build things for the
+              web and learn new things.
+            </p>
+          </div>
         </div>
       </div>
     </div>
