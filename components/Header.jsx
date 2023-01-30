@@ -22,8 +22,8 @@ function Header() {
     setTheme(theme === "dark" ? "light" : "dark");
   };
   return (
-    <header className="font-poppins  z-20 dark:bg-black">
-      <div className="lg:px-0 py-5 mx-auto flex max-w-3xl text-lg items-center justify-between  ">
+    <header className="font-poppins  lg:px-0">
+      <div className="lg:px-0 px-5 py-5 mx-auto flex max-w-3xl text-lg items-center justify-between  ">
         <div className="flex space-x-6 my-3">
           <div className="flex flex-row items-center">
             <div className="md:hidden inline-block">
