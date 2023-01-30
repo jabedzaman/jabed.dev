@@ -17,7 +17,6 @@ function Header() {
     setAnchorEl(null);
   };
   const { theme, setTheme } = useTheme();
-  console.log(theme);
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
@@ -86,10 +85,10 @@ function Header() {
             </h3>
           </div>
           <div className="hidden md:flex space-x-8">
-            {/* <Link href="/blogs" passHref>
-                                <h3 className="headerItem">Blog</h3>
-                            </Link>
-                            <Link href="/#Contact" passHref>
+            <Link href="/blogs" passHref>
+              <h3 className="headerItem">Blogs</h3>
+            </Link>
+            {/* <Link href="/#Contact" passHref>
                                 <h3 className="headerItem">Contact</h3>
                             </Link> */}
             <Link href="/guestbook" passHref>

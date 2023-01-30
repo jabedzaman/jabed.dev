@@ -15,7 +15,7 @@ export default function Hero() {
         <div>
           <LazyLoadImage
             src="https://avatars.githubusercontent.com/u/99767817?v=4"
-            className="relative rounded-full h-32 flex-grow-0 lg:h-52 mx-auto object-cover w-32 lg:w-52 shadow-lg lg:hover:shadow-2xl transition-shadow duration-300 ease-in-out"
+            className="relative rounded-full h-32 flex-grow-0 lg:h-52 mx-auto object-cover w-32 lg:w-52 shadow-lg lg:hover:shadow-2xl  md:hover:-rotate-2  duration-500 ease-in-out transform "
             alt="Jabed Zaman"
             effect="blur"
           />
