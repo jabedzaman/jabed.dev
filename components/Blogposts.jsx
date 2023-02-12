@@ -63,6 +63,11 @@ function blogs() {
             See more
           </Link>
         )}
+        {posts.length === 0 && (
+          <p className="text-gray-600 text-xs md:text-sm lg:text-lg">
+            Loading...
+          </p>
+        )}
       </div>
     </section>
   );

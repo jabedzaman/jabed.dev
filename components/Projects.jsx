@@ -3,7 +3,7 @@ import projects from "../data/projects.json";
 
 function Projects() {
   return (
-    <section className="mx-auto max-w-3xl lg:px-0 px-5">
+    <section className="mx-auto max-w-3xl lg:px-0 px-5 mb-5">
       <h1 className="lg:text-3xl md:text-2xl text-lg font-bold ">
         Featured Projects
       </h1>

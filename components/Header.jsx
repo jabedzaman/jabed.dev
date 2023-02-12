@@ -22,7 +22,7 @@ function Header() {
   };
   return (
     <header className="font-poppins  lg:px-0">
-      <div className="lg:px-0 px-5 py-5 mx-auto flex max-w-3xl text-lg items-center justify-between  ">
+      <div className="lg:px-0 pr-5 pl-1 py-5 mx-auto flex max-w-3xl text-lg items-center justify-between  ">
         <div className="flex space-x-6 my-3">
           <div className="flex flex-row items-center">
             <div className="md:hidden inline-block">
