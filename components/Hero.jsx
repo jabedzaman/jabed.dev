@@ -26,7 +26,7 @@ export default function Hero() {
               <span className="mr-1">{text}</span>
               <Cursor cursorColor="#0492c2" />
             </h1>
-            <p className="text-xs md:text-sm max-w-3xl lg:text-base text-gray-500 px-5 mb-4">
+            <p className="text-xs md:text-sm max-w-sm lg:text-base text-gray-500 px-10">
               I am a self-taught web developer. I love to build things for the
               web and learn new things.
             </p>
