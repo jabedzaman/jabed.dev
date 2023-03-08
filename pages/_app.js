@@ -6,11 +6,6 @@ import { ThemeProvider } from "next-themes";
 import Spotify from "../components/Spotify";
 import Footer from "../components/Footer";
 import { SessionProvider } from "next-auth/react";
-import { Inter } from "@next/font/google";
-
-const inter = Inter({
-  subsets: "latin",
-});
 
 export default function App({
   Component,
@@ -70,7 +65,7 @@ export default function App({
           />
           <link rel="manifest" href="/site.webmanifest" />
         </Head>
-        <main className={inter.className}>
+        <main>
           <Header />
           <Component {...pageProps} />
           <Spotify />
