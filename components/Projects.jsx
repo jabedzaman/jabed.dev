@@ -14,12 +14,12 @@ function Projects() {
         {projects.map((project) => (
           <div
             key={project.id}
-            className="transition duration-300 ease-in-out transform lg:hover:-translate-y-1 lg:hover:scale-105 p-1"
+            className="p-1"
           >
             <a href={project.link} target="_blank" rel="noreferrer">
               <img
                 src={project.image}
-                className="w-full lg:h-52 h-48 max-w-sm  shadow-xl mx-auto object-cover border-2 border-gray-200 p-1"
+                className="w-full lg:h-52 h-48 max-w-sm  shadow-xl mx-auto object-cover border-2 border-gray-200 p-1 hover:shadow-2xl"
                 alt={project.title}
               />
               <h2 className="md:text-xl font-bold my-2 text-lg text-center lg:text-left">

@@ -15,7 +15,7 @@ import {
 import { useSession, signIn } from "next-auth/react";
 import Confetti from "react-confetti";
 import useWindowDimensions from "../lib/useWindowDimensions";
-import Spinner from "../components/Spinner";
+import { AiOutlineLoading } from "react-icons/ai";
 
 function guestbook() {
   const { height, width } = useWindowDimensions();
@@ -42,7 +42,6 @@ function guestbook() {
     console.log(message);
     setMessage("");
   };
-  //  fetch messages from firestore
   const [messages, setMessages] = useState([]);
   useEffect(() => {
     const q = query(collection(db, "messages"), orderBy("timestamp", "desc"));
@@ -59,24 +58,37 @@ function guestbook() {
     return unsubscribe;
   }, [db]);
   return (
-    <section className="max-w-3xl  mx-auto lg:p-0 px-5">
-      <h1 className="text-3xl font-bold mt-5">Guestbook</h1>
+    <section className="mx-auto my-3 max-w-3xl lg:px-0 px-5">
+      <h1 className="text-3xl font-bold">Guestbook</h1>
       <p className="text-gray-500">
         Sign the guestbook and let me know what you think of my website!
       </p>
-      {/*  display signi button if not loged in */}
       {!session && (
-        <div className=" px-5 py-3 my-5 lg:flex-row flex-col flex items-center justify-center lg:space-x-3 space-x-0 space-y-2 lg:space-y-0">
-          <p className="text-gray-500">
-            You need to be signed in to sign the guestbook.
+        // <div className=" px-5 py-3 my-5 lg:flex-row flex-col flex items-center justify-center lg:space-x-3 space-x-0 space-y-2 lg:space-y-0">
+        //   <p className="text-gray-500">
+        //     You need to be signed in to sign the guestbook.
+        //   </p>
+        //   <Button
+        //     variant="contained"
+        //     color="priy"
+        //     size="small"
+        //     onClick={signIn}
+        //   >
+        //     Sign In
+        //   </Button>
+        // </div>
+        <div className="border rounded p-6 my-4 w-full">
+          <p className="my-1">
+            Share a message for a future visitor of my site.
           </p>
           <Button
+            onClick={signIn}
             variant="contained"
             color="primary"
             size="small"
-            onClick={signIn}
+            className="mt-2"
           >
-            Sign In
+            Login
           </Button>
         </div>
       )}
@@ -94,6 +106,11 @@ function guestbook() {
           </Button>
         </div>
       )}
+      {messages.length === 0 && (
+        <div className="flex flex-row  items-center justify-center  mt-10 space-x-3 p-3">
+          <AiOutlineLoading className="animate-spin" />
+        </div>
+      )}
       {/* succes state */}
       {success && (
         <>
@@ -103,8 +120,7 @@ function guestbook() {
           <Confetti width={width} height={height} />
         </>
       )}
-      {messages.length === 0 && <Spinner />}
-      <ul className="flex flex-col items-center justify-center my-10 space-y-3 p-3">
+      <ul className="flex flex-col items-center justify-center my-10 space-y-5 p-3 lg:px-0">
         {messages.map(({ id, name, message, timestamp }) => (
           <Messages
             key={id}

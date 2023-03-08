@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ApolloClient from "apollo-boost";
 import { gql } from "apollo-boost";
 import Link from "next/link";
@@ -8,25 +8,27 @@ function blogs() {
   const client = new ApolloClient({
     uri: "https://api.hashnode.com",
   });
-  client
-    .query({
-      query: gql`
-        query {
-          user(username: "jabedzaman") {
-            publication {
-              posts(page: 0) {
-                title
-                brief
-                slug
-                dateAdded
-                coverImage
+  useEffect(() => {
+    client
+      .query({
+        query: gql`
+          query {
+            user(username: "jabedzaman") {
+              publication {
+                posts(page: 0) {
+                  title
+                  brief
+                  slug
+                  dateAdded
+                  coverImage
+                }
               }
             }
           }
-        }
-      `,
-    })
-    .then((result) => setPosts(result.data.user.publication.posts));
+        `,
+      })
+      .then((result) => setPosts(result.data.user.publication.posts));
+  }, []);
   return (
     <section className="mx-auto my-3 max-w-3xl lg:px-0 px-5">
       <h1 className="lg:text-3xl md:text-2xl text-lg font-bold">Blogs</h1>
@@ -34,14 +36,14 @@ function blogs() {
         I write blogs on Hashnode. You can find my blogs here.
       </p>
       <div>
-        <ul role="list" className="divide-y divide-gray-200">
+        <ul role="list" className="divide-y divide-gray-500">
           {posts
             .slice(0, 4)
             .reverse()
             .map((post) => (
               <li
                 key={post.slug}
-                className="py-4 hover:scale-105 duration-200 transform ease-in-out"
+                className="py-4 hover:cursor-pointer"
               >
                 <Link href={`https://blog.jabed.me/${post.slug}`}>
                   <div className="flex space-x-3">
