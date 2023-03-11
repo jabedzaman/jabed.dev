@@ -60,7 +60,6 @@ function guestbook() {
   }, [db]);
   return (
     <section className="mx-auto my-3 max-w-5xl lg:px-0 px-5">
-      <div className="h-20" />
       <h1 className="text-5xl font-bold mt-10">Guestbook</h1>
       <p className="text-gray-500">
         Sign the guestbook and let me know what you think of my website!

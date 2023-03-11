@@ -4,7 +4,7 @@ import projects from "../data/projects.json";
 function Projects() {
   return (
     <section className="mx-auto max-w-5xl lg:px-0 px-5 mb-5">
-      <h1 className="lg:text-5xl md:text-2xl text-lg font-bold ">
+      <h1 className="lg:text-4xl md:text-2xl text-lg font-bold ">
         Featured Projects
       </h1>
       <p className="text-gray-600 text-xs md:text-sm lg:text-lg">
