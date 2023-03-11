@@ -44,14 +44,14 @@ function Header() {
     lg:px-0`}
     >
       <div
-        className="
+        className={`
         backdrop-filter backdrop-blur-lg
         transition-all duration-500
-        fixed top-0 left-0 right-0 z-50 
-        lg:px-0 pr-5 pl-1 py-2 
-        "
+        lg:px-0 pr-5 pl-1 py-2
+        fixed top-0 left-0 right-0 z-50     
+        `}
       >
-        <div className="mx-auto flex text-lg items-center justify-between max-w-3xl">
+        <div className="mx-auto flex text-lg items-center justify-between max-w-5xl">
           <div className="flex space-x-6 my-3">
             <div className="flex flex-row items-center">
               <div className="md:hidden inline-block">

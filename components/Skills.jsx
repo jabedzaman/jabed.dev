@@ -2,8 +2,8 @@ import React from "react";
 
 function Skills() {
   return (
-    <section className="mx-auto max-w-3xl lg:px-0 px-5 mb-5">
-      <h1 className="lg:text-3xl md:text-2xl text-lg font-bold ">Skills</h1>
+    <section className="mx-auto max-w-5xl lg:px-0 px-5 mb-5">
+      <h1 className="lg:text-5xl md:text-2xl text-lg font-bold ">Skills</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-2">
         <div>
           <p className="text-gray-600 text-xs md:text-sm lg:text-lg">
@@ -19,9 +19,7 @@ function Skills() {
               JavaScript
             </span>
           </div>
-          <div
-            className="flex flex-row items-center justify-start"
-          >
+          <div className="flex flex-row items-center justify-start">
             <img
               src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg"
               alt="TypeScript"
@@ -31,9 +29,7 @@ function Skills() {
               TypeScript
             </span>
           </div>
-          <div
-            className="flex flex-row items-center justify-start"
-          >
+          <div className="flex flex-row items-center justify-start">
             <img
               src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg"
               alt="Python"
@@ -43,9 +39,7 @@ function Skills() {
               Python
             </span>
           </div>
-          <div
-            className="flex flex-row items-center justify-start"
-          >
+          <div className="flex flex-row items-center justify-start">
             <img
               src="https://raw.githubusercontent.com/devicons/devicon/master/icons/rust/rust-plain.svg"
               alt="Rust"
@@ -55,9 +49,7 @@ function Skills() {
               Rust
             </span>
           </div>
-          <div
-            className="flex flex-row items-center justify-start"
-          >
+          <div className="flex flex-row items-center justify-start">
             <img
               src="https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original.svg"
               alt="GO"

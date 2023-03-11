@@ -38,9 +38,9 @@ function Contact() {
     setMessage("");
   };
   return (
-    <section className="max-w-3xl mx-auto p-5 my-10 lg:p-0">
+    <section className="max-w-5xl mx-auto p-5 my-10 lg:p-0">
       <div>
-        <h1 className="lg:text-3xl md:text-2xl text-lg font-bold">
+        <h1 className="lg:text-5xl md:text-2xl text-lg font-bold">
           Get in touch
         </h1>
         <p className="text-gray-600 text-xs md:text-sm lg:text-lg">

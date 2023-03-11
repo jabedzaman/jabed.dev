@@ -7,7 +7,6 @@ import Skills from "../components/Skills";
 export default function Home() {
   return (
     <main>
-      <div className="h-20" />
       <Hero />
       <div id="skills">
         {/* <Skills /> */}
