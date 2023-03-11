@@ -30,9 +30,11 @@ function guestbook() {
         message: message,
         timestamp: Timestamp.now(),
       }).then(
+        setSuccess(true),
         setTimeout(() => {
-          setSuccess(true);
-        }, 3000)
+          setSuccess(false);
+        }, 7000),
+        setMessage("")
       );
     } catch (error) {
       console.log(error);
@@ -40,7 +42,6 @@ function guestbook() {
     }
     e.preventDefault();
     console.log(message);
-    setMessage("");
   };
   const [messages, setMessages] = useState([]);
   useEffect(() => {
