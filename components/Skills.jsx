@@ -2,7 +2,7 @@ import React from "react";
 
 function Skills() {
   return (
-    <section className="mx-auto max-w-5xl lg:px-0 px-5 mb-5">
+    <section className="mx-auto max-w-3xl lg:px-0 px-5 mb-5">
       <h1 className="lg:text-5xl md:text-2xl text-lg font-bold ">Skills</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-2">
         <div>

@@ -2,8 +2,17 @@
   {
     "id": 1,
     "title": "Spotiloader",
+    "slug": "spotiloader",
     "description": "Multiplatform music downloader using React Native",
     "image": "https://ik.imagekit.io/jabedzaman/Portfolio/spotiloader_Y6KxRC6PZ.png?ik-sdk-version=javascript-1.4.3&updatedAt=1677789378883",
     "link":"https://github.com/jabedzaman/spotiloader"
+  },
+  {
+    "id": 2,
+    "title": "Bozo - anime streaming app",
+    "slug": "bozo",
+    "description": "Anime streaming app using React Native",
+    "image": "https://",
+    "link":"https://github.com/jabedzaman/bozo"
   }
 ]

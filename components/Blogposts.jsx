@@ -30,7 +30,7 @@ function blogs() {
       .then((result) => setPosts(result.data.user.publication.posts));
   }, []);
   return (
-    <section className="mx-auto my-3 max-w-5xl lg:px-0 px-5">
+    <section className="mx-auto my-3 max-w-3xl lg:px-0 px-5">
       <h1 className="lg:text-5xl md:text-2xl text-lg font-bold">Blogs</h1>
       <p className="text-gray-600 text-xs md:text-sm lg:text-lg">
         I write blogs on Hashnode. You can find my blogs here.
