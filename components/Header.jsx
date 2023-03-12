@@ -40,7 +40,6 @@ function Header() {
       className={`font-poppins 
       font-semibold
       w-full flex
-    ${notinview ? "bg-white" : "bg-transparent"}
     lg:px-0`}
     >
       <div
@@ -49,6 +48,8 @@ function Header() {
         transition-all duration-500
         lg:px-0 pr-5 pl-1 py-2
         fixed top-0 left-0 right-0 z-50     
+    ${notinview ? "shadow-lg" : "bg-transparent"}
+
         `}
       >
         <div className="mx-auto flex text-lg items-center justify-between max-w-3xl">
