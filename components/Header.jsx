@@ -94,8 +94,13 @@ function Header() {
                     </Link>
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
-                    <Link href="/#projects" passHref>
+                    <Link href="/projects" passHref>
                       <h3 className="headerItem">Projects</h3>
+                    </Link>
+                  </MenuItem>
+                  <MenuItem onClick={handleClose}>
+                    <Link href="/blogs" passHref>
+                      <h3 className="headerItem">Blogs</h3>
                     </Link>
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
@@ -118,9 +123,9 @@ function Header() {
               <Link href="/blogs" passHref>
                 <h3 className="headerItem">Blogs</h3>
               </Link>
-              {/* <Link href="/#Contact" passHref>
-                                <h3 className="headerItem">Contact</h3>
-                            </Link> */}
+              <Link href="/projects" passHref>
+                <h3 className="headerItem">Projects</h3>
+              </Link>
               <Link href="/guestbook" passHref>
                 <h3 className="headerItem">Guestbook</h3>
               </Link>
