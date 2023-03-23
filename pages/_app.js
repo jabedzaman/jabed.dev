@@ -67,7 +67,7 @@ export default function App({
         </Head>
         <main>
           <Header />
-      <div className="h-20" />
+      <div className="h-12" />
 
           <Component {...pageProps} />
           <Spotify />

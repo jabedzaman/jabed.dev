@@ -1,9 +1,11 @@
+import Link from "next/link"
+
 const navigation = {
     main: [
-      { name: 'About', href: '/#Hero' },
+      { name: 'About', href: '/' },
       { name: 'Blog', href: '/Blogs' },  
-      { name: 'Projects', href: '/#Projects' },  
-      { name: 'Contact', href: '/#Contact' }, 
+      // { name: 'Projects', href: '/#Projects' },  
+      // { name: 'Contact', href: '/#Contact' }, 
     ],
     social: [
     //   {
@@ -77,9 +79,9 @@ const navigation = {
           <nav className="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
             {navigation.main.map((item) => (
               <div key={item.name} className="px-5 py-2">
-                <a href={item.href} className="text-base text-gray-500 dark:hover:text-gray-600 hover:text-gray-900">
+                <Link href={item.href} className="text-base text-gray-500 dark:hover:text-gray-600 hover:text-gray-900">
                   {item.name}
-                </a>
+                </Link>
               </div>
             ))}
           </nav>

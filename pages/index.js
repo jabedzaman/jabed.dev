@@ -6,11 +6,9 @@ import Projects from "../components/Projects";
 
 export default function Home() {
   return (
-    <main>
+    <main className="max-w-5xl mx-auto">
       <Hero />
-      <div id="skills">
-        {/* <Skills /> */}
-      </div>
+      {/* <div id="skills"><Skills /></div> */}
       <div id="projects">
         <Projects />
       </div>

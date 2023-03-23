@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { useRouter } from "next/router";
 
 const Project = () => {
@@ -13,7 +12,7 @@ const Project = () => {
   }
 
   return (
-<section className="mx-auto my-3 max-w-3xl lg:px-0 px-5">
+<section className="mx-auto my-3 max-w-5xl px-5">
       <h1 className="text-5xl font-bold ">{project.title}</h1>
       <p className="text-gray-500">
         {project.description} <br />
