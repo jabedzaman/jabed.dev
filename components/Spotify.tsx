@@ -57,21 +57,21 @@ function AnimatedBars() {
     <div className="w-auto flex items-end overflow-hidden">
       <span
         id="bar1"
-        className="w-1 mr-[3px] h-2 bg-gray-300 dark:bg-gray-500 opacity-75"
+        className="w-1 mr-[3px] h-2 dark:bg-gray-300 bg-gray-500 opacity-75"
       />
       <span
         id="bar2"
-        className="w-1 mr-[3px] h-1 bg-gray-300 dark:bg-gray-500"
+        className="w-1 mr-[3px] h-1 dark:bg-gray-300 bg-gray-500"
       />
       <span
         id="bar3"
-        className="w-1 h-3 bg-gray-300 dark:bg-gray-500 opacity-80"
+        className="w-1 h-3 dark:bg-gray-300 bg-gray-500 opacity-80"
       />
     </div>
   );
 }
 function Spotify() {
-  const fetcher = (url) => fetch(url).then((r) => r.json());
+  const fetcher = (url: URL) => fetch(url).then((r) => r.json());
   const { data } = useSWR("../api/spotify", fetcher);
   return (
     <section className="flex justify-center">
@@ -90,7 +90,7 @@ function Spotify() {
           <div className="inline-flex flex-col sm:flex-row w-full max-w-full truncate">
             {data?.isPlaying ? (
               <a
-                className="capsize dark:text-gray-800 text-gray-200 font-medium  max-w-max truncate"
+                className="capsize text-gray-800 dark:text-gray-200 font-medium  max-w-max truncate"
                 href={data.songUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -98,7 +98,7 @@ function Spotify() {
                 {data.title}
               </a>
             ) : (
-              <p className="capsize dark:text-gray-700 text-gray-200 font-medium">
+              <p className="capsize text-gray-700 dark:text-gray-200 font-medium">
                 Not Playing
               </p>
             )}
@@ -106,11 +106,11 @@ function Spotify() {
               {" – "}
             </span>
             {data?.isPlaying ? (
-              <p className="capsize dark:text-gray-500 text-gray-300 max-w-max truncate">
+              <p className="capsize text-gray-500 dark:text-gray-300 max-w-max truncate">
                 {data?.artist ?? "Spotify"}
               </p>
             ) : (
-              <p className="capsize dark:text-gray-500 text-gray-300 max-w-max truncate">
+              <p className="capsize text-gray-500 dark:text-gray-300 max-w-max truncate">
                 Is sleeping 🛌
               </p>
             )}

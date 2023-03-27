@@ -1,33 +1,16 @@
-import "../styles/globals.css";
-import Head from "next/head";
-import Script from "next/script";
-import Header from "../components/Header";
 import { ThemeProvider } from "next-themes";
-import Spotify from "../components/Spotify";
-import Footer from "../components/Footer";
 import { SessionProvider } from "next-auth/react";
+import type { AppProps } from "next/app";
+import Head from "next/head";
+import "@/styles/globals.css";
+import Header from "@/components/Header";
+import Spotify from "@/components/Spotify";
+import Footer from "@/components/Footer";
 
-export default function App({
-  Component,
-  pageProps: { session, ...pageProps },
-}) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider defaultTheme="light">
-      <SessionProvider session={session}>
-        <Script
-          strategy="lazyOnload"
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
-        />
-        <Script strategy="lazyOnload">
-          {`
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
-        page_path: window.location.pathname,
-        });
-    `}
-        </Script>
+    <SessionProvider session={pageProps.session}>
+      <ThemeProvider attribute="class">
         <Head>
           <title>Jabed</title>
           <meta
@@ -65,15 +48,13 @@ export default function App({
           />
           <link rel="manifest" href="/site.webmanifest" />
         </Head>
-        <main>
-          <Header />
-      <div className="h-12" />
-
+        <Header />
+        <main className="max-w-5xl mx-auto p-5">
           <Component {...pageProps} />
-          <Spotify />
-          <Footer />
         </main>
-      </SessionProvider>
-    </ThemeProvider>
+        <Spotify />
+        <Footer />
+      </ThemeProvider>
+    </SessionProvider>
   );
 }
