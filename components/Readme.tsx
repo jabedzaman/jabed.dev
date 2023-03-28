@@ -37,16 +37,19 @@ function Readme({ stars, followers, publicRepos, wakaTime }: Props) {
         I am a self-taught developer. I love to build android apps and things
         for the web.
       </p>
-      <hr className="my-2 bg-gray-200 dark:bg-gray-700" />
-      <section className="flex md:flex-row md:space-x-1 space-x-0 flex-col md:space-y-0 space-y-1">
-        <StatsCard stars={stars} followers={followers} publicRepos={publicRepos} />
+      <section className="flex md:flex-row border-t-2 dark:border-t-gray-700 border-t-gray-200 mt-4 pt-2 md:space-x-1 space-x-0 flex-col md:space-y-0 space-y-1">
+        <StatsCard
+          stars={stars}
+          followers={followers}
+          publicRepos={publicRepos}
+        />
         <Wakatime totalHours={wakaTime} />
       </section>
-      <hr className="my-2 bg-gray-200 dark:bg-gray-700" />
-      <h1 className="font-semibold">🧰 Skills and tools</h1>
+      <h1 className="font-semibold  border-t-2 dark:border-t-gray-700 border-t-gray-200 mt-4 pt-2">
+        🧰 Skills and tools
+      </h1>
       <Devicons />
-      <hr className="my-2 h-1 bg-gray-200 dark:bg-gray-700" />
-      <span className="flex  flex-row items-center">
+      <span className="flex  flex-row items-center  border-t-2 dark:border-t-gray-700 border-t-gray-200 mt-4 pt-2">
         {summaryVisible ? (
           <AiFillCaretDown
             className="text-xl cursor-pointer"
@@ -61,7 +64,7 @@ function Readme({ stars, followers, publicRepos, wakaTime }: Props) {
         <h1 className="font-semibold">wanna know more?</h1>
       </span>
       {summaryVisible && (
-        <p className="text-xs md:text-sm">
+        <p className="text-xs md:text-sm duration-150 ease-in-out">
           I am a full stack web/app developer and use technologies like react,
           nodejs, tailwind, firebase, appwrite, react native to build full stack
           web apps and android applications. In addition to it I am a Linux

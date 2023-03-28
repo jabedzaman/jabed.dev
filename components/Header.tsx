@@ -29,11 +29,11 @@ function Header({}: Props) {
   return (
     <React.Fragment>
       <header
-        className={`sticky top-0 backdrop-filter backdrop-blur-lg transition-all duration-500
+        className={`sticky top-0 z-30 backdrop-filter backdrop-blur-sm transition-all duration-500
         ${notinview ? "shadow-lg" : "bg-transparent"}
         `}
       >
-        <div className="max-w-5xl mx-auto p-5 flex flex-row justify-between">
+        <div className="max-w-5xl mx-auto p-5 flex flex-row justify-between items-center">
           <div>
             <Link href="/" className="hover:underline underline-offset-2">
               ~ jabed.me

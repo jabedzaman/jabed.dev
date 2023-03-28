@@ -1,3 +1,4 @@
+import Contact from "@/components/Contact";
 import ProjectItem from "@/components/Project";
 import Readme from "@/components/Readme";
 import Sidebar from "@/components/Sidebar";
@@ -29,6 +30,7 @@ export default function Home() {
             name="Bozo"
           />
         </section>
+        {/* <Contact /> */}
       </div>
     </div>
   );
