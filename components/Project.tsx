@@ -3,14 +3,6 @@ import React from "react";
 import { AiOutlineBook, AiOutlineStar } from "react-icons/ai";
 import { BiGitRepoForked } from "react-icons/bi";
 
-type ProjectProps = {
-  id: number;
-  name: string;
-  description: string;
-  forks: number;
-  stargazers_count: number;
-  language: string;
-};
 
 function ProjectItem(props: ProjectProps) {
   let langcolor = "";

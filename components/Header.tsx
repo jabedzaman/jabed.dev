@@ -4,9 +4,7 @@ import { useTheme } from "next-themes";
 import { FaSun } from "react-icons/fa";
 import { BsFillMoonStarsFill } from "react-icons/bs";
 
-type Props = {};
-
-function Header({}: Props) {
+function Header() {
   const [mounted, setMounted] = React.useState(false);
   const [notinview, setNotinview] = React.useState(false);
   const { theme, setTheme } = useTheme();

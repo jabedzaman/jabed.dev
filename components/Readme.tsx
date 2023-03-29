@@ -4,14 +4,8 @@ import { AiFillCaretDown, AiFillCaretRight } from "react-icons/ai";
 import StatsCard from "./StatsCard";
 import Wakatime from "./Wakatime";
 
-type Props = {
-  stars: number;
-  followers: number;
-  publicRepos: number;
-  wakaTime: number;
-};
 
-function Readme({ stars, followers, publicRepos, wakaTime }: Props) {
+function Readme({ stars, followers, publicRepos, wakaTime }: readmeProps) {
   const [text] = useTypewriter({
     words: ["Hey! I am Jabed", "developer.tsx"],
     loop: true,

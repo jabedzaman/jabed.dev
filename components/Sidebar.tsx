@@ -3,9 +3,7 @@ import React from "react";
 import { FiGithub, FiTwitter } from "react-icons/fi";
 import { IoLogoReddit } from "react-icons/io5";
 
-type Props = {};
-
-function Sidebar({}: Props) {
+function Sidebar() {
   return (
     // <section className="sticky top-16">
     <section>

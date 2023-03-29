@@ -1,16 +1,5 @@
 import React, { useState } from "react";
 
-interface FormState {
-  name: string;
-  email: string;
-  message: string;
-}
-
-const initialFormState: FormState = {
-  name: "",
-  email: "",
-  message: "",
-};
 
 const Contact = () => {
   const [formState, setFormState] = useState<FormState>(initialFormState);

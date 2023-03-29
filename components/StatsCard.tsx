@@ -1,16 +1,10 @@
 import React from "react";
 
-type Props = {
-  stars: number;
-  followers: number;
-  publicRepos: number;
-};
-
 function Loading() {
   return <div>Loading...</div>;
 }
 
-function StatsCard({ stars, followers, publicRepos }: Props) {
+function StatsCard({ stars, followers, publicRepos }: statcardProps) {
   return (
     <div className="md:w-1/2 w-full p-1">
       <h1 className="font-semibold text-blue-500 dark:text-blue-300 md:text-2xl text-xl">

@@ -8,13 +8,6 @@ import {
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
-type Message = {
-  id: string;
-  message: string;
-  name: string;
-  timestamp: Timestamp;
-};
-
 function Guestbook() {
   const [signatures, setSignatures] = useState<Message[]>([]);
   useEffect(() => {

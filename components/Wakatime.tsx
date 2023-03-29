@@ -1,11 +1,7 @@
 import React from "react";
 import { BiTimer } from "react-icons/bi";
 
-type Props = {
-  totalHours: number;
-};
-
-function Wakatime({ totalHours }: Props) {
+function Wakatime({ totalHours }: wakatimeProps) {
   return (
     <div className="md:w-1/2 w-full p-1">
       <h1 className="font-semibold text-green-500 dark:text-green-300 md:text-2xl text-xl">
