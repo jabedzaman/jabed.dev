@@ -1,4 +1,5 @@
 import Contact from "@/components/Contact";
+import Devicons from "@/components/Devicons";
 import ProjectItem from "@/components/Project";
 import Readme from "@/components/Readme";
 import Sidebar from "@/components/Sidebar";

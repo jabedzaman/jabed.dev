@@ -1,37 +1,24 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 export default function Redirect() {
   const router = useRouter();
   const { slug } = router.query;
-  const availableSlugs = [
-    "github",
-    "linkedin",
-    "twitter",
-    "reddit",
-    "youtube",
-    "demn",
-  ];
-
   const urls = [
-    "https://github.com/jabedzaman",
-    "https://www.linkedin.com/in/jabedzaman/",
-    "https://twitter.com/jabedzaman",
-    "https://www.reddit.com/user/jabedzaman",
-    "https://www.youtube.com/channel/xenseee",
-    "https://demn.jabed.me/",
+    { github: "https://github.com/jabedzaman" },
+    { linkedin: "https://www.linkedin.com/in/jabedzaman/" },
+    { twitter: "https://twitter.com/jabedzaman" },
+    { email: "mailto:jabedzaman004@gmail.com" },
+    { reddit: "https://www.reddit.com/u/jabedzaman" },
+    { youtube: "https://www.youtube.com/channel/xenseee" },
+    { demn: "https://demn.jabed.me/" },
   ];
-
-  if (availableSlugs.includes(slug as string)) {
-    const index = availableSlugs.indexOf(slug as string);
-    console.log(urls[index]);
-    useEffect(() => {
-      router.push(urls[index]);
-    }, []);
+  const url = urls.find((u) => Object.keys(u)[0] === slug);
+  if (url) {
+    router.push(Object.values(url)[0]);
     return (
-      <div>
-        <h1>Redirecting...</h1>
-      </div>
+      <h1 className="flex items-center justify-center h-36">
+        redirecting to {slug}
+      </h1>
     );
   } else {
     return (

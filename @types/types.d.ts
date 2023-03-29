@@ -42,3 +42,9 @@ type Message = {
   name: string;
   timestamp: Timestamp;
 };
+
+type deviconProps = {
+  link: string;
+  alt: string;
+  src: string;
+};

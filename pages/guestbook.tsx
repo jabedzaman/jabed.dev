@@ -4,7 +4,7 @@ import {
   onSnapshot,
   orderBy,
   query,
-  Timestamp,
+  // Timestamp,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
@@ -25,7 +25,7 @@ function Guestbook() {
       setSignatures(messages);
     });
     return unsubscribe;
-  }, [db]);
+  }, []);
   return (
     <div>
       {signatures.map((signature) => (
