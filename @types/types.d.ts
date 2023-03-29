@@ -8,7 +8,7 @@ type ProjectProps = {
 };
 
 type wakatimeProps = {
-  totalHours: number;
+  totalHours: string;
 };
 
 interface FormState {
@@ -27,7 +27,7 @@ type readmeProps = {
   stars: number;
   followers: number;
   publicRepos: number;
-  wakaTime: number;
+  wakaTime: string;
 };
 
 type statcardProps = {
@@ -47,4 +47,15 @@ type deviconProps = {
   link: string;
   alt: string;
   src: string;
+};
+
+type statsResponsedata = {
+  data: {
+    data: {
+      followers: number;
+      wakatime: string;
+      total_stars: number;
+      public_repos: number;
+    };
+  };
 };

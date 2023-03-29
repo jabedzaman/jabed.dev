@@ -1,0 +1,4 @@
+User-Agent: *
+
+Host: https://jabed.me
+Sitemap: https://jabed.me/sitemap.xml

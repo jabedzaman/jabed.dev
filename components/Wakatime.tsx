@@ -12,8 +12,8 @@ function Wakatime({ totalHours }: wakatimeProps) {
           <div className="flex flex-col md:text-sm text-xs font-semibold justify-between">
             <div className="flex flex-col">
               <span>Total Hours Spent Coding:</span>
-              <span className="text-3xl font-bold">
-                {totalHours > 0 ? totalHours : "No"} hours
+              <span className="md:text-2xl text-lg font-bold">
+                {totalHours ? totalHours : "Loading..."}
               </span>
             </div>
             <div>
