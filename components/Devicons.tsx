@@ -1,4 +1,4 @@
-import { useWindowDimensions } from "@/lib/getwindowdimensions";
+import useWindowDimensions from "@/lib/getwindowdimensions";
 import Image from "next/image";
 import React from "react";
 

@@ -1,0 +1,171 @@
+---
+title: Spotify Streaming on your personal website
+description: In this article we are gonnna cover how to app this cool element to your personal website.
+image: https://cdn.hashnode.com/res/hashnode/image/unsplash/-U6KqE1TUfE/upload/v1668160952732/n-Ued1Gqp.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp
+date: july 22, 2022
+tags: spotify, react, javascript, api
+index : 1
+---
+
+Ever wondered how to add spotify streaming to your personal website???
+
+And do you also want this cool shit on your own website???
+In this article we are gonnna cover how to app this cool element to your personal website.
+
+We are gonna achieve this we are gonna take the help of spotify api
+
+## Lets gets started
+
+- Firstly, you need to login to your spotify [developer account](https://developer.spotify.com/dashboard/)
+  ![image.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1668161297562/tcrV_-pBj.png)
+- Now create a new project give a suitable description and a suitable title to your project
+- **remember to keep your client id and client secret private**
+- Now add `http://localhost:3000` to the redirect urls from the project settings
+  ![image.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1668161347075/sf3tGBPQC.png)
+
+### Authorization
+
+To authorixe the app move to
+
+```
+https://accounts.spotify.com/authorizeclient_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=http://localhost:3000
+```
+
+Remember to replace the client id with your one.
+_You will get a code from the link which is actually after `code=`_
+Copy that code and save it somewhere
+
+### Genertaing refresh token
+
+Now we need a lifetime refresh token. We need to get authorization client that is already encrypted with base64 f or that move to [base-64](https://www.base64encode.org/) website.
+Next, write down the encrypted `base64`
+
+After that, open up terminal/cmd, and run this command, don't forget to change the base64 and the code to yours
+
+```
+curl -H "Authorization: Basic CHANGE_BASE64_HERE" -d grant_type=authorization_code -d code=CHANGE_CODE_HERE -d redirect_uri=http%3A %2F%2Flocalhost:3000 https://accounts.spotify.com/api/token
+```
+
+You will get a JSON from where you can copy the refresh token.
+
+### Now lets create a new react app
+
+- Create a new react app using `npx create-react-app spotify`
+- Now install the following dependencies using `npm install axios querystring swr react-icons`
+- Now create a new file named `spotify.js` in the `api` folder and paste the following code
+
+```bash
+/* eslint-disable import/no-anonymous-default-export */
+import querystring from 'querystring';
+
+const {
+  NEXT_PUBLIC_SPOTIFY_CLIENT_ID: client_id,
+  NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET: client_secret,
+  NEXT_PUBLIC_SPOTIFY_REFRESH_TOKEN: refresh_token,
+} = process.env;
+
+const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
+const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-playing`;
+const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
+
+const getAccessToken = async () => {
+  const response = await fetch(TOKEN_ENDPOINT, {
+    method: 'POST',
+    headers: {
+      Authorization: `Basic ${basic}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: querystring.stringify({
+      grant_type: 'refresh_token',
+      refresh_token,
+    }),
+  });
+
+  return response.json();
+};
+
+export const getNowPlaying = async () => {
+  const { access_token } = await getAccessToken();
+
+  return fetch(NOW_PLAYING_ENDPOINT, {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  });
+};
+
+export default async (_, res) => {
+  const response = await getNowPlaying();
+
+  if (response.status === 204 || response.status > 400) {
+    return res.status(200).json({ isPlaying: false });
+  }
+
+  const song = await response.json();
+  const isPlaying = song.is_playing;
+  const title = song.item.name;
+  const artist = song.item.artists.map((_artist) => _artist.name).join(', ');
+  const album = song.item.album.name;
+  const albumImageUrl = song.item.album.images[0].url;
+  const songUrl = song.item.external_urls.spotify;
+
+  return res.status(200).json({
+    album,
+    albumImageUrl,
+    artist,
+    isPlaying,
+    songUrl,
+    title,
+  });
+};
+
+```
+
+- Create a `.env.local` file and then add your clientid, secret and refresh token
+
+```
+NEXT_PUBLIC_SPOTIFY_CLIENT_ID=
+NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET=
+NEXT_PUBLIC_SPOTIFY_REFRESH_TOKEN
+```
+
+- Now create a new file named `spotify.js` in the `components` folder and paste the following code
+
+```bash
+import { FaSpotify } from 'react-icons/fa';
+import useSWR from 'swr';
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
+const Spotify = () => {
+  const { data } = useSWR('/api/spotify', fetcher);
+
+  if (!data) {
+    return null;
+  }
+
+  if (!data.isPlaying) {
+    return (
+      <div className="flex items-center space-x-2">
+        <FaSpotify className="w-6 h-6" />
+        <span className="text-sm">Not Playing</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center space-x-2">
+      <FaSpotify className="w-6 h-6" />
+      <div className="flex flex-col">
+        <span className="text-sm">{data.title}</span>
+        <span className="text-xs">{data.artist}</span>
+      </div>
+    </div>
+  );
+};
+
+export default Spotify;
+
+```
+
+**Import the jsx element and then you are done 🚀**
