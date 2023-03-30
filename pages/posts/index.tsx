@@ -16,7 +16,7 @@ type blog = {
   };
 };
 
-function index({ blogs }: { blogs: blog[] }) {
+function Index({ blogs }: { blogs: blog[] }) {
   const [search, setSearch] = React.useState<string>("");
   return (
     <React.Fragment>
@@ -80,7 +80,7 @@ function index({ blogs }: { blogs: blog[] }) {
   );
 }
 
-export default index;
+export default Index;
 
 export async function getStaticProps() {
   const blogs = postFilePaths.map((filePath) => {
