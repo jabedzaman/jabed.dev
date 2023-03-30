@@ -62,7 +62,7 @@ function Index({ blogs }: { blogs: blog[] }) {
               href={`/posts/${blog.filePath.replace(/\.mdx?$/, "")}`}
               key={blog.filePath}
             >
-              <div className="flex flex-row justify-between  items-center">
+              <div className="flex flex-row justify-between  items-center md:mt-8 mt-7">
                 <h2 className="md:text-2xl text-xl font-bold cursor-pointer">
                   {blog.data.title}
                 </h2>

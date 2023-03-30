@@ -3,11 +3,16 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { FaSun } from "react-icons/fa";
 import { BsFillMoonStarsFill } from "react-icons/bs";
+import { useRouter } from "next/router";
 
 function Header() {
   const [mounted, setMounted] = React.useState(false);
   const [notinview, setNotinview] = React.useState(false);
   const { theme, setTheme } = useTheme();
+  const router = useRouter();
+  const { asPath } = router;
+  const subpath = asPath.split("/")[1];
+  const supersubpath = asPath.split("/")[2];
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
@@ -19,7 +24,6 @@ function Header() {
       setNotinview(false);
     }
   };
-
   React.useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -32,10 +36,12 @@ function Header() {
         `}
       >
         <div className="max-w-5xl mx-auto p-5 flex flex-row justify-between items-center">
-          <div>
-            <Link href="/" className="hover:underline underline-offset-2">
-              ~ jabed.me
-            </Link>
+          <div className="font-bold md:text-xl text-lg">
+           { !supersubpath ? <Link href="/" className="hover:underline underline-offset-2">~ jabed.me</Link> : <Link href={"/"}>..</Link>}
+            {subpath && <Link href={`/${subpath}`} className="hover:underline underline-offset-2">/{subpath}</Link>}
+            {supersubpath && (
+              <Link href={`/${subpath}/${supersubpath}`} className="hover:underline underline-offset-2">/{supersubpath}</Link>
+            )}
           </div>
           <div>
             {mounted ? (

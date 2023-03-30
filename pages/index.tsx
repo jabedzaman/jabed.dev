@@ -1,7 +1,9 @@
 import ProjectItem from "@/components/Project";
 import Readme from "@/components/Readme";
+import SectionHeader from "@/components/SectionHeader";
 import Sidebar from "@/components/Sidebar";
 import { GetStaticProps } from "next";
+import Link from "next/link";
 
 export default function Home({ data }: statsResponsedata) {
   return (
@@ -16,7 +18,7 @@ export default function Home({ data }: statsResponsedata) {
           stars={data.data.total_stars || 0}
           publicRepos={data.data.public_repos || 0}
         />
-        <h1 className="md:text-3xl text-xl mt-10 font-bold">Pinned Repos</h1>
+        <SectionHeader header={"Featured Projects"} />
         <section className="flex flex-wrap mb-10 mt-1">
           <ProjectItem
             description="Multiplatform Music dowloader"
@@ -34,6 +36,30 @@ export default function Home({ data }: statsResponsedata) {
             stargazers_count={1}
             name="Bozo"
           />
+        </section>
+        <SectionHeader header={"Latest Blog Post"} />
+        <section>
+          <div className="my-2 border border-gray-200 dark:border-gray-700  py-3 hover:shadow-md px-4">
+            <Link href="/posts/react-appwrite">
+              <h1 className="md:text-2xl text-lg  font-semibold">
+                Appwrite as backend service for your react app
+              </h1>
+              <p className="md:text-sm text-xs text-gray-500">
+                Guide to get started with using appwrite as backend service for
+                your react app
+              </p>
+            </Link>
+          </div>
+          <div className="my-2 border border-gray-200 dark:border-gray-700  py-3 hover:shadow-md px-4">
+            <Link href="/posts/spotify-streaming">
+              <h1 className="md:text-2xl text-lg  font-semibold">
+                Spotify Streaming on your personal website
+              </h1>
+              <p className="md:text-sm text-xs text-gray-500">
+                Fetch your currently spotify streaming song
+              </p>
+            </Link>
+          </div>
         </section>
       </div>
     </div>

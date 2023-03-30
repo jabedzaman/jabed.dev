@@ -37,6 +37,7 @@ type statcardProps = {
 };
 
 type Message = {
+  push(arg0: { id: string; }): unknown;
   id: string;
   message: string;
   name: string;
@@ -52,10 +53,19 @@ type deviconProps = {
 type statsResponsedata = {
   data: {
     data: {
+      blogs: blog[];
       followers: number;
       wakatime: string;
       total_stars: number;
       public_repos: number;
+      repos: repo[];
     };
   };
+};
+
+type repo = {
+  id : number;
+  name: string;
+  description: string;
+  stars: number;
 };

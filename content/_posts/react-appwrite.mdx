@@ -1,0 +1,312 @@
+---
+title: Appwrite as backend service for your react app
+description: Guide to get started with using appwrite as backend service for your react app
+image: https://appwrite.io/images/appwrite-footer-dark.svg
+date: March 30, 2023
+tags: appwrite, react, javascript, typescript, tutorial, backend
+index: 2
+---
+
+Choosing the right backend service for your React app can be a daunting task.
+In a world where React applications need powerful backends, one platform emerges as the ultimate solution for all your backend needs. With its robust features and seamless integration, it's the perfect partner for your web and mobile applications.
+
+Appwrite, the backend as a service (BaaS) platform that has it all. From authentication to database storage, Appwrite is the ultimate solution for developers who want to focus on building great applications without worrying about backend infrastructure.
+
+In this post, we'll learn how to use Appwrite as a backend service for your React app. We'll be building a simple app that allows us to create and view notes. We'll be using Appwrite's React SDK to make API calls to Appwrite.
+
+## Prerequisites
+
+To follow along with this tutorial, you'll need to have the following installed:
+
+- [Node.js](https://nodejs.org/en/download/) (v14.16.0 or later)
+- [NPM](https://www.npmjs.com/get-npm) (v6.14.11 or later)
+- [Docker](https://docs.docker.com/get-docker/) (v20.10.5 or later)
+- [Any code editor](https://code.visualstudio.com/download)
+
+**dont worry, you dont need to hi-fi level of knowledge to follow along with this tutorial.**
+
+## Getting Started
+
+To get started, we'll first need to install Appwrite. We'll be using Docker to install Appwrite. To install Appwrite, run the following command:
+
+```bash
+docker run -it --rm \
+    --volume /var/run/docker.sock:/var/run/docker.sock \
+    --volume "$(pwd)"/appwrite:/usr/src/code/appwrite:rw \
+    --entrypoint="install" \
+    appwrite/appwrite:1.2.1
+```
+
+This command will download the Appwrite Docker image and run it. The Appwrite Docker image contains all the services required to run Appwrite. It will also create a new directory called `appwrite` in your current directory.
+
+Next, Its time to setup our frontend app. We'll be using [create-react-app](https://create-react-app.dev/) to bootstrap our React app. To create a new React app, run the following command:
+
+```bash
+npx create-react-app appwrite-react
+```
+
+This command will create a new directory called `appwrite-react` in your current directory. It will also install all the required dependencies for your React app.
+
+### Setting up Appwrite
+
+Open localhost:80 in your browser. You should see the Appwrite console. Click on the `Create Project` button to create a new project. Name your project `Appwrite React`. You can leave the other fields as they are.
+
+**Note:** Make sure to save your new project's ID and API keys. You'll need them later.
+
+### Connecting Appwrite to our React app
+
+Now we need to connect Appwrite to our React app. To do that, we'll be using the Appwrite React SDK. The SDK makes it easy to integrate Appwrite services into your React app.
+
+First, we need to create a new file called `.env.local` in the root directory of our project. Next, we need to add our project ID and API keys as environment variables. Your `.env.local` file should look something like this:
+
+```bash
+REACT_APPWRITE_ENDPOINT=http://localhost/v1
+REACT_APPWRITE_PROJECT=5f6d61dXXXXXX
+```
+
+Next, we need to install the Appwrite React SDK. To install the SDK, run the following command:
+
+```bash
+npm install appwrite
+```
+
+Now create a folder called `services` in the `src` directory. Next, create a new file called `appwrite.js` in the `services` directory. Open the `appwrite.js` file and add the following code:
+
+```js
+import React from "react";
+import Appwrite from "appwrite";
+
+const appwrite = new Appwrite();
+
+appwrite
+  .setEndpoint(process.env.REACT_APPWRITE_ENDPOINT)
+  .setProject(process.env.REACT_APPWRITE_PROJECT);
+
+export const AppwriteContext = React.createContext(appwrite);
+
+export default appwrite;
+```
+
+This code will create a new instance of the Appwrite SDK and set the endpoint and project ID. We'll be using this instance to make API calls to Appwrite.
+
+Next, we need to wrap our React app with the `AppwriteContext` we just created. Open the `index.js` file in the `src` directory and add the following code:
+
+```js
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { AppwriteContext } from "./services/appwrite";
+
+ReactDOM.render(
+  <React.StrictMode>
+    <AppwriteContext.Provider value={appwrite}>
+      <App />
+    </AppwriteContext.Provider>
+  </React.StrictMode>,
+  document.getElementById("root")
+);
+```
+
+This code will wrap our React app with the `AppwriteContext` we just created. Now we can access the Appwrite instance from anywhere in our React app.
+
+### Creating authentication flow
+
+Now that we've connected Appwrite to our React app, its time to create an authentication flow. We'll be using the Appwrite OAuth2 API to create an authentication flow. The OAuth2 API allows us to authenticate users using their email and password.
+
+First, we need to create a new file called `Login.js` in the `src` directory. Open the `Login.js` file and add the following code:
+
+```js
+import React, { useContext, useState } from "react";
+import { AppwriteContext } from "../services/appwrite";
+
+const Login = () => {
+  const appwrite = useContext(AppwriteContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const promise = await appwrite.account.createSession(email, password);
+      console.log(promise);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleLogin}>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  );
+};
+
+export default Login;
+```
+
+This code will create a simple login form. When the form is submitted, we'll make an API call to Appwrite's OAuth2 API to create a new session. If the API call is successful, we'll get a session object in the response. We can use this session object to access the user's data.
+
+Next, we need to create a new file called `Register.js` in the `src` directory. Open the `Register.js` file and add the following code:
+
+```js
+import React, { useContext, useState } from "react";
+import { AppwriteContext } from "../services/appwrite";
+
+const Register = () => {
+  const appwrite = useContext(AppwriteContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const promise = await appwrite.account.create(email, password);
+      console.log(promise);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleRegister}>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  );
+};
+
+export default Register;
+```
+
+### Creating a Note
+
+Now that we've created an authentication flow, its time to create a note. We'll be using the Appwrite Database API to create a note. The Database API allows us to store data in Appwrite's database.
+
+First, we need to create a new file called `Note.js` in the `src` directory. Open the `Note.js` file and add the following code:
+
+```js
+import React, { useContext, useState } from "react";
+import { AppwriteContext } from "../services/appwrite";
+
+const Note = () => {
+  const appwrite = useContext(AppwriteContext);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+  const handleCreateNote = async (e) => {
+    e.preventDefault();
+    try {
+      const promise = await appwrite.database.createDocument(
+        "notes",
+        {
+          title,
+          content,
+        },
+        ["*"],
+        ["user:{{self}}"]
+      );
+      console.log(promise);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleCreateNote}>
+        <input
+          type="text"
+          placeholder="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <textarea
+          placeholder="Content"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
+        <button type="submit">Create Note</button>
+      </form>
+    </div>
+  );
+};
+
+export default Note;
+```
+
+This code will create a simple note form. When the form is submitted, we'll make an API call to Appwrite's Database API to create a new document. If the API call is successful, we'll get a document object in the response. We can use this document object to access the note's data.
+
+### Creating a list of notes
+
+Now that we've created a note, its time to create a list of notes. We'll be using the Appwrite Database API to create a list of notes. The Database API allows us to store data in Appwrite's database.
+
+First, we need to create a new file called `Notes.js` in the `src` directory. Open the `Notes.js` file and add the following code:
+
+```js
+import React, { useContext, useEffect, useState } from "react";
+import { AppwriteContext } from "../services/appwrite";
+
+const Notes = () => {
+  const appwrite = useContext(AppwriteContext);
+  const [notes, setNotes] = useState([]);
+
+  useEffect(() => {
+    const fetchNotes = async () => {
+      try {
+        const promise = await appwrite.database.listDocuments("notes");
+        setNotes(promise.documents);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchNotes();
+  }, [appwrite]);
+
+  return (
+    <div>
+      {notes.map((note) => (
+        <div key={note.$id}>
+          <h1>{note.title}</h1>
+          <p>{note.content}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default Notes;
+```
+
+This code will fetch all the notes from the Appwrite database and display them on the screen.
+
+### Conclusion
+
+In this tutorial, we learned how to create a React app with Appwrite. We also learned how to create an authentication flow using the Appwrite OAuth2 API.
+There are many more features in Appwrite. You can check out the [Appwrite documentation](https://appwrite.io/docs) to learn more about Appwrite.

@@ -74,7 +74,7 @@ function Spotify() {
   const fetcher = (url: URL) => fetch(url).then((r) => r.json());
   const { data } = useSWR("../api/spotify", fetcher);
   return (
-    <section className="flex justify-center">
+    <section className="flex justify-center my-16">
       <div className="max-w-3xl mx-auto lg:p-0 p-5">
         <div className="flex flex-row-reverse items-center sm:flex-row space-x-0 sm:space-x-2 w-full">
           {data?.isPlaying ? (
