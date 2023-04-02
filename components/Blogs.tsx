@@ -1,8 +1,4 @@
 import React from "react";
-import { POSTS_PATH, postFilePaths } from "../lib/mdxUtils";
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
 
 type blog = {
   filePath: string;

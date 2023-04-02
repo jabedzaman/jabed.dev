@@ -10,7 +10,8 @@ import { collection, doc, query, setDoc, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useSession, signIn } from "next-auth/react";
 import { AiFillHeart, AiOutlineComment, AiOutlineHeart } from "react-icons/ai";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function Blog({ source }: any) {
   const { data: session } = useSession();
@@ -48,7 +49,6 @@ export default function Blog({ source }: any) {
       } else {
         try {
           setLiked(true);
-          console.log(userEmail);
           await setDoc(doc(db, "posts", title), {
             likes: [...likes, userEmail],
           });
@@ -78,7 +78,14 @@ export default function Blog({ source }: any) {
         <p className="text-sm text-gray-500 dark:text-gray-400">
           {source.frontmatter.description}
         </p>
-        <img src={source.frontmatter.image} alt={source.frontmatter.title} />
+        <Suspense fallback={<div className="w-full h-16 border dark:bg-gray-600 bg-gray-200"/>}>
+          <Image
+            width={1000}
+            height={500}
+            src={source.frontmatter.image}
+            alt={source.frontmatter.title}
+          />
+        </Suspense>
       </header>
       <MDXRemote {...source} />
       <hr />
