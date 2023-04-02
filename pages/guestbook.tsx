@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from "react";
-// import {
-//   collection,
-//   onSnapshot,
-//   orderBy,0
-//   query,
-//   // Timestamp,
-// } from "firebase/firestore";
-// import { db } from "@/lib/firebase";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  // Timestamp,
+} from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 function Guestbook() {
   const [signatures, setSignatures] = useState<Message[]>([]);
-  // useEffect(() => {
-  //   const q = query(collection(db, "messages"), orderBy("timestamp", "desc"));
-  //   const unsubscribe = onSnapshot(q, (querySnapshot) => {
-  //     const messages: Message[] = [];
-  //     querySnapshot.forEach((doc) => {
-  //       messages.push({
-  //         id: doc.id,
-  //         ...doc.data(),
-  //       } as Message);
-  //     });
-  //     setSignatures(messages);
-  //   });
-  //   return unsubscribe;
-  // }, []);
+  useEffect(() => {
+    const q = query(collection(db, "messages"), orderBy("timestamp", "desc"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const messages: Message[] = [];
+      querySnapshot.forEach((doc) => {
+        messages.push({
+          id: doc.id,
+          ...doc.data(),
+        } as Message);
+      });
+      setSignatures(messages);
+    });
+    return unsubscribe;
+  }, []);
   return (
     <div>
       {signatures.map((signature) => (

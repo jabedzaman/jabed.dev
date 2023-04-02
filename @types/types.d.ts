@@ -61,6 +61,7 @@ type statsResponsedata = {
       repos: repo[];
     };
   };
+  blog: blog[];
 };
 
 type repo = {

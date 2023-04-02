@@ -2,10 +2,16 @@ import ProjectItem from "@/components/Project";
 import Readme from "@/components/Readme";
 import SectionHeader from "@/components/SectionHeader";
 import Sidebar from "@/components/Sidebar";
-import { GetStaticProps } from "next";
+import { GetServerSideProps, GetStaticProps } from "next";
 import Link from "next/link";
+import React, { Key } from "react";
+import { POSTS_PATH, postFilePaths } from "../lib/mdxUtils";
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
 
-export default function Home({ data }: statsResponsedata) {
+export default function Home({ data , blogs}: any) {
+  console.log(blogs);
   return (
     <div className="grid md:grid-cols-4 gap-4">
       <div className="md:col-span-1">
@@ -66,12 +72,21 @@ export default function Home({ data }: statsResponsedata) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const res = await fetch("https://api.jabed.me/stats");
   const data = await res.json();
+  const blogs = postFilePaths.map((filePath) => {
+    const source = fs.readFileSync(path.join(POSTS_PATH, filePath));
+    const { data } = matter(source);
+    return {
+      data,
+      filePath,
+    };
+  });
   return {
     props: {
       data,
+      blogs,
     },
   };
 };

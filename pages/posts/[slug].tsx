@@ -6,10 +6,62 @@ import { MDXRemote } from "next-mdx-remote";
 import rehypeHighlight from "rehype-highlight";
 import { POSTS_PATH, postFilePaths } from "../../lib/mdxUtils";
 import "highlight.js/styles/atom-one-dark.css";
+import { collection, doc, query, setDoc, onSnapshot } from "firebase/firestore";
+import { db } from "@/lib/firebase";
+import { useSession, signIn } from "next-auth/react";
+import { AiFillHeart, AiOutlineComment, AiOutlineHeart } from "react-icons/ai";
+import { useEffect, useState } from "react";
 
 export default function Blog({ source }: any) {
+  const { data: session } = useSession();
+  const userEmail = session?.user?.email;
+  const [likes, setLikes] = useState<string[]>([]);
+  const [liked, setLiked] = useState<Boolean>(false);
+  const title = source.frontmatter.title;
+  useEffect(() => {
+    const q = query(collection(db, "posts"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        if (doc.id === title) {
+          setLikes(doc.data().likes);
+        }
+      });
+    });
+    return unsubscribe;
+  }, [title]);
+  useEffect(() => {
+    if (likes.includes(userEmail as string)) {
+      setLiked(true);
+    }
+  }, [likes, userEmail]);
+  async function likePost() {
+    if (session) {
+      if (liked) {
+        try {
+          setLiked(false);
+          await setDoc(doc(db, "posts", title), {
+            likes: likes.filter((like) => like !== userEmail),
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        try {
+          setLiked(true);
+          console.log(userEmail);
+          await setDoc(doc(db, "posts", title), {
+            likes: [...likes, userEmail],
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    } else {
+      alert("Please login to like this post");
+    }
+  }
   return (
-    <article className="max-w-5xl li prose-a:no-underline prose-a:font-bold   prose-a:text-[#00B6FE]  font-poppins mx-auto p-5 prose  dark:prose-pre:border-[#0D1117] lg:prose-xl dark:prose-invert prose-pre:border prose-pre:p-0 lg:prose-pre:p-0 prose-pre:bg-[#FFFFFF] dark:prose-pre:bg-[#0D1117]">
+    <article className="max-w-5xl li prose-a:no-underline prose-a:font-bold   prose-a:text-[#00B6FE]  mx-auto prose  dark:prose-pre:border-[#0D1117] lg:prose-xl dark:prose-invert prose-pre:border prose-pre:p-0 lg:prose-pre:p-0 prose-pre:bg-[#FFFFFF] dark:prose-pre:bg-[#0D1117]">
       <Head>
         <title>{source.frontmatter.title}</title>
         <meta name="description" content={source.frontmatter.description} />
@@ -29,6 +81,41 @@ export default function Blog({ source }: any) {
         <img src={source.frontmatter.image} alt={source.frontmatter.title} />
       </header>
       <MDXRemote {...source} />
+      <hr />
+      <div className="bottom-5 sticky mx-auto flex justify-center items-center">
+        <div
+          className={`border rounded-3xl shadow-lg  px-5 py-2  bg-white dark:bg-[#121212] flex flex-row items-center space-x-2 cursor-pointer md:hover:scale-105 duration-150 ease-in-out 
+          ${
+            liked
+              ? "border-blue-400 dark:border-blue-300"
+              : "border-gray-300 dark:border-gray-500"
+          }
+          ${likes?.length < 10 ? "justify-between" : "justify-center"}
+          `}
+        >
+          <div
+            onClick={() => {
+              if (session) {
+                likePost();
+              } else {
+                signIn("google");
+              }
+            }}
+          >
+            {" "}
+            {liked ? (
+              <AiFillHeart className="text-2xl text-red-500" />
+            ) : (
+              <AiOutlineHeart className="text-2xl text-gray-500" />
+            )}
+          </div>
+          <div> {likes?.length}</div>
+          <div className="text-gray-500">|</div>
+          <div className="pr-2">
+            <AiOutlineComment className="text-2xl text-gray-500 cursor-not-allowed" />
+          </div>
+        </div>
+      </div>
     </article>
   );
 }

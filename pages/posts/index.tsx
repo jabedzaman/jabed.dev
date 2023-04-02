@@ -4,6 +4,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
+import Image from "next/image";
 
 type blog = {
   filePath: string;
@@ -73,6 +74,7 @@ function Index({ blogs }: { blogs: blog[] }) {
               <p className="md:text-sm tex-xs text-gray-500 dark:text-gray-400">
                 {blog.data.description}
               </p>
+              {/* <Image src={blog.data.image} width={100} height={100} alt={""} /> */}
             </Link>
           );
         })}
