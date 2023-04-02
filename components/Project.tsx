@@ -30,7 +30,7 @@ function ProjectItem(props: ProjectProps) {
   }
   return (
     <div className="md:w-1/2 w-full my-1 cursor-pointer">
-      <Link href={`/projects/${props.name}`}>
+      <a href={props.url}>
         <div className="py-2 m-1 border border-gray-200 dark:border-gray-700 md:px-5 px-3 flex flex-col justify-between max-h-30 h-full hover:shadow-lg dark:hover:shadow-gray-900 duration-150 ease-in-out">
           <div>
             <span className="flex flex-row items-center space-x-2">
@@ -68,7 +68,7 @@ function ProjectItem(props: ProjectProps) {
             </div>
           </span>
         </div>
-      </Link>
+      </a>
     </div>
   );
 }

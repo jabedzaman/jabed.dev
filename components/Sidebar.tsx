@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { FiGithub, FiTwitter } from "react-icons/fi";
 import { IoLogoReddit } from "react-icons/io5";

@@ -11,6 +11,7 @@ import path from "path";
 import matter from "gray-matter";
 
 export default function Home({ data, blogs }: any) {
+  console.log(data.data?.repos);
   return (
     <div className="grid md:grid-cols-4 gap-4">
       <div className="md:col-span-1">
@@ -25,22 +26,21 @@ export default function Home({ data, blogs }: any) {
         />
         <SectionHeader header={"Featured Projects"} />
         <section className="flex flex-wrap mb-10 mt-1">
-          <ProjectItem
-            description="Multiplatform Music dowloader"
-            forks={5}
-            id={1}
-            language="JavaScript"
-            stargazers_count={14}
-            name="Spotilader"
-          />
-          <ProjectItem
-            description="Anime Streaming Client"
-            forks={1}
-            id={2}
-            language="JavaScript"
-            stargazers_count={1}
-            name="Bozo"
-          />
+          {data.data?.repos
+            .sort((a: any, b: any) => b.stars - a.stars)
+            .filter((repo: any) => repo.name !== "jabedzaman")
+            .map((project: any, key: number) => (
+              <ProjectItem
+                key={key}
+                url={project.url}
+                name={project.name}
+                description={project.description}
+                language={"TypeScript"}
+                forks={5}
+                id={project.id}
+                stargazers_count={project.stars}
+              />
+            ))}
         </section>
         <SectionHeader header={"Latest Blog Post"} />
         <section>

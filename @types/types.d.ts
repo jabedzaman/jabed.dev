@@ -5,6 +5,7 @@ type ProjectProps = {
   forks: number;
   stargazers_count: number;
   language: string;
+  url : string;
 };
 
 type wakatimeProps = {
