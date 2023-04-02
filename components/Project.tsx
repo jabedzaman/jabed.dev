@@ -1,8 +1,6 @@
-import Link from "next/link";
 import React from "react";
 import { AiOutlineBook, AiOutlineStar } from "react-icons/ai";
 import { BiGitRepoForked } from "react-icons/bi";
-
 
 function ProjectItem(props: ProjectProps) {
   let langcolor = "";
@@ -13,18 +11,14 @@ function ProjectItem(props: ProjectProps) {
     case "TypeScript":
       langcolor = "bg-blue-400";
       break;
-    case "HTML":
+    case "Python":
+      langcolor = "bg-blue-500";
+      break;
+    case "Rust":
       langcolor = "bg-red-400";
       break;
-    case "CSS":
-      langcolor = "bg-blue-400";
-      break;
-    case "Python":
-      langcolor = "bg-yellow-400";
-      break;
-    case "C#":
-      langcolor = "bg-purple-400";
-      break;
+    case "Shell":
+      langcolor = "bg-green-500";
     default:
       langcolor = "bg-gray-400";
   }

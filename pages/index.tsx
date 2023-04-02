@@ -11,7 +11,6 @@ import path from "path";
 import matter from "gray-matter";
 
 export default function Home({ data, blogs }: any) {
-  console.log(data.data?.repos);
   return (
     <div className="grid md:grid-cols-4 gap-4">
       <div className="md:col-span-1">
@@ -19,24 +18,30 @@ export default function Home({ data, blogs }: any) {
       </div>
       <div className="md:col-span-3">
         <Readme
-          followers={data.data?.followers || 0}
-          wakaTime={data.data?.wakatime}
-          stars={data.data?.total_stars || 0}
-          publicRepos={data.data?.public_repos || 0}
+          followers={data?.total_followers || 0}
+          wakaTime={
+            data?.wakatime.data.grand_total
+              .human_readable_total_including_other_language || 0
+          }
+          stars={data?.total_stars || 0}
+          publicRepos={data?.public_repos || 0}
         />
         <SectionHeader header={"Featured Projects"} />
         <section className="flex flex-wrap mb-10 mt-1">
-          {data.data?.repos
+          {data?.repos
             .sort((a: any, b: any) => b.stars - a.stars)
-            .filter((repo: any) => repo.name !== "jabedzaman")
+            // avoid repo name with jabedzaman or if it is a fork
+            .filter(
+              (repo: any) => !repo.name.includes("jabedzaman") && !repo.isfork
+            )
             .map((project: any, key: number) => (
               <ProjectItem
                 key={key}
                 url={project.url}
                 name={project.name}
                 description={project.description}
-                language={"TypeScript"}
-                forks={5}
+                language={project.language}
+                forks={project.forks}
                 id={project.id}
                 stargazers_count={project.stars}
               />
@@ -65,7 +70,7 @@ export default function Home({ data, blogs }: any) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch("https://api.jabed.me/stats");
+  const res = await fetch("https://api.jabed.me/api/v1/metrices");
   const data = await res.json();
   const blogs = postFilePaths.map((filePath) => {
     const source = fs.readFileSync(path.join(POSTS_PATH, filePath));
