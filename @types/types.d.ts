@@ -41,7 +41,7 @@ type Message = {
   push(arg0: { id: string; }): unknown;
   id: string;
   message: string;
-  name: string;
+  name: string | null | undefined;
   timestamp: Timestamp;
 };
 

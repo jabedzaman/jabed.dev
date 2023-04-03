@@ -26,7 +26,14 @@ function Sidebar() {
       </div>
       <div className="md:h-0 h-4" />
       <Socials />
-      {/* <GuestbookBtn /> */}
+      <div className="md:h-10 hidden md:inline-block" />
+      <div className="flex flex-col space-y-2">
+        <Link href="/guestbook">
+          <div className="hidden md:inline-block border border-gray-200 dark:border-gray-700  py-3 px-4 hover:shadow-lg dark:hover:shadow-gray-900 duration-150 ease-in-out">
+            Sign in Guestbook
+          </div>
+        </Link>
+      </div>
     </section>
   );
 }

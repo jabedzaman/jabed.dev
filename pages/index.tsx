@@ -62,7 +62,21 @@ export default function Home({ data, blogs }: any) {
               </Link>
             </div>
           ))}
-          <Link href="/posts">read more ...</Link>
+          <Link href="/posts">
+            <div className="border my-2 border-gray-200 dark:border-gray-700  py-3 px-4 hover:shadow-lg dark:hover:shadow-gray-900 duration-150 ease-in-out">
+              <p>See all posts</p>
+            </div>
+          </Link>
+        </section>
+        <section className="md:hidden inline">
+          <SectionHeader header={"Guestbook"} />
+          <Link href="/guestbook">
+            <div className="border my-2 border-gray-200 dark:border-gray-700  py-3 px-4 hover:shadow-lg dark:hover:shadow-gray-900 duration-150 ease-in-out">
+              <p>
+                Check out my guestbook and leave a message if you want to say
+              </p>
+            </div>
+            </Link>
         </section>
       </div>
     </div>
