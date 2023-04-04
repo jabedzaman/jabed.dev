@@ -88,17 +88,14 @@ function Guestbook() {
           </div>
         )}
       </div>
-      <div>
+      <div className="max-w-5xl mx-auto ease-in-out duration-150 ">
         {signatures.length > 0 ? (
           signatures.map((signature) => (
             <div key={signature.id} className="py-2">
-              <div className="flex flex-row space-x-2">
-                <div className="flex flex-row space-x-1">
-                  <p className="text-sm font-semibold">{signature.name}</p>
-                  <p className="text-sm text-gray-500">:</p>
-                  <p className="text-sm">{signature.message}</p>
-                </div>
-              </div>
+              <p className="text-sm">
+                <span className="font-semibold">{signature.name}{" "}{":"}{" "}</span>
+                {signature.message}
+              </p>
               <p className="text-xs text-gray-500">
                 {signature.timestamp.toDate().toLocaleString()}
               </p>
