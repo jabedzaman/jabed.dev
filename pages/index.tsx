@@ -11,6 +11,9 @@ import path from "path";
 import matter from "gray-matter";
 
 export default function Home({ data, blogs }: any) {
+  if (!data || !blogs) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="grid md:grid-cols-4 gap-4">
       <div className="md:col-span-1">
@@ -27,10 +30,10 @@ export default function Home({ data, blogs }: any) {
           publicRepos={data?.public_repos || 0}
         />
         <SectionHeader header={"Featured Projects"} />
-        <section className="flex flex-wrap mb-10 mt-1">
+        <section className="flex flex-wrap mt-1">
           {data?.repos
             .sort((a: any, b: any) => b.stars - a.stars)
-            // avoid repo name with jabedzaman or if it is a fork
+            .slice(0, 7)
             .filter(
               (repo: any) => !repo.name.includes("jabedzaman") && !repo.isfork
             )
@@ -47,8 +50,13 @@ export default function Home({ data, blogs }: any) {
               />
             ))}
         </section>
+        <Link href="/projects">
+          <div className="border my-2 mx-1 mb-10 border-gray-200 dark:border-gray-700  py-3 px-4 hover:shadow-lg dark:hover:shadow-gray-900 duration-150 ease-in-out">
+            <p className="text-center">See all projects</p>
+          </div>
+        </Link>
         <SectionHeader header={"Latest Blog Post"} />
-        <section>
+        <section className="mx-1">
           {blogs?.slice(0, 2).map((blog: any, key: number) => (
             <div
               key={key}
@@ -64,7 +72,7 @@ export default function Home({ data, blogs }: any) {
           ))}
           <Link href="/posts">
             <div className="border my-2 border-gray-200 dark:border-gray-700  py-3 px-4 hover:shadow-lg dark:hover:shadow-gray-900 duration-150 ease-in-out">
-              <p>See all posts</p>
+              <p className="text-center">See all posts</p>
             </div>
           </Link>
         </section>
@@ -76,7 +84,7 @@ export default function Home({ data, blogs }: any) {
                 Check out my guestbook and leave a message if you want to say
               </p>
             </div>
-            </Link>
+          </Link>
         </section>
       </div>
     </div>

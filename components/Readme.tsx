@@ -14,7 +14,7 @@ function Readme({ stars, followers, publicRepos, wakaTime }: readmeProps) {
   });
   const [summaryVisible, setSummaryVisible] = useState(false);
   return (
-    <section className="border border-gray-200 dark:border-gray-700 lg:max-w-3xl md:max-w-xl  md:p-5 lg:p-7 p-3 z-10 md:hover:shadow-lg md:dark:hover:shadow-gray-900 duration-150 ease-in-out ">
+    <section className="border border-gray-200 mx-1 dark:border-gray-700 lg:max-w-3xl md:max-w-xl  md:p-5 lg:p-7 p-3 z-10 md:hover:shadow-lg md:dark:hover:shadow-gray-900 duration-150 ease-in-out ">
       <p className="font-mono text-xs">
         jabedzaman / <span className="text-gray-500">README</span>.md
       </p>

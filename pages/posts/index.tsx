@@ -18,6 +18,9 @@ type blog = {
 
 function Index({ blogs }: { blogs: blog[] }) {
   const [search, setSearch] = React.useState<string>("");
+  if (!blogs) {
+    return <div>Loading...</div>;
+  }
   return (
     <React.Fragment>
       <h1
