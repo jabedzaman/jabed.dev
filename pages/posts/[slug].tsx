@@ -90,12 +90,13 @@ export default function Blog({ source }: any) {
             height={500}
             src={source.frontmatter.image}
             alt={source.frontmatter.title}
+            priority
           />
         </Suspense>
       </header>
       <MDXRemote {...source} />
       <hr />
-      <div className="bottom-5 sticky mx-auto flex justify-center items-center">
+      <div className="bottom-0 pb-5 sticky mx-auto flex justify-center items-center">
         <div
           className={`border rounded-3xl shadow-lg  px-5 py-2  bg-white dark:bg-[#121212] flex flex-row items-center space-x-2 cursor-pointer md:hover:scale-105 duration-150 ease-in-out 
           ${

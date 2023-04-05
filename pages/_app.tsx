@@ -29,6 +29,18 @@ export default function App({ Component, pageProps }: AppProps) {
           <meta name="robots" content="index, follow" />
           <meta name="language" content="English" />
           <meta name="revisit-after" content="1 days" />
+          <meta name="og:title" content="Jabed" />
+          <meta name="og:type" content="website" />
+          <meta name="og:url" content="https://jabed.me" />
+          {/* <meta name="og:image" content="/images/og-image.png" /> */}
+          <meta name="og:site_name" content="Jabed" />
+          <meta name="og:description" content="Jabed's Portfolio Website" />
+          {/* <meta name="twitter:card" content="summary_large_image" /> */}
+          <meta name="twitter:site" content="@xenseee" />
+          <meta name="twitter:creator" content="@xenseee" />
+          <meta name="twitter:title" content="Jabed" />
+          {/* <meta name="twitter:description" content="Jabed's Portfolio Website" /> */}
+          {/* <meta name="twitter:image" content="/images/og-image.png" /> */}
           <link
             rel="apple-touch-icon"
             sizes="180x180"

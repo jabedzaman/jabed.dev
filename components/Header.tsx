@@ -40,13 +40,18 @@ function Header() {
       >
         <div className="max-w-5xl mx-auto p-5 flex flex-row justify-between items-center">
           <div className="font-bold md:text-xl text-lg">
-            {/* { !supersubpath ? <Link href="/" className="hover:underline underline-offset-2">~ jabed.me</Link> : <Link href={"/"}>..</Link>} */}
+            <Link href="/" className="hover:underline underline-offset-2">
+              jabed.me
+            </Link>
             {/* {subpath && <Link href={`/${subpath}`} className="hover:underline underline-offset-2">/{subpath}</Link>} */}
             {/* {supersubpath && ( */}
             {/* <Link href={`/${subpath}/${supersubpath}`} className="hover:underline underline-offset-2">/{supersubpath}</Link> */}
             {/* )} */}
-            {isHome ? (
-              <Link href="/" className="hover:underline underline-offset-2 ease-in-out duration-150">
+            {/* {isHome ? (
+              <Link
+                href={`/`}
+                className="hover:underline underline-offset-2 flex flex-row items-center ease-in-out duration-150"
+              >
                 jabed.me
               </Link>
             ) : (
@@ -57,7 +62,7 @@ function Header() {
                 <IoIosArrowBack className="mr-2" />
                 jabed.me
               </Link>
-            )}
+            )} */}
           </div>
           <div>
             {mounted ? (
