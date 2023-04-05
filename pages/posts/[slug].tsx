@@ -69,6 +69,12 @@ export default function Blog({ source }: any) {
         <meta name="og:description" content={source.frontmatter.description} />
         <meta name="og:image" content={source.frontmatter.image} />
         <meta name="keywords" content={source.frontmatter.tags} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@xenseee" />
+        <meta name="twitter:creator" content="@xenseee" />
+        <meta name="twitter:title" content={source.frontmatter.title} />
+        <meta name="twitter:description" content={source.frontmatter.description} />
+        <meta name="twitter:image" content={source.frontmatter.image} />
       </Head>
       <header>
         <h1 className="text-4xl font-bold">{source.frontmatter.title}</h1>
