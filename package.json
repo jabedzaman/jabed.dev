@@ -1,0 +1,42 @@
+{
+  "name": "jabed.dev",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prepare": "husky install",
+    "clean": "rm -rf .next node_modules"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
+  "dependencies": {
+    "@octokit/rest": "^19.0.7",
+    "@types/node": "18.16.0",
+    "@types/react": "18.0.38",
+    "@types/react-dom": "18.0.11",
+    "autoprefixer": "10.4.14",
+    "eslint": "8.39.0",
+    "eslint-config-next": "13.3.1",
+    "motion": "^10.15.5",
+    "next": "13.3.1",
+    "next-auth": "^4.22.1",
+    "postcss": "8.4.23",
+    "querystring": "^0.2.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.8.0",
+    "react-simple-typewriter": "^5.0.1",
+    "swr": "^2.1.5",
+    "tailwindcss": "3.3.1",
+    "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "@prisma/client": "^4.13.0",
+    "husky": "^8.0.0",
+    "prisma": "^4.13.0"
+  }
+}
