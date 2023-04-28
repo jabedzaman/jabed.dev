@@ -1,5 +1,6 @@
 "use client";
 
+import { siteConfig } from "@/consts";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -52,13 +53,13 @@ function Index() {
       <h2 className="text-xl pb-1 flex items-center gap-3 mt-4">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://avatars.githubusercontent.com/u/99767817?v=4"
+          src={siteConfig.avatar}
           className="rounded-full border-none m-0 font-bold"
           height={50}
           width={50}
-          alt="jabed"
+          alt={siteConfig.title}
         />
-        Jabed Zaman
+        {siteConfig.fullname}
       </h2>
       <div className="flex flex-wrap space-x-2 mt-3 mb-5">
         {tabs.map((tab) => (

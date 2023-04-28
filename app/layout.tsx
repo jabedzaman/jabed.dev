@@ -24,11 +24,27 @@ export const metadata: Metadata = {
     siteName: siteConfig.openGraph.site_name,
     locale: siteConfig.openGraph.locale,
     type: "profile",
+    images: [
+      {
+        url: siteConfig.openGraph.url + siteConfig.openGraph.image,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.openGraph.title,
+      },
+    ],
   },
   twitter: {
     title: siteConfig.twitter.title,
     creator: siteConfig.twitter.creator,
     description: siteConfig.twitter.description,
+    images : [
+      {
+        url: siteConfig.openGraph.url + siteConfig.openGraph.image,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.openGraph.title,
+      },
+    ],
   },
   robots: "index, follow",
   icons: {

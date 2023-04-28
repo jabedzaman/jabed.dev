@@ -33,6 +33,12 @@ function index({}: Props) {
           >
             Projects
           </Link>
+          <Link
+            href="/setup"
+            className="text-gray-500 hover:text-gray-600 transition"
+          >
+            Setup
+          </Link>
         </div>
         <div className="flex flex-col space-y-2 ">
           <ExternalLink href="https://twitter.com/xenseee">

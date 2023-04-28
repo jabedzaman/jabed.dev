@@ -10,16 +10,16 @@ export const metadata: Metadata = {
 const page = async () => {
   const data = await fetch(URL + "/api/v1/metrics", {
     next: {
-      revalidate: 1,
+      revalidate: 3600,
     },
   })
     .then((res) => res.json())
     .catch((err) => console.log(err));
   return (
     <div>
-      <h1 className="text-2xl font-semibold">Projects</h1>
+      <h1 className="text-2xl font-semibold mb-1">Projects</h1>
       <Suspense fallback={<div>Loading...</div>}>
-        <section className="flex flex-wrap mb-1">
+        <section className="grid md:grid-cols-2 grid-cols-1 gap-1 ease-in-out">
           {data?.repos
             .sort((a: any, b: any) => b.stars + b.forks - (a.stars + a.forks))
             .filter(

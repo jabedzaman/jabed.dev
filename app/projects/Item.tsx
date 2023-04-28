@@ -29,14 +29,14 @@ function ProjectItem(props: ProjectProps) {
     case "Shell":
       langcolor = "bg-green-500";
     case "Makefile":
-      langcolor = "bg-green-600";
+      langcolor = "bg-green-800";
     default:
-      langcolor = "bg-gray-400";
+      langcolor = "bg-green-600";
   }
   return (
-    <div className="md:w-1/2 w-full my-1 cursor-pointer">
+    <div className="w-full cursor-pointer">
       <a href={props.url}>
-        <div className="py-2 m-1 border border-gray-200 dark:border-gray-700 md:px-5 px-3 flex flex-col justify-between max-h-30 h-full hover:shadow-lg dark:hover:shadow-gray-900 duration-150 ease-in-out">
+        <div className="py-2 my-1 border border-gray-200 dark:border-gray-700 md:px-5 px-3 flex flex-col justify-between max-h-30 h-full hover:shadow-lg dark:hover:shadow-gray-900 duration-150 ease-in-out">
           <div>
             <span className="flex flex-row items-center space-x-2">
               <AiOutlineBook />
@@ -54,7 +54,7 @@ function ProjectItem(props: ProjectProps) {
             <div>
               <span className="flex flex-row items-center space-x-2">
                 <span className={`rounded-full w-2 h-2 ${langcolor}`} />
-                <p className="text-gray-500 text-sm">{props.language}</p>
+                <p className="text-gray-500 text-sm hover:text-gray-800 dark:hover:text-gray-300">{props.language}</p>
               </span>
             </div>
             <div className="flex flex-row space-x-1">

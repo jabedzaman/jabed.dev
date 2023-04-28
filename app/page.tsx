@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import { Suspense } from "react";
 import HeadingText from "@/components/HeadingText";
 import { info } from "@/consts";
+import Link from "next/link";
 
 const page: NextPage = () => {
   return (
@@ -10,10 +11,17 @@ const page: NextPage = () => {
         <HeadingText />
         <p>
           {getAge()} years old self-taught
-          <b className="text-blue-500"> full stack developer</b>. Profficent in
+          <b className="text-blue-400"> full stack developer</b>. Profficent in
           building things for web and android. A wannabe nerd arch linux user
           along with vim as code editor. Indulges in anime. Loves to play video
           games.
+        </p>
+        <br />
+        <p>
+          Get to know more at {" "}
+          <Link href="/setup" className="text-blue-400 hover:text-blue-500">
+            here
+          </Link>
         </p>
       </div>
     </Suspense>
