@@ -1,9 +1,7 @@
 import { ImageResponse } from "@vercel/og";
 import { siteConfig } from "@/consts";
 
-export const config = {
-  runtime: "edge",
-};
+export const runtime = "edge";
 
 export function GET() {
   return new ImageResponse(
