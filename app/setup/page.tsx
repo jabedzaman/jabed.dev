@@ -54,9 +54,9 @@ const page: NextPage = () => {
       </p>
       <br />
       <p>
-        'Never gonna give you up, never gonna let you down ...' GOT RICKROLLED
-        !!! OKAY TAKING IT BACK ... I love listening to music and I use{" "}
-        <b className="text-blue-400">spotify</b> for that .
+        &lsquo; Never gonna give you up, never gonna let you down ... &lsquo; GOT
+        RICKROLLED !!! OKAY TAKING IT BACK ... I love listening to music and I
+        use <b className="text-blue-400">spotify</b> for that .
       </p>
       <br />
       <p>

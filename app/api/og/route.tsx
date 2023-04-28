@@ -32,6 +32,7 @@ export function GET() {
             marginBottom: 100,
           }}
         >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={siteConfig.avatar}
             style={{
@@ -40,6 +41,7 @@ export function GET() {
               marginRight: 20,
               borderRadius: "50%",
             }}
+            alt="avatar"
           />
           <div
             style={{
