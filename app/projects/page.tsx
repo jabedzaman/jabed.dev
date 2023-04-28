@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const page = async () => {
   const data = await fetch(URL + "/api/v1/metrics", {
     next: {
-      revalidate: 3600,
+      revalidate: 1,
     },
   })
     .then((res) => res.json())
@@ -21,7 +21,7 @@ const page = async () => {
       <Suspense fallback={<div>Loading...</div>}>
         <section className="flex flex-wrap mb-1">
           {data?.repos
-            .sort((a: any, b: any) => (b.stars + b.forks) - (a.stars + a.forks))
+            .sort((a: any, b: any) => b.stars + b.forks - (a.stars + a.forks))
             .filter(
               (repo: any) => !repo.name.includes("jabedzaman") && !repo.isfork
             )

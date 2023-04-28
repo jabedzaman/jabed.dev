@@ -38,7 +38,7 @@
   "devDependencies": {
     "@prisma/client": "^4.13.0",
     "encoding": "^0.1.13",
-    "husky": "^8.0.0",
+    "husky": "^8.0.3",
     "prisma": "^4.13.0"
   }
 }

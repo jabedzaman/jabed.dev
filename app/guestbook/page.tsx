@@ -16,13 +16,13 @@ export type signature = {
 };
 
 const page = async () => {
-  const res = await fetch(utils.URL + "/api/v1/signatures", {
+  const res = await fetch(utils.URL +"/api/v1/signatures", {
     next: {
-      revalidate: 60,
+      revalidate: 1,
     },
   })
-    .then((res) => res.json())
-    .catch((err) => console.log(err));
+  .then((res) => res.json())
+  .catch((err) => console.log(err));
   const signatures: signature[] = res?.data;
   return (
     <div>

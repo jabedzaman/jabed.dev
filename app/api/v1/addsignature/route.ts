@@ -15,7 +15,7 @@ const prisma = new PrismaClient(
 );
 
 export async function POST(request: Request) {
-  const isSession = await fetch(utils.URL + "/api/session", {
+  const isSession = await fetch("/api/session", {
     cache: "no-cache",
   });
   const session = await isSession.json();
