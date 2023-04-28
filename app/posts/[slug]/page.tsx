@@ -1,4 +1,8 @@
-export default function Page({ params }: any) {
-  const slug  = params.slug;
-  return <div>My Post {slug}</div>;
+// app/page.js
+
+export default async function Home({ params }: any) {
+  // Optionally provide a type for your frontmatter object
+  const slug = params.slug;
+
+  return <>{slug}</>;
 }

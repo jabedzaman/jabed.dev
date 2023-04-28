@@ -6,7 +6,7 @@ import { info } from "@/consts";
 const page: NextPage = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <div className="">
+      <div>
         <HeadingText />
         <p>
           {getAge()} years old self-taught

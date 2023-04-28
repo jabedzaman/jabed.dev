@@ -5,6 +5,7 @@ import Providers from "./providers";
 import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { Analytics } from "@vercel/analytics/react";
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -27,6 +28,7 @@ export const metadata: Metadata = {
   twitter: {
     title: siteConfig.twitter.title,
     creator: siteConfig.twitter.creator,
+    description: siteConfig.twitter.description,
   },
   robots: "index, follow",
   icons: {
@@ -36,7 +38,7 @@ export const metadata: Metadata = {
 
 const prompt = Prompt({
   subsets: ["latin"],
-  weight: "400"
+  weight: "400",
 });
 
 export default function RootLayout({ children }: RootLayoutProps) {
@@ -49,6 +51,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <main className="max-w-2xl mx-auto">
             <Header />
             {children}
+            <Analytics />
             <Footer />
           </main>
         </body>
