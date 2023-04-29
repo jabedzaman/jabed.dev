@@ -1,0 +1,143 @@
+---
+title: Boosting Real-time Performance with Redis and Node.js
+summary: Learn how to boost real-time performance with Redis and Node.js
+date: 2023-04-06
+tags: redis, nodejs, performance, real-time, scalability, caching, backend, websockets
+---
+
+Okay, so you've got a Node.js app that's doing great. It's handling a lot of traffic, and your server is not able to handle it. You're not sure how to do it. You've heard of Redis, but you're not sure how it can help you.
+
+In this article, you will learn how to performance boost your Node.js app with Redis.
+
+Redis is an open-source, in-memory data structure store, used as a database, cache, and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs, geospatial indexes with radius queries, and streams. Redis has built-in replication, Lua scripting, LRU eviction, transactions, and different levels of on-disk persistence, and provides high availability via Redis Sentinel and automatic partitioning with Redis Cluster.
+
+> assusmes you know both js and nodejs basics 🗿
+
+---
+
+Here comes the main part of the article. We are going to use redis to solve our problem. We are going to use redis as a cache and as a pub/sub.
+
+### Setting up the project 🛠️
+
+First, we are going to create a new node project.
+
+```bash
+mkdir redis-nodejs
+cd redis-nodejs
+npm init -y ## using -y flag to skip the questions
+```
+
+This will create a new node project for us. Its time to add the dependencies.
+
+```bash
+npm i express redis
+```
+
+Now we need to modify the `package.json` file to add the `start` script.
+
+```json
+{
+  "name": "redis-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "redis": "^3.1.2"
+  }
+}
+```
+
+> **Note:** We are using nodemon for development. You can use it or not. It is up to you.
+
+### Setting up the server 🖥️
+
+Now we are going to set up the server. We are going to use express as our server.
+
+```js
+import express from "express";
+
+const app = express();
+const port = 3000;
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
+```
+
+### Creating a basic REST API 📡
+
+For this example, we are going to create a basic REST API which returns us with a random number. We are going to use this API to test our caching system.
+
+```js
+app.get("/random", (req, res) => {
+  res.send({ number: Math.floor(Math.random() * 100) });
+});
+```
+
+### Setting up Redis 🧠
+
+Now we are going to set up Redis. We are going to use the default configuration for Redis. You can change it according to your needs.
+
+```js
+import redis from "redis";
+
+const client = redis.createClient();
+```
+
+### Caching the response 📦
+
+Now we are going to cache the response of our API. We are going to use the `EX` option to set the expiration time of the cache. We are going to set it to 10 seconds.
+
+```js
+app.get("/random", (req, res) => {
+  client.get("randomNumber", (err, data) => {
+    if (err) throw err;
+
+    if (data !== null) {
+      res.send({ number: data });
+    } else {
+      const randomNumber = Math.floor(Math.random() * 100);
+      client.setex("randomNumber", 10, randomNumber);
+      res.send({ number: randomNumber });
+    }
+  });
+});
+```
+
+### Testing the caching system 🧪
+
+Now we are going to test our caching system. We are going to use `curl` to test our API.
+
+```bash
+curl http://localhost:3000/random
+```
+
+This will return us with a random number. Now we are going to test the caching system. We are going to run the same command again.
+
+```bash
+curl http://localhost:3000/random
+```
+
+This time, it will return us with the same number. This is because we have cached the response. Now we are going to wait for 10 seconds and run the same command again.
+
+```bash
+curl http://localhost:3000/random
+```
+
+This time, it will return us with a new number. This is because the cache has expired.
+
+### Conclusion 🎉
+
+After reading this article, you should be able to boost the performance of your Node.js app with Redis. You should be able to use Redis as a cache for your Node.js app and cache the response of your API. This method will help you to reduce the load on your server and improve the performance of your app.
