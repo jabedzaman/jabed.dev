@@ -10,7 +10,7 @@ My personal portfolio website. Built with
 - ORM: [Prisma](https://prisma.io/)
 - Email: [SendGrid](https://sendgrid.com/)
 - Hosting: [Vercel](https://vercel.com/)
-- Analytics: [Google Analytics](https://analytics.google.com/)
+- Analytics: [Vercel Analytics](https://vercel.com/analytics)
 
 ## TODO
 
