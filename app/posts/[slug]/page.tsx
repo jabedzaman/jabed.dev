@@ -1,5 +1,6 @@
 import { allPosts } from "contentlayer/generated";
-import { getMDXComponent } from "next-contentlayer/hooks";
+import { AiOutlineCalendar, AiOutlineClockCircle } from "react-icons/ai";
+import { Mdx } from "@/components/mdx";
 
 export const generateStaticParams = async () =>
   allPosts.map((post) => ({ slug: post._raw.flattenedPath }));
@@ -9,21 +10,43 @@ export const generateMetadata = ({ params }) => {
   return { title: post.title };
 };
 
+const ReadingTime = ({ content }: { content: string }) => {
+  const wordsPerMinute = 200;
+  const words = content.split(/\s/g).length;
+  const minutes = words / wordsPerMinute;
+  const readTime = Math.ceil(minutes);
+  return (
+    <span className="flex flex-row space-x-1 items-center">
+      <AiOutlineClockCircle />
+      <p className="font-thin">{readTime} min read</p>
+    </span>
+  );
+};
+
+const PublishedDate = ({ date }: { date: string }) => {
+  const formattedDate = new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  return (
+    <span className="flex flex-row space-x-1 items-center">
+      <AiOutlineCalendar />
+      <time dateTime={date}>{formattedDate}</time>
+    </span>
+  );
+};
+
 const PostLayout = ({ params }: { params: { slug: string } }) => {
   const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
-
-  const Content = getMDXComponent(post.body.code);
-
   return (
-    <article className="py-8 mx-auto max-w-xl">
-      <div className="mb-8 text-center">
-        <time
-          dateTime={post.date}
-          className="mb-1 text-xs text-gray-600"
-        ></time>
-        <h1>{post.title}</h1>
+    <article>
+      <div className="mb-4 border-b-1 border-b-gray-500">
+        <h1 className="text-blue-400 text-4xl">{post.title}</h1>
+        <ReadingTime content={post.body.raw} />
+        <PublishedDate date={post.date} />
       </div>
-      <Content />
+      <Mdx code={post.body.code} />
     </article>
   );
 };
