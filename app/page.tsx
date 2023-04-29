@@ -19,7 +19,7 @@ const page: NextPage = () => {
         <br />
         <p>
           Get to know more at {" "}
-          <Link href="/setup" className="text-blue-400 hover:text-blue-500">
+          <Link href="/about" className="text-blue-400 hover:text-blue-500">
             here
           </Link>
         </p>
