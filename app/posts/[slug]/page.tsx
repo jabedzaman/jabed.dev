@@ -16,7 +16,7 @@ const ReadingTime = ({ content }: { content: string }) => {
   const minutes = words / wordsPerMinute;
   const readTime = Math.ceil(minutes);
   return (
-    <span className="flex flex-row space-x-1 items-center">
+    <span className="flex flex-row space-x-1 items-center text-sm mt-1">
       <AiOutlineClockCircle />
       <p className="font-thin">{readTime} min read</p>
     </span>
@@ -30,7 +30,7 @@ const PublishedDate = ({ date }: { date: string }) => {
     day: "numeric",
   });
   return (
-    <span className="flex flex-row space-x-1 items-center">
+    <span className="flex flex-row space-x-1 items-center text-sm mt-1">
       <AiOutlineCalendar />
       <time dateTime={date}>{formattedDate}</time>
     </span>
@@ -42,7 +42,7 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
   return (
     <article>
       <div className="mb-4 border-b-1 border-b-gray-500">
-        <h1 className="text-blue-400 text-4xl">{post.title}</h1>
+        <h1 className="text-3xl font-semibold mb-2">{post.title}</h1>
         <ReadingTime content={post.body.raw} />
         <PublishedDate date={post.date} />
       </div>

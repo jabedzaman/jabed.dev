@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 function PostCard(post: Post) {
   return (
-    <div className="mb-8">
-      <h2 className="text-xl">
+    <div className="mb-8 mt-3">
+      <h2 className="text-lg">
         <Link
           href={post.url}
           className="text-blue-700 hover:text-blue-900"

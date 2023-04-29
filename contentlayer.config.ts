@@ -19,6 +19,21 @@ const Post = defineDocumentType(() => ({
       description: "The date of the post",
       required: true,
     },
+    summary: {
+      type: "string",
+      description: "The summary of the post",
+      required: true,
+    },
+    image: {
+      type: "string",
+      description: "The image of the post",
+      required: false,
+    },
+    tags: {
+      type: "string",
+      description: "The tags of the post",
+      required: true,
+    },
   },
   computedFields: {
     url: {
@@ -39,15 +54,19 @@ export default makeSource({
         rehypePrettyCode,
         {
           theme: "one-dark-pro",
-          onVisitLine(node: { children: string | any[]; }) {
+          onVisitLine(node: { children: string | any[] }) {
             if (node.children.length === 0) {
               node.children = [{ type: "text", value: " " }];
             }
           },
-          onVisitHighlightedLine(node: { properties: { className: string[]; }; }) {
+          onVisitHighlightedLine(node: {
+            properties: { className: string[] };
+          }) {
             node.properties.className.push("line--highlighted");
           },
-          onVisitHighlightedWord(node: { properties: { className: string[]; }; }) {
+          onVisitHighlightedWord(node: {
+            properties: { className: string[] };
+          }) {
             node.properties.className = ["word--highlighted"];
           },
         },
