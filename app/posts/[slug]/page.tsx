@@ -1,6 +1,40 @@
 import { allPosts } from "contentlayer/generated";
 import { AiOutlineCalendar, AiOutlineClockCircle } from "react-icons/ai";
 import { Mdx } from "@/components/mdx";
+import type { Metadata } from "next";
+
+export async function Metadata({ params }): Promise<Metadata | undefined> {
+  const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
+  if (!post) {
+    return;
+  }
+  const { title, summary: description, image } = post;
+  const ogImage = image
+    ? `https://jabed.me${image}`
+    : `https://jabed.me/api/og?title=${title}`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      url: `https://jabed.me/post/${params.slug}`,
+      images: [
+        {
+          url: ogImage,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImage],
+    },
+  };
+}
 
 export const generateStaticParams = async () =>
   allPosts.map((post) => ({ slug: post._raw.flattenedPath }));

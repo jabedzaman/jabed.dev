@@ -11,17 +11,22 @@ const page: NextPage = () => {
         <HeadingText />
         <p>
           {getAge()} years old self-taught
-          <b className="text-blue-400"> full stack developer</b>. Profficent in
-          building things for web and android. A wannabe nerd arch linux user
+          <b className="text-indigo-500"> full stack developer</b>. Profficent
+          in building things for web and android. A wannabe nerd arch linux user
           along with vim as code editor. Indulges in anime. Loves to play video
           games.
         </p>
         <br />
         <p>
-          Get to know more at {" "}
-          <Link href="/about" className="text-blue-400 hover:text-blue-500">
-            here
+          Get in touch via{" "}
+          <Link href="mailto:jabed@tuta.io" className="text-indigo-400">
+            email
+          </Link>{" "}
+          or{" "}
+          <Link href="https://twitter.com/xenseee" className="text-indigo-400">
+            twitter
           </Link>
+          .
         </p>
       </div>
     </Suspense>

@@ -11,20 +11,18 @@ export const metadata: Metadata = {
 
 function PostCard(post: Post) {
   return (
-    <div className="mb-8 mt-3">
-      <h2 className="text-lg">
-        <Link
-          href={post.url}
-          className="text-blue-700 hover:text-blue-900"
-          legacyBehavior
-        >
-          {post.title}
-        </Link>
-      </h2>
-      <time dateTime={post.date} className="block mb-2 text-xs text-gray-600">
-        {format(parseISO(post.date), "LLLL d, yyyy")}
-      </time>
-    </div>
+    <Link
+      href={post.url}
+      className="text-blue-700 hover:text-blue-900"
+      legacyBehavior
+    >
+      <div className="mt-3">
+        <h2 className="text-lg">{post.title}</h2>
+        <time dateTime={post.date} className="block mb-2 text-xs text-gray-600">
+          {format(parseISO(post.date), "LLLL d, yyyy")}
+        </time>
+      </div>
+    </Link>
   );
 }
 

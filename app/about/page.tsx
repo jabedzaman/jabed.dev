@@ -4,6 +4,7 @@ import * as React from "react";
 
 export const metadata: Metadata = {
   title: "About",
+  description: "A bit more about jabed",
 };
 
 const page: NextPage = () => {

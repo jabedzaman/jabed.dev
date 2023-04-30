@@ -18,33 +18,22 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   openGraph: {
-    title: siteConfig.openGraph.title,
-    description: siteConfig.openGraph.description,
-    url: siteConfig.openGraph.url,
-    siteName: siteConfig.openGraph.site_name,
-    locale: siteConfig.openGraph.locale,
-    type: "profile",
+    title: siteConfig.title,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: siteConfig.title,
     images: [
       {
-        url: siteConfig.openGraph.url + siteConfig.openGraph.image,
-        width: 1200,
-        height: 630,
-        alt: siteConfig.openGraph.title,
+        url: siteConfig.url + "/og-image.png",
+        width: 1920,
+        height: 1080,
       },
     ],
+    locale: "en-US",
+    type: "website",
   },
   twitter: {
-    title: siteConfig.twitter.title,
-    creator: siteConfig.twitter.creator,
-    description: siteConfig.twitter.description,
-    images : [
-      {
-        url: siteConfig.openGraph.url + siteConfig.openGraph.image,
-        width: 1200,
-        height: 630,
-        alt: siteConfig.openGraph.title,
-      },
-    ],
+    title: siteConfig.title,
   },
   robots: "index, follow",
   icons: {

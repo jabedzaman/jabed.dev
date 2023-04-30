@@ -2,42 +2,23 @@ export type SiteConfig = {
   title: string;
   fullname: string;
   description: string;
+  url: string;
   avatar: string;
-  openGraph: OpenGraph;
   twitter: {
     title: string;
-    creator: string;
-    description: string;
-    image: string;
+    cardType?: string;
   };
 };
 
-type OpenGraph = {
-  title: string;
-  description: string;
-  url: string;
-  site_name: string;
-  locale: string;
-  image?: string;
-};
 
 export const siteConfig: SiteConfig = {
   title: "Jabed",
   fullname: "Jabed Zaman",
   description: "Full Stack Developer",
+  url : "https://jabed.me",
   avatar: "https://avatars.githubusercontent.com/u/99767817?v=4",
-  openGraph: {
-    title: "Jabed",
-    description: "Full Stack Developer",
-    url: "https://jabed.me/",
-    site_name: "jabed",
-    locale: "en_US",
-  },
   twitter: {
     title: "jabed",
-    creator: "@xenseee",
-    description: "Full Stack Developer",
-    image: "https://jabed.me/api/og",
   },
 };
 

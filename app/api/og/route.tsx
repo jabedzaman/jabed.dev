@@ -1,72 +1,38 @@
 import { ImageResponse } from "@vercel/og";
-import { siteConfig } from "@/consts";
+import { NextRequest } from "next/server";
 
 export const runtime = "edge";
 
-export function GET() {
+export function GET(req : NextRequest) {
+  const {searchParams} = new URL(req.url);
+  const title = searchParams.get("title");
   return new ImageResponse(
     (
       <div
         style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          background:
-            "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%)",
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          justifyContent: 'center',
+          backgroundImage: 'url(http://localhost:3000/og.png)',
         }}
       >
         <div
           style={{
-            position: "absolute",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            bottom: 10,
-            left: 10,
-            color: "white",
-            padding: 10,
-            marginLeft: 100,
-            marginBottom: 100,
+            marginLeft: 190,
+            marginRight: 190,
+            display: 'flex',
+            fontSize: 130,
+            letterSpacing: '-0.05em',
+            fontStyle: 'normal',
+            color: 'white',
+            lineHeight: '120px',
+            whiteSpace: 'pre-wrap',
           }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={siteConfig.avatar}
-            style={{
-              width: 70,
-              height: 70,
-              marginRight: 20,
-              borderRadius: "50%",
-            }}
-            alt="avatar"
-          />
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-            }}
-          >
-            <p
-              style={{
-                fontSize: 40,
-                fontWeight: "bold",
-                marginBottom: -10,
-              }}
-            >
-              {siteConfig.title}
-            </p>
-            <p
-              style={{
-                fontSize: 20,
-                fontWeight: "bold",
-                color: "rgba(255,255,255,0.7)",
-              }}
-            >
-              {siteConfig.description}
-            </p>
-          </div>
+          {title}
         </div>
       </div>
     ),

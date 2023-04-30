@@ -16,9 +16,7 @@ My personal portfolio website. Built with
 
 - [ ] `404` page
 - [ ] setup redirects 
-- [ ] Add blog with `contentlayer`
 - [ ] Add toasts for `Input.tsx` in `app/guestbook`
-- [ ] OG Image for SEO, also setup `robots.txt` and `sitemap.xml`
 - [ ] Add Other metrics
 
 ## Running Locally
