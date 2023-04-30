@@ -34,6 +34,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: siteConfig.title,
+    description: siteConfig.description,
   },
   robots: {
     index: true,

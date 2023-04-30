@@ -17,7 +17,7 @@ export const generateMetadata = ({ params }) => {
       url: `https://jabed.me/post/${params.slug}`,
       images: [
         {
-          url: `https://jabed.me${post.image}`,
+          url: `https://jabed.me/${post.title}`,
         },
       ],
     },
