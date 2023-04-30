@@ -15,10 +15,8 @@ My personal portfolio website. Built with
 ## TODO
 
 - [ ] `404` page
-- [ ] setup redirects 
 - [ ] Add toasts for `Input.tsx` in `app/guestbook`
 - [ ] Add Other metrics
-- [ ] Add sponsor button
 
 ## Running Locally
 
