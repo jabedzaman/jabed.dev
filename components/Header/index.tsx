@@ -35,8 +35,8 @@ const Tab = ({ title, path, isActive }: TabProps) => {
       href={path}
       className={`${
         isActive
-          ? "text-indigo-500 border-b border-b-indigo-500"
-          : "text-indigo-400"
+          ? "text-indigo-400 border-b border-b-indigo-400"
+          : "text-indigo-300"
       } `}
     >
       <div>

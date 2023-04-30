@@ -59,15 +59,15 @@ function AnimatedBars() {
     <div className="w-auto flex items-end overflow-hidden">
       <span
         id="bar1"
-        className="w-1 mr-[3px] h-2 bg-gray-300 dark:bg-gray-500 opacity-75"
+        className="w-1 mr-[3px] h-2 bg-gray-500 opacity-75"
       />
       <span
         id="bar2"
-        className="w-1 mr-[3px] h-1 bg-gray-300 dark:bg-gray-500"
+        className="w-1 mr-[3px] h-1 bg-gray-500"
       />
       <span
         id="bar3"
-        className="w-1 h-3 bg-gray-300 dark:bg-gray-500 opacity-80"
+        className="w-1 h-3 bg-gray-500 opacity-80"
       />
     </div>
   );
@@ -100,7 +100,7 @@ export default function NowPlaying() {
       <div className="inline-flex flex-col sm:flex-row w-full max-w-full truncate">
         {data?.songUrl ? (
           <a
-            className="capsize text-gray-800 dark:text-gray-200 font-medium  max-w-max truncate"
+            className="capsize text-gray-200 font-medium  max-w-max truncate"
             href={data.songUrl}
             target="_blank"
             rel="noopener noreferrer"
@@ -108,14 +108,14 @@ export default function NowPlaying() {
             {data.title}
           </a>
         ) : (
-          <p className="capsize text-gray-800 dark:text-gray-200 font-medium">
+          <p className="capsize text-gray-200 font-medium">
             Not Playing
           </p>
         )}
-        <span className="capsize mx-2 text-gray-500 dark:text-gray-300 hidden sm:block">
+        <span className="capsize mx-2 text-gray-300 hidden sm:block">
           {" – "}
         </span>
-        <p className="capsize text-gray-500 dark:text-gray-300 max-w-max truncate">
+        <p className="capsize text-gray-300 max-w-max truncate">
           {data?.artist ?? "Spotify"}
         </p>
       </div>

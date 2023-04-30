@@ -8,7 +8,6 @@ My personal portfolio website. Built with
 - Database: [PlanetScale](https://planetscale.com/)
 - Authentication: [Authjs](https://authjs.dev/)
 - ORM: [Prisma](https://prisma.io/)
-- Email: [SendGrid](https://sendgrid.com/)
 - Hosting: [Vercel](https://vercel.com/)
 - Analytics: [Vercel Analytics](https://vercel.com/analytics)
 
