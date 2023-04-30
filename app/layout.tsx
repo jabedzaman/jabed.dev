@@ -35,7 +35,17 @@ export const metadata: Metadata = {
   twitter: {
     title: siteConfig.title,
   },
-  robots: "index, follow",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   icons: {
     shortcut: "/favicon.ico",
   },
