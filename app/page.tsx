@@ -11,7 +11,7 @@ const page: NextPage = () => {
         <HeadingText />
         <p>
           {getAge()} years old self-taught
-          <b className="text-indigo-500"> full stack developer</b>. Profficent
+          <b className="text-indigo-400"> full stack developer</b>. Profficent
           in building things for web and android. A wannabe nerd arch linux user
           along with vim as code editor. Indulges in anime. Loves to play video
           games.

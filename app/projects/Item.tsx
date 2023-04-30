@@ -36,7 +36,7 @@ function ProjectItem(props: ProjectProps) {
   return (
     <div className="w-full cursor-pointer">
       <a href={props.url}>
-        <div className="py-2 my-1 border border-gray-200 dark:border-gray-700 md:px-5 px-3 flex flex-col justify-between max-h-30 h-full hover:shadow-lg dark:hover:shadow-gray-900 duration-150 ease-in-out">
+        <div className="py-2 my-1 border border-gray-700 md:px-5 px-3 flex flex-col justify-between max-h-30 h-full hover:shadow-lg hover:shadow-gray-900 duration-150 ease-in-out">
           <div>
             <span className="flex flex-row items-center space-x-2">
               <AiOutlineBook />
@@ -54,17 +54,17 @@ function ProjectItem(props: ProjectProps) {
             <div>
               <span className="flex flex-row items-center space-x-2">
                 <span className={`rounded-full w-2 h-2 ${langcolor}`} />
-                <p className="text-gray-500 text-sm hover:text-gray-800 dark:hover:text-gray-300">{props.language}</p>
+                <p className="text-gray-500 text-sm hover:text-gray-300">{props.language}</p>
               </span>
             </div>
             <div className="flex flex-row space-x-1">
-              <div className="flex flex-row space-x-1 md:text-sm text-xs  items-center text-gray-500 hover:text-gray-800 dark:hover:text-gray-300">
+              <div className="flex flex-row space-x-1 md:text-sm text-xs  items-center text-gray-500 hover:text-gray-300">
                 <BiGitRepoForked />
                 <p>
                   {props.forks} <span>forks</span>
                 </p>
               </div>
-              <div className="flex flex-row space-x-1  md:text-sm text-xs items-center text-gray-500 hover:text-gray-800 dark:hover:text-gray-300 ">
+              <div className="flex flex-row space-x-1  md:text-sm text-xs items-center text-gray-500 hover:text-gray-300 ">
                 <AiOutlineStar />
                 <p>
                   {props.stargazers_count} <span>stars</span>
