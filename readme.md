@@ -29,7 +29,7 @@ $ npx prisma generate
 $ pnpm dev
 ```
 
-_*Note: You need to setup environment variables before running dev server.*_
+> *Note:* You need to setup environment variables before running dev server.
 
 ### Environment Variables
 
