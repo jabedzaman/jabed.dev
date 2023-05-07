@@ -27,9 +27,9 @@ const page = async () => {
   return (
     <div>
       <h1 className="text-2xl font-semibold">Guestbook</h1>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div className="h-screen">Loading...</div>}>
         <Input />
-        <ul className="space-y-1 ">
+        <ul className="space-y-2">
           {signatures?.length > 0 ? (
             signatures
               .sort((a: signature, b: signature) => {
@@ -39,12 +39,10 @@ const page = async () => {
                 );
               })
               .map((signature: signature) => (
-                <li key={signature.id} className="flex flex-row space-x-1">
-                  <h3 className="text-gray-400">
-                    {signature.name}
-                    {":"}
-                  </h3>
-                  <p>{signature.message}</p>
+                <li key={signature.id}>
+                  <span className="text-gray-400">{signature.name}</span>
+                  {" : "}
+                  {signature.message}
                 </li>
               ))
           ) : (

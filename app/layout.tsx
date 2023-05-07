@@ -35,6 +35,13 @@ export const metadata: Metadata = {
   twitter: {
     title: siteConfig.title,
     description: siteConfig.description,
+    images : [
+      {
+        url: siteConfig.url + "/og-image.png",
+        width: 1920,
+        height: 1080,
+      },
+    ],
   },
   robots: {
     index: true,
@@ -42,9 +49,9 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   icons: {
@@ -62,7 +69,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en">
       <Providers>
         <body
-          className={`${prompt.className} px-2 py-3 bg-neutral-900 text-gray-100`}
+          className={`${prompt.className} p-4 bg-neutral-900 text-gray-100`}
         >
           <main className="max-w-2xl mx-auto">
             <Header />
