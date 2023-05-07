@@ -1,0 +1,54 @@
+---
+title: Breaking Down a Monolith - When and How to Move to Microservices
+slug: breaking-down-a-monolith-when-and-how-to-move-to-microservices
+summary: The benefits of microservices, when to move to microservices, and how to move to microservices.
+date: 2023-05-08
+tags: microservices, monolith, architecture, software, development
+---
+
+So what were the limitations of the monolith? Why did we move to microservices? What are the benefits of microservices? When should you move to microservices? How do you move to microservices? Let's answer these questions.
+
+<Callout emoji="💡" type="tip">
+ **Architecture** is the fundamental organization of a system embodied in its components, their relationships to each other, and to the environment, and the principles guiding its design and evolution.
+</Callout>
+
+## The Limitations of the Monolith
+
+Coming to the traditional monolith, it was a single codebase that was deployed as a single unit. Single process that ran on a single machine. A single release cycle that was followed for the entire codebase. It was a single point of failure that could bring down the entire application.
+
+Let us assume that we want to scale the application. We would have to scale the entire application. This type of scaling is called vertical scaling. It is expensive and not very efficient. We would have to scale the entire application even if only a small part of the application is being used heavily.
+
+## Difference Between Monolith and Microservices Architecture
+
+In the microservices architecture, the application is broken down into multiple services. Each service is a separate codebase. Each service is deployed as a separate unit. Each service runs as a separate process. Each service can be scaled independently. This type of scaling is called horizontal scaling. It is cheaper and more efficient. We can scale only the services that are being used heavily.
+
+The benefits of having a microservice architecture is that it resolves the limitations of the monolith. It is more scalable, more resilient, and more flexible. It is also more complex and more expensive to build and maintain.
+
+But when should you move to microservices? How do you move to microservices?
+
+Most of the time, you don't need to move to microservices. You can start with a monolith and move to microservices when you need to scale. But if you are a large enterprise, you probably need microservices. You can start with a monolith and move to microservices when you need to scale.
+
+## When to Move to Microservices?
+
+The first question that you should ask yourself is, do you really need microservices? If you are a startup, you probably don't need microservices. You can start with a monolith and move to microservices when you need to scale. If you are a large enterprise, you probably need microservices. You can start with a monolith and move to microservices when you need to scale.
+
+The second question that you should ask yourself is, do you have the resources to build and maintain microservices? If you are a startup, you probably don't have the resources to build and maintain microservices. You can start with a monolith and move to microservices when you have the resources. If you are a large enterprise, you probably have the resources to build and maintain microservices. You can start with a monolith and move to microservices when you need to scale.
+
+> Was my opinion on when to move to microservices... Still its your choice to decide when to move to microservices.
+
+## How to Move to Microservices?
+
+Firstly identify the services. Identify the boundaries of the services. Identify the dependencies between the services.
+Now you can start breaking down the monolith into microservices. You can start with the services that are independent of each other. You can start with the services that have the least dependencies, easy to breakdown, easy to test/deploy.
+
+> Most of the large enterprises have already moved to microservices. Netlfix is one of the biggest examples of microservices. They have over 700 microservices.
+
+## But is Microservices the Best Architecture?
+
+Microservices is not the best architecture. It is just another architecture. It has its own pros and cons. It is more scalable, more resilient, and more flexible. It is also more complex and more expensive to build and maintain.
+
+With a microservices architecture, the system is composed of many independent services that communicate with each other, which can make the system more complex to understand and manage. As microservices are distributed systems, they can introduce additional challenges related to networking, communication, and handling failures across the distributed system. Maintaining data consistency across multiple services can be challenging, especially when changes to data need to be made across multiple services. Defining proper service boundaries can be challenging, especially when different services share functionality or data.
+
+## Conclusion
+
+Both monolith and microservices have their own pros and cons. You should choose the architecture that best suits your needs. If you are a startup, you probably don't need microservices. You can start with a monolith and move to microservices when you need to scale. If you are a large enterprise, you probably need microservices.
