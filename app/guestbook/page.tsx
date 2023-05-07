@@ -16,7 +16,7 @@ export type signature = {
 };
 
 const page = async () => {
-  const res = await fetch(utils.URL + "/api/v1/signatures", {
+  const res = await fetch("http://127.0.0.1:3000/api/v1/signatures", {
     next: {
       revalidate: 1,
     },

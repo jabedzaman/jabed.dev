@@ -1,4 +1,4 @@
-import { URL } from "@/utils";
+// import { URL } from "@/utils";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import ProjectItem from "./Item";
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const page = async () => {
-  const data = await fetch(URL + "/api/v1/metrics", {
+  const data = await fetch("http://127.0.0.1:3000/api/v1/metrics", {
     next: {
       revalidate: 60,
       tags: ["projects"],
