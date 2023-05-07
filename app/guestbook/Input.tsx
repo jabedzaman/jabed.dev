@@ -41,7 +41,7 @@ const Form = () => {
   const [input, setInput] = React.useState<string>("");
   const handlesubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await fetch("http://127.0.0.1:3000/api/v1/addsignature", {
+    await fetch("/api/v1/addsignature", {
       method: "POST",
       body: JSON.stringify({
         email: session?.user?.email,

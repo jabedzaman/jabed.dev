@@ -8,7 +8,7 @@ import { IoPeopleOutline } from "react-icons/io5";
 import { AiOutlineDesktop } from "react-icons/ai";
 
 const page = async () => {
-  const data = await fetch("http://127.0.0.1:3000/api/v1/metrics").then((res) => res.json());
+  const data = await fetch(URL + "/api/v1/metrics").then((res) => res.json());
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div>
@@ -57,7 +57,6 @@ const page = async () => {
         <IoPeopleOutline className="inline-block mr-2" /> 4325 views on this
         website.
       </div>
-      <div className="md:py-36 py-0 ease-in-out duration-100 transform" />
     </Suspense>
   );
 };
