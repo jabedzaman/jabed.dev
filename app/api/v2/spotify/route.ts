@@ -8,9 +8,9 @@ const {
 } = process.env;
 
 const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
-const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-playing`;
-// const TOP_TRACKS_ENDPOINT = `https://api.spotify.com/v1/me/top/tracks`;
-// const RECENTLY_PLAYED_ENDPOINT = `https://api.spotify.com/v1/me/player/recently-played`;
+const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v2/me/player/currently-playing`;
+// const TOP_TRACKS_ENDPOINT = `https://api.spotify.com/v2/me/top/tracks`;
+// const RECENTLY_PLAYED_ENDPOINT = `https://api.spotify.com/v2/me/player/recently-played`;
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
 
 const getAccessToken = async () => {
@@ -72,7 +72,7 @@ export async function GET(req: Request) {
     return NextResponse.json({
       isPlaying: false,
       // topTracks: await topTracksRes.json(),
-    //   recentlyPlayed: await recentlyPlayedRes.json(),
+      //   recentlyPlayed: await recentlyPlayedRes.json(),
     });
   }
 

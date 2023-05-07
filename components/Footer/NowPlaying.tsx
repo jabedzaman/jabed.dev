@@ -57,18 +57,9 @@ function AnimatedBars() {
 
   return (
     <div className="w-auto flex items-end overflow-hidden">
-      <span
-        id="bar1"
-        className="w-1 mr-[3px] h-2 bg-gray-500 opacity-75"
-      />
-      <span
-        id="bar2"
-        className="w-1 mr-[3px] h-1 bg-gray-500"
-      />
-      <span
-        id="bar3"
-        className="w-1 h-3 bg-gray-500 opacity-80"
-      />
+      <span id="bar1" className="w-1 mr-[3px] h-2 bg-gray-500 opacity-75" />
+      <span id="bar2" className="w-1 mr-[3px] h-1 bg-gray-500" />
+      <span id="bar3" className="w-1 h-3 bg-gray-500 opacity-80" />
     </div>
   );
 }
@@ -84,7 +75,7 @@ export interface NowPlayingSong {
 }
 
 export default function NowPlaying() {
-  const { data } = useSWR<NowPlayingSong>("/api/v1/spotify", fetcher);
+  const { data } = useSWR<NowPlayingSong>("/api/v2/spotify", fetcher);
   return (
     <div className="flex flex-row-reverse items-center sm:flex-row mb-3 space-x-0 sm:space-x-2 w-full">
       {data?.songUrl ? (
@@ -108,9 +99,7 @@ export default function NowPlaying() {
             {data.title}
           </a>
         ) : (
-          <p className="capsize text-gray-200 font-medium">
-            Not Playing
-          </p>
+          <p className="capsize text-gray-200 font-medium">Not Playing</p>
         )}
         <span className="capsize mx-2 text-gray-300 hidden sm:block">
           {" – "}

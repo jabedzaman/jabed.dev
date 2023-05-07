@@ -1,7 +1,7 @@
 {
     "crons": [
         {
-            "path": "/api/v1/signatures",
+            "path": "/api/v2/signatures",
             "schedule": "0 5 * * *"
         }
     ]

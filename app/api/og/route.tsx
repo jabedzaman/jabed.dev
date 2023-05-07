@@ -16,7 +16,7 @@ export function GET(req : NextRequest) {
           flexDirection: 'column',
           alignItems: 'flex-start',
           justifyContent: 'center',
-          backgroundImage: 'url(http://localhost:3000/og.png)',
+          backgroundImage: 'url(http://jabed.me/og-image.png)',
         }}
       >
         <div
@@ -24,7 +24,7 @@ export function GET(req : NextRequest) {
             marginLeft: 190,
             marginRight: 190,
             display: 'flex',
-            fontSize: 130,
+            fontSize: 80,
             letterSpacing: '-0.05em',
             fontStyle: 'normal',
             color: 'white',

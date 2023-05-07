@@ -8,9 +8,10 @@ export const metadata: Metadata = {
 };
 
 const page = async () => {
-  const data = await fetch(URL + "/api/v1/metrics", {
+  const data = await fetch(URL + "/api/v2/metrics", {
     next: {
-      revalidate: 3600,
+      revalidate: 60,
+      tags: ["projects"],
     },
   })
     .then((res) => res.json())
