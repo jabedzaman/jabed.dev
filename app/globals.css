@@ -54,6 +54,11 @@ html {
 .prose img {
   /* Don't apply styles to next/image */
   @apply m-0;
+  border-radius: 0.25rem;
+  max-height: 500px;
+  max-width: 100%;
+  display: block; 
+  margin: 0 auto; 
 }
 
 .prose > :first-child {
