@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import Input from "./Input";
-import * as utils from "@/utils";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
@@ -16,7 +15,7 @@ export type signature = {
 };
 
 const page = async () => {
-  const res = await fetch(utils.URL +"/api/v1/signatures", {
+  const res = await fetch("https://jabed.me/api/v1/signatures", {
     next: {
       revalidate: 1,
     },

@@ -1,14 +1,13 @@
-// import { URL } from "@/utils";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { Octokit } from "@octokit/rest";
 import ProjectItem from "./Item";
 
-const getdata = async () => {
-  const octokit = new Octokit({
-    auth: process.env.GITHUB_TOKEN,
-  });
+const octokit = new Octokit({
+  auth: process.env.GITHUB_TOKEN,
+});
 
+const getdata = async () => {
   const { data: repos } = await octokit.repos.listForUser({
     username: "jabedzaman",
   });
@@ -41,8 +40,10 @@ const getdata = async () => {
   };
 };
 
+
 export const metadata: Metadata = {
   title: "Projects",
+  description: "Projects by Jabed Zaman",
 };
 
 const page = async () => {

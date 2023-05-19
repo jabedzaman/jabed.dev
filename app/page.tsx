@@ -2,13 +2,30 @@ import { Suspense } from "react";
 import HeadingText from "@/components/HeadingText";
 import { info } from "@/consts";
 import Link from "next/link";
-import { URL } from "@/utils";
 import { BiTrendingUp } from "react-icons/bi";
 import { IoPeopleOutline } from "react-icons/io5";
 import { AiOutlineDesktop } from "react-icons/ai";
+import { Octokit } from "@octokit/rest";
 
 const page = async () => {
-  const data = await fetch(URL + "/api/v1/metrics").then((res) => res.json());
+  const octokit = new Octokit({
+    auth: process.env.GITHUB_TOKEN,
+  });
+  const followers = await octokit.users.listFollowersForUser({
+    username: "jabedzaman",
+  });
+  const repos = await octokit.repos.listForUser({
+    username: "jabedzaman",
+  });
+  const total_stars = repos.data.reduce((acc, repo) => {
+    return acc + repo.stargazers_count;
+  }, 0);
+  const public_repos = repos.data.length;
+  const data = {
+    total_followers: followers.data.length,
+    total_stars,
+    public_repos,
+  };
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div>
@@ -44,18 +61,30 @@ const page = async () => {
         for future visitors.
       </div>
       <div className="mt-4">
-        <BiTrendingUp className="inline-block mr-2" /> Got{" "}
-        {data?.total_followers} followers on{" "}
-        <Link href={"/github"}>
-          <Highlight>Github</Highlight>
-        </Link>{" "}
-        with {data?.total_stars} stars on {data?.public_repos} public repos.
-        <br />
-        <AiOutlineDesktop className="inline-block mr-2" /> Been coding for 728
-        hours since Jan &apos;23.
-        <br />
-        <IoPeopleOutline className="inline-block mr-2" /> 4325 views on this
-        website.
+        <div className="flex flex-row items-stretch space-x-2">
+          <div>
+            <BiTrendingUp className="inline-block mr-2" />
+          </div>
+          <div>
+            Got {data?.total_followers} followers on{" "}
+            <Link href={"/github"}>
+              <Highlight>Github</Highlight>
+            </Link>{" "}
+            with {data?.total_stars} stars on {data?.public_repos} public repos.
+          </div>
+        </div>
+        <div className="flex flex-row items-stretch space-x-2">
+          <div>
+            <AiOutlineDesktop className="inline-block mr-2" />
+          </div>
+          <div>Been coding for 728 hours since Jan &apos;23.</div>
+        </div>
+        <div className="flex flex-row items-stretch space-x-2">
+          <div>
+            <IoPeopleOutline className="inline-block mr-2" />
+          </div>
+          <div> 4325 views on this website.</div>
+        </div>
       </div>
     </Suspense>
   );

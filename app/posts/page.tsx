@@ -37,7 +37,6 @@ const page: NextPage = () => {
       {posts.map((post) => (
         <PostCard key={post._raw.flattenedPath} {...post} />
       ))}
-      <div className="md:py-40 py-0 ease-in-out duration-100 transform" />
     </div>
   );
 };

@@ -34,7 +34,7 @@ function ProjectItem(props: ProjectProps) {
       langcolor = "bg-green-600";
   }
   return (
-    <div className="w-full cursor-pointer">
+    <div className="w-full mb-1 h-28 cursor-pointer">
       <a href={props.url}>
         <div className="py-2 my-1 border border-gray-700 md:px-5 px-3 flex flex-col justify-between max-h-30 h-full hover:shadow-lg hover:shadow-gray-900 duration-150 ease-in-out">
           <div>
