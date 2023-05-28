@@ -60,17 +60,14 @@ const Form = () => {
   };
   return (
     <div className="lg:py-3 py-2 md:mb-4 my-2 ease-in-out duration-100">
-      <div>
-        <h3 className="text-gray-200">Leave a message</h3>
-      </div>
-      <div className="px-2 my-1 bg-blue-200 rounded-sm">
+      <div className="px-3 my-1 rounded-sm border border-gray-500">
         <form
           onSubmit={handlesubmit}
-          className="flex flex-wrap justify-between my-2 py-1 md:space-y-0 space-y-1 items-center"
+          className="flex flex-wrap justify-between my-2 md:space-y-0 space-y-1 items-center"
         >
           <input
             type="text"
-            className="w-3/4 focus:outline-none py-1 bg-inherit text-gray-900 placeholder:text-gray-600"
+            className="w-3/4 focus:outline-none py-1 bg-inherit text-gray-200 placeholder:text-gray-600"
             placeholder="Please enter your message"
             value={input}
             onChange={(e) => setInput(e.target.value)}

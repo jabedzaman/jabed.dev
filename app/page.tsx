@@ -21,7 +21,7 @@ const page = async () => {
     return acc + repo.stargazers_count;
   }, 0);
   const public_repos = repos.data.length;
-  const data = {
+  const github_data = {
     total_followers: followers.data.length,
     total_stars,
     public_repos,
@@ -32,9 +32,12 @@ const page = async () => {
         <HeadingText />
         <p>
           {getAge()} years old self-taught{" "}
-          <Highlight>full stack developer</Highlight>. Profficent in building
-          things for web and android. A wannabe nerd arch linux user along with
-          vim as code editor. Indulges in anime. Loves to play video games.
+          <Highlight>
+            <Link href="/about">full stack developer</Link>
+          </Highlight>
+          . Profficent in building things for web and android. A wannabe nerd
+          arch linux user along with vim as code editor. Indulges in anime.
+          Loves to play video games.
         </p>
         <br />
         <p>
@@ -66,11 +69,12 @@ const page = async () => {
             <BiTrendingUp className="inline-block mr-2" />
           </div>
           <div>
-            Got {data?.total_followers} followers on{" "}
+            Got {github_data?.total_followers} followers on{" "}
             <Link href={"/github"}>
               <Highlight>Github</Highlight>
             </Link>{" "}
-            with {data?.total_stars} stars on {data?.public_repos} public repos.
+            with {github_data?.total_stars} stars on {github_data?.public_repos}{" "}
+            public repos.
           </div>
         </div>
         <div className="flex flex-row items-stretch space-x-2">

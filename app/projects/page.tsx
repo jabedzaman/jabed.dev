@@ -58,16 +58,16 @@ const page = async () => {
             .filter(
               (repo: any) => !repo.name.includes("jabedzaman") && !repo.isfork
             )
-            .map((project: any, key: number) => (
+            .map((repo: any, key: number) => (
               <ProjectItem
                 key={key}
-                url={project.url}
-                name={project.name}
-                description={project.description}
-                language={project.language}
-                forks={project.forks}
-                id={project.id}
-                stargazers_count={project.stars}
+                url={repo.url}
+                name={repo.name}
+                description={repo.description}
+                language={repo.language}
+                forks={repo.forks}
+                id={repo.id}
+                stargazers_count={repo.stars}
               />
             ))}
         </section>

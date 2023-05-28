@@ -39,8 +39,10 @@ const page = async () => {
               })
               .map((signature: signature) => (
                 <li key={signature.id}>
-                  <span className="text-gray-400">{signature.name}</span>
-                  {" : "}
+                  <span className="text-gray-400">
+                    {signature.name}
+                    {":"}
+                  </span>
                   {signature.message}
                 </li>
               ))
