@@ -24,56 +24,56 @@ Firstly we would need our SendGrid API key & postgres database url.
 
 ### Getting our SendGrid API key
 
-- Visit [SendGrid](https://sendgrid.com/) and create an account if you don't have one already.
+Visit [SendGrid](https://sendgrid.com/) and create an account if you don't have one already.
 
 ![SendGrid API Keys](/images/sendgrid-login.png)
 
-- Click on API keys on the left side menu and then click on Create API Key.
+Click on API keys on the left side menu and then click on Create API Key.
 
 ![SendGrid API Keys](/images/sendgrid-apikey.png)
 ![SendGrid API Keys](/images/sendgrid-apikey-create.png)
 
-- Give your API key a name and then select restricted access and then set the permissions to Mail Send. Then click on Create & View.
+Give your API key a name and then select restricted access and then set the permissions to Mail Send. Then click on Create & View.
 
 ![SendGrid API Keys](/images/sendgrid-apikey-create-tut.png)
 ![SendGrid API Keys](/images/sendgrid-apikey-create-view.png)
 
-- Copy the API key and save it somewhere safe.
+Copy the API key and save it somewhere safe.
 
 ### Getting our Postgres database url
 
-- Visit [Railway](https://railway.app/) and create an account if you don't have one already.
-- Move to the dashboard and click on New Project and select `Provision PostgreSQL` and then click on `Create Project`.
+Visit [Railway](https://railway.app/) and create an account if you don't have one already.
+Move to the dashboard and click on New Project and select `Provision PostgreSQL` and then click on `Create Project`.
 
 ![Railway](/images/railway-new-db.png)
 
 > You can also use any other service like [ElephantSQL](https://www.elephantsql.com/) or [Heroku](https://www.heroku.com/) to get your postgres database url.
 
-- Click on the database and then click on `Connect` and then click on Database URL and copy the url and save it somewhere safe.
+Click on the database and then click on `Connect` and then click on Database URL and copy the url and save it somewhere safe.
 
 ![Railway](/images/railway-new-db-connect.png)
 
 ### Creating our project
 
-- Create a new folder and then open it in your terminal and run the following command.
+Create a new folder and then open it in your terminal and run the following command.
 
 ```bash
 npm init -y
 ```
 
-- Now install the following dependencies.
+Now install the following dependencies.
 
 ```bash
 npm i express cors @prisma/client dotenv jsonwebtoken @sendgrid/mail
 ```
 
-- Now install the following dev dependencies.
+Now install the following dev dependencies.
 
 ```bash
 npm i -D typescript tsup @types/express @types/cors @types/node @types/jsonwebtoken
 ```
 
-- Create a `.env` file and add the following variables.
+Create a `.env` file and add the following variables.
 
 ```env
 SENDGRID_API_KEY=YOUR_SENDGRID_API_KEY
@@ -82,7 +82,7 @@ JWT_SECRET=YOUR_JWT_SECRET # You can generate a random secret using openssl rand
 NODE_ENV=development # You can change this to production when you are ready to deploy
 ```
 
-- Create a `tsconfig.json` file and add the following code.
+Create a `tsconfig.json` file and add the following code.
 
 ```json
 {
@@ -107,7 +107,7 @@ NODE_ENV=development # You can change this to production when you are ready to d
 }
 ```
 
-- Create a `tsup.config.ts` file and add the following code.
+Create a `tsup.config.ts` file and add the following code.
 
 ```ts
 import { defineConfig } from "tsup";
@@ -131,7 +131,7 @@ export default defineConfig({
 });
 ```
 
-- Edit your `package.json` file and add the following scripts.
+Edit your `package.json` file and add the following scripts.
 
 ```json
 {
@@ -143,13 +143,13 @@ export default defineConfig({
 }
 ```
 
-- Create a `src/index.ts` file and add the following code.
+Create a `src/index.ts` file and add the following code.
 
 ```ts
 console.log("Hello World");
 ```
 
-- Now run the following command to start the server.
+Now run the following command to start the server.
 
 ```bash
 npm run dev
@@ -162,7 +162,7 @@ npm run dev
 
 ### Setting up Prisma
 
-- Run the following command to generate the prisma schema. This will create a `prisma` folder and a `schema.prisma` file inside it.
+Run the following command to generate the prisma schema. This will create a `prisma` folder and a `schema.prisma` file inside it.
 
 ```bash
 npx prisma init
@@ -181,7 +181,7 @@ npx prisma init
 └── package-lock.json
 ```
 
-- Now edit your `schema.prisma` file and add the following code.
+Now edit your `schema.prisma` file and add the following code.
 
 ```prisma
 // This is your Prisma schema file,
@@ -205,13 +205,13 @@ model User {
 }
 ```
 
-- Now run the following command to generate the prisma client and push the schema to the database.
+Now run the following command to generate the prisma client and push the schema to the database.
 
 ```bash
 npx prisma generate && npx prisma db push
 ```
 
-- Now create a new file `src/config/prisma.ts` and add the following code.
+Now create a new file `src/config/prisma.ts` and add the following code.
 
 ```ts
 import { PrismaClient } from "@prisma/client";
@@ -228,7 +228,7 @@ export default prisma;
 
 This will create a prisma client instance which we will use to interact with our database.
 
-- Now time to create helpers to generate tokens and verify them. Create a new file `src/utils/jwt.ts` and add the following code.
+Now time to create helpers to generate tokens and verify them. Create a new file `src/utils/jwt.ts` and add the following code.
 
 ```ts
 import jwt from "jsonwebtoken";
@@ -246,7 +246,7 @@ export const verifyToken = (token: string) => {
 };
 ```
 
-- Time to create a service which will send the mail with the token verfication link. Create a new file `src/services/sendMail.ts` and add the following code.
+Time to create a service which will send the mail with the token verfication link. Create a new file `src/services/sendMail.ts` and add the following code.
 
 ```ts
 import sgMail from "@sendgrid/mail";
@@ -267,7 +267,7 @@ export const sendMail = async (to: string, token: string) => {
 };
 ```
 
-- Now time to create the Controller for our API. Create a new file `src/controllers/createUser.ts` and add the following code.
+Now time to create the Controller for our API. Create a new file `src/controllers/createUser.ts` and add the following code.
 
 ```ts
 import { Request, Response } from "express";
@@ -301,7 +301,7 @@ export const createUser = async (req: Request, res: Response) => {
 };
 ```
 
-- Now we alredy have sent the mail. Time to verify the token. Create a new file `src/controllers/verifyUser.ts` and add the following code.
+Now we alredy have sent the mail. Time to verify the token. Create a new file `src/controllers/verifyUser.ts` and add the following code.
 
 ```ts
 import { Request, Response } from "express";
@@ -333,7 +333,7 @@ const verificationToken = async (req: Request, res: Response) => {
 export default verificationToken;
 ```
 
-- Now lets sum up everything... Edit your `src/index.ts` file and add the following code.
+Now lets sum up everything... Edit your `src/index.ts` file and add the following code.
 
 ```ts
 import express from "express";
@@ -354,7 +354,7 @@ app.listen(3000, () => {
 });
 ```
 
-- Now run the following command to start the server.
+Now run the following command to start the server.
 
 ```bash
 npm run dev
@@ -362,7 +362,7 @@ npm run dev
 
 ### Testing our API
 
-- Open Postman and create a new request to `http://localhost:3000/create` and set the method to `POST` and then click on `Body` and then select `raw` and then select `JSON` and then add the following code.
+Open Postman and create a new request to `http://localhost:3000/create` and set the method to `POST` and then click on `Body` and then select `raw` and then select `JSON` and then add the following code.
 
 ```json
 {
@@ -370,7 +370,7 @@ npm run dev
 }
 ```
 
-- Now click on `Send` and you should get a response like this.
+Now click on `Send` and you should get a response like this.
 
 ```json
 {
@@ -378,11 +378,11 @@ npm run dev
 }
 ```
 
-- Now open your email and you should have received an email from SendGrid.
+Now open your email and you should have received an email from SendGrid.
 
 ![SendGrid Email](/images/sendgrid-email.png)
 
-- Now click on the link and you should get a response like this.
+Now click on the link and you should get a response like this.
 
 ```json
 {

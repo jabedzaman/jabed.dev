@@ -16,19 +16,19 @@ Lets take a example to understand the basics of Docker Compose. We will create a
 
 ## Getting Started
 
-- Create a new directory and give it a name of your choice. For this demo I will name it `docker-compose-demo`
+Create a new directory and give it a name of your choice. For this demo I will name it `docker-compose-demo`
     ```bash
     mkdir docker-compose-demo
     cd docker-compose-demo
     ```
-- Now create a new file named `docker-compose.yml` . This is the file where we will define our application's services. It serves a similar purpose as `Dockerfile` but for multiple containers and acts as a config file for Docker Compose.
+Now create a new file named `docker-compose.yml` . This is the file where we will define our application's services. It serves a similar purpose as `Dockerfile` but for multiple containers and acts as a config file for Docker Compose.
 
-- At the top of the file, we specify the version of Docker Compose we are using. For this demo we will use version 3.9. You can find the latest version [here](https://docs.docker.com/compose/compose-file/compose-versioning/)
+At the top of the file, we specify the version of Docker Compose we are using. For this demo we will use version 3.9. You can find the latest version [here](https://docs.docker.com/compose/compose-file/compose-versioning/)
 
     ```yaml
     version: "3.9"
     ```
-- Lets create a basic express server to serve our web application. In the terminal hit `npm init -y` to create a new node project. Then install express and pg using `npm install express pg`. Create a new file named `index.js` and add the following code to it.
+Lets create a basic express server to serve our web application. In the terminal hit `npm init -y` to create a new node project. Then install express and pg using `npm install express pg`. Create a new file named `index.js` and add the following code to it.
 
     ```javascript
     const express = require('express')
@@ -59,7 +59,7 @@ Lets take a example to understand the basics of Docker Compose. We will create a
     })
     ```
 
-- Now in the `package.json` file, add the following script to start the server.
+Now in the `package.json` file, add the following script to start the server.
 
     ```json
     "scripts": {
@@ -67,7 +67,7 @@ Lets take a example to understand the basics of Docker Compose. We will create a
     }
     ```
 
-- Now lets create a Dockerfile to build our application image. Create a new file named `Dockerfile` and add the following code to it.
+Now lets create a Dockerfile to build our application image. Create a new file named `Dockerfile` and add the following code to it.
 
     ```dockerfile
     FROM node:18
@@ -85,12 +85,12 @@ Lets take a example to understand the basics of Docker Compose. We will create a
     CMD ["yarn", "start"]
     ```
 
-- Dont forget to add `.dockerignore` file to ignore `node_modules` folder.
+Dont forget to add `.dockerignore` file to ignore `node_modules` folder.
 
     ```bash
     node_modules
     ```
-- Coming back to our `docker-compose.yml` , we need to define our services. In the example we will create two services namely db and app. Add the following code to out yaml file to define two containers.
+Coming back to our `docker-compose.yml` , we need to define our services. In the example we will create two services namely db and app. Add the following code to out yaml file to define two containers.
 
     ```yaml
     services:
@@ -98,7 +98,7 @@ Lets take a example to understand the basics of Docker Compose. We will create a
         app:
     ```
 
-- Now the first container named `db` will have a image of postgres. We will also define the environment variables for the container. Add the following code to the `db` service. Witht the help of port mapping we will map the port 5432 of the container to port 5432 of the host machine.
+Now the first container named `db` will have a image of postgres. We will also define the environment variables for the container. Add the following code to the `db` service. Witht the help of port mapping we will map the port 5432 of the container to port 5432 of the host machine.
 
     ```yaml
 
@@ -113,7 +113,7 @@ Lets take a example to understand the basics of Docker Compose. We will create a
             - "5432:5432"
     ```
 
-- Now for the app container, we will use the image we created using the Dockerfile. Add the following code to the `app` service. Witht the help of port mapping we will map the port 3000 of the container to port 3000 of the host machine.
+Now for the app container, we will use the image we created using the Dockerfile. Add the following code to the `app` service. Witht the help of port mapping we will map the port 3000 of the container to port 3000 of the host machine.
 
     ```yaml
     app:
@@ -122,20 +122,20 @@ Lets take a example to understand the basics of Docker Compose. We will create a
             - "3000:3000"
     ```
 
-- Our app depends on the database. So we need to define the dependency. Add the following code to the `app` service.
+Our app depends on the database. So we need to define the dependency. Add the following code to the `app` service.
 
     ```yaml
     depends_on:
         - db
     ```
 
-- Also Imagine if the container goes down then we will lose all the data. So we need to define a volume to persist the data. Add the following code to the `db` service.
+Also Imagine if the container goes down then we will lose all the data. So we need to define a volume to persist the data. Add the following code to the `db` service.
 
     ```yaml
     volumes:
           - ./data:/var/lib/postgresql/data
     ```
-- Now we are done. Our `docker-compose.yml` file should look like this.
+Now we are done. Our `docker-compose.yml` file should look like this.
 
     ```yaml
     version: "3.9"
@@ -159,24 +159,24 @@ Lets take a example to understand the basics of Docker Compose. We will create a
                 - db
     ```
 
-- Time to build and run our application. In the terminal run the following command to build and run the application.
+Time to build and run our application. In the terminal run the following command to build and run the application.
 
     ```bash
     docker-compose build
     ```
     ![docker-compose-build](/images/docker-compose-build.png)
 
-- Now lets start the application in detached mode. In the terminal run the following command to run the application in detached mode.
+Now lets start the application in detached mode. In the terminal run the following command to run the application in detached mode.
 
     ```bash
     docker-compose up -d
     ```
 
-- Now we are done!!!
+Now we are done!!!
 
   ![docker-compose-up](/images/docker-compose-up.png)
 
-- To stop the application, run the following command.
+To stop the application, run the following command.
 
     ```bash
     docker-compose down
