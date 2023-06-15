@@ -26,12 +26,16 @@ function ProjectItem(props: ProjectProps) {
     case "Rust":
       langcolor = "bg-red-400";
       break;
+    case "Go":
+      langcolor = "bg-blue-300";
+      break;
     case "Shell":
       langcolor = "bg-green-500";
+      break;
     case "Makefile":
       langcolor = "bg-green-800";
     default:
-      langcolor = "bg-green-600";
+      langcolor = "bg-blue-600";
   }
   return (
     <div className="w-full mb-1 h-28 cursor-pointer">
@@ -54,7 +58,9 @@ function ProjectItem(props: ProjectProps) {
             <div>
               <span className="flex flex-row items-center space-x-2">
                 <span className={`rounded-full w-2 h-2 ${langcolor}`} />
-                <p className="text-gray-500 text-sm hover:text-gray-300">{props.language}</p>
+                <p className="text-gray-500 text-sm hover:text-gray-300">
+                  {props.language}
+                </p>
               </span>
             </div>
             <div className="flex flex-row space-x-1">

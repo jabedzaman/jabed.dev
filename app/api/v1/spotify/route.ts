@@ -1,6 +1,26 @@
 import querystring from "querystring";
 import { NextResponse } from "next/server";
 
+const edgeCache = {
+  browser: {
+    maxAgeSeconds: 0,
+  },
+  edge: {
+    maxAgeSeconds: 60 * 60 * 24,
+  },
+};
+
+export const config = {
+  api: {
+    bodyParser: false,
+    externalResolver: true,
+  },
+  edge: {
+    ...edgeCache,
+  },
+};
+
+
 const {
   NEXT_PUBLIC_SPOTIFY_CLIENT_ID: client_id,
   NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET: client_secret,

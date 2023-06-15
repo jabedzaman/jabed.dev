@@ -41,7 +41,7 @@ const page = async () => {
                 <li key={signature.id}>
                   <span className="text-gray-400">
                     {signature.name}
-                    {":"}
+                    {" : "}
                   </span>
                   {signature.message}
                 </li>

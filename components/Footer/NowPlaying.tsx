@@ -76,6 +76,18 @@ export interface NowPlayingSong {
 
 export default function NowPlaying() {
   const { data } = useSWR<NowPlayingSong>("/api/v1/spotify", fetcher);
+  // const data = fetch("/api/v1/spotify",
+  //   {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     cache: "no-cache",
+  //     next: {
+  //       revalidate: 1,
+  //     }
+  //   }
+  // ) as unknown as NowPlayingSong;
   return (
     <div className="flex flex-row-reverse items-center sm:flex-row mb-3 space-x-0 sm:space-x-2 w-full">
       {data?.songUrl ? (
