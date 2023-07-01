@@ -1,4 +1,4 @@
-import { health } from "../helpers/health.service";
+import { health } from "../services/health.service";
 import { Request, Response } from "express";
 
 export const healthController = async (req: Request, res: Response) => {
