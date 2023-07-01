@@ -1,22 +1,21 @@
 {
-  "name": "jabed.dev",
-  "version": "0.3.0",
-  "description": "Portfolio + Rest API for jabed.dev",
-  "main": "index.js",
+  "name": "@jabed.dev/api",
+  "version": "0.1.0",
+  "description": "Rest API for jabed.dev",
+  "main": "build/index.js",
   "scripts": {
-    "build": "turbo build",
-    "start": "turbo start",
-    "dev": "turbo dev"
+    "build": "tsc -p .",
+    "start": "node build/index.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jabedzaman/jabed.dev.git"
   },
   "keywords": [
-    "Jabed Zaman",
-    "jabed.dev",
-    "portfolio",
-    "api"
+    "api",
+    "nodejs",
+    "jabed.dev"
   ],
   "author": "jabedzaman <hi@jabed.dev> (https://jabed.dev)",
   "license": "MIT",
@@ -25,7 +24,7 @@
   },
   "homepage": "https://github.com/jabedzaman/jabed.dev#readme",
   "devDependencies": {
-    "turbo": "^1.10.7",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.1.6"
   }
 }
