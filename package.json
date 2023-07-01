@@ -1,54 +1,28 @@
 {
   "name": "jabed.dev",
   "version": "0.3.0",
-  "private": true,
+  "description": "Portfolio + Rest API for jabed.dev",
+  "main": "index.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "prepare": "husky install",
-    "clean": "rm -rf .next node_modules",
-    "postinstall": "npx prisma generate"
+    "test": "jest"
   },
-  "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jabedzaman/jabed.dev.git"
   },
-  "dependencies": {
-    "@octokit/rest": "^19.0.11",
-    "@types/node": "18.16.0",
-    "@types/react": "18.0.38",
-    "@types/react-dom": "18.0.11",
-    "@vercel/analytics": "^1.0.1",
-    "@vercel/og": "^0.5.6",
-    "autoprefixer": "10.4.14",
-    "contentlayer": "^0.3.2",
-    "date-fns": "^2.30.0",
-    "eslint": "8.39.0",
-    "eslint-config-next": "13.3.1",
-    "motion": "^10.16.2",
-    "next": "^13.4.4",
-    "next-auth": "^4.22.1",
-    "next-contentlayer": "^0.3.2",
-    "postcss": "8.4.23",
-    "querystring": "^0.2.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-icons": "^4.9.0",
-    "react-simple-typewriter": "^5.0.1",
-    "rehype-autolink-headings": "^6.1.1",
-    "rehype-pretty-code": "^0.9.6",
-    "rehype-slug": "^5.1.0",
-    "remark-gfm": "^3.0.1",
-    "swr": "^2.1.5",
-    "tailwindcss": "3.3.1",
-    "typescript": "5.0.4"
+  "keywords": [
+    "Jabed Zaman",
+    "jabed.dev",
+    "portfolio",
+    "api"
+  ],
+  "author": "jabedzaman <hi@jabed.dev> (https://jabed.dev)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jabedzaman/jabed.dev/issues"
   },
+  "homepage": "https://github.com/jabedzaman/jabed.dev#readme",
   "devDependencies": {
-    "@prisma/client": "^4.14.1",
-    "@tailwindcss/typography": "^0.5.9",
-    "encoding": "^0.1.13",
-    "husky": "^8.0.3",
-    "prisma": "^4.14.1"
+    "turbo": "^1.10.7"
   }
 }
