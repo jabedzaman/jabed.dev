@@ -12,11 +12,10 @@ export const githubService = {
   },
   getGithubRepos: async () => {
     const { data } = await axiosClient.get(
-        
-      "https://api.github.com/users/jabedzaman/repos",
+      "https://api.github.com/users/redwoodjs/repos",
       {
         headers: {
-          Authorization: `token ${process.env.GITHUB_API_KEY}`,
+          Authorization: `token ${process.env.GITHUB_PERSONAL_ACCESS_TOKEN}`,
         },
       }
     );

@@ -1,7 +1,7 @@
 import { discordPresence,discordStats } from "../controllers/discord.controller";
 import { Router } from "express";
 
-const router = Router();
+const router : Router = Router();
 
 router.get("/stats", discordStats);
 router.get("/presence", discordPresence);

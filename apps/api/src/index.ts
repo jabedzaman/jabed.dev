@@ -4,7 +4,6 @@ import helmet from "helmet";
 import { json } from "body-parser";
 import morgan from "morgan";
 import "dotenv/config";
-
 import { router } from "./routes/routes";
 
 export const app: Express = express();
@@ -26,14 +25,11 @@ app.use(
     limit: "50mb",
   })
 );
-app.use(morgan("dev"));
+app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
 
 app.use("/", router);
-
 app.use(express.static("public"));
-
 app.get("/favicon.ico", (req, res) => res.status(204));
-
 app.listen(process.env.PORT, () => {
   console.log(`Server running on port ${process.env.PORT}`);
 });
