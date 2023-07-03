@@ -1,17 +1,17 @@
 {
   "name": "@jabed.dev/www",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "clean": "rm -rf .next node_modules",
-    "postinstall": "npx prisma generate"
+    "lint": "next lint"
+  },
+  "engines": {
+    "node": ">=18.16.0"
   },
   "dependencies": {
-    "@octokit/rest": "^19.0.13",
     "@types/node": "18.16.0",
     "@types/react": "18.0.38",
     "@types/react-dom": "18.0.11",
@@ -27,7 +27,6 @@
     "next-auth": "^4.22.1",
     "next-contentlayer": "^0.3.4",
     "postcss": "8.4.23",
-    "querystring": "^0.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
@@ -41,9 +40,6 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@prisma/client": "^4.16.2",
-    "@tailwindcss/typography": "^0.5.9",
-    "encoding": "^0.1.13",
-    "prisma": "^4.16.2"
+    "@tailwindcss/typography": "^0.5.9"
   }
 }

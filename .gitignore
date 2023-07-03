@@ -132,3 +132,6 @@ build
 .yarn/install-state.gz
 .pnp.*
 .vercel
+
+next-env.d.ts
+.contentlayer
