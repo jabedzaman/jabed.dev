@@ -3,8 +3,6 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import { json } from "body-parser";
-import { createWriteStream } from "fs";
-import { join } from "path";
 import { router } from "./routes/routes";
 import "dotenv/config";
 import logger from "./helpers/logger";
@@ -28,13 +26,7 @@ app.use(
     limit: "10mb",
   })
 );
-app.use(
-  morgan("combined", {
-    stream: createWriteStream(join(__dirname, "..", "combined.log"), {
-      flags: "a",
-    }),
-  })
-);
+app.use(morgan("dev"));
 app.use(express.static("public"));
 app.set("trust proxy", true);
 app.set("json spaces", 2);

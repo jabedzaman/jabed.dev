@@ -11,6 +11,21 @@ export const githubService = {
         },
       }
     );
+    const { stars } = await axiosClient
+      .get(`https://api.github.com/users/jabedzaman/repos`, {
+        headers: {
+          Authorization: `token ${process.env.GITHUB_PERSONAL_ACCESS_TOKEN}`,
+        },
+      })
+      .then((res) => {
+        return {
+          stars: res.data.reduce(
+            (acc: number, repo: any) => acc + repo.stargazers_count,
+            0
+          ),
+        };
+      });
+
     return {
       name: data.name,
       company: data.company,
@@ -23,8 +38,9 @@ export const githubService = {
       followers: data.followers,
       following: data.following,
       total_repos: data.public_repos + data.total_private_repos,
+      total_stars: stars,
       disk_usage: data.disk_usage,
-      plan: data.plan.name,
+      plan: data.plan?.name,
     };
   },
   getGithubRepos: async () => {
@@ -36,6 +52,14 @@ export const githubService = {
         },
       }
     );
+    if (!data) {
+      return {
+        total_repos: 0,
+        total_stars: 0,
+        repos: [],
+        contributions: [],
+      };
+    }
     return {
       total_repos: data.length,
       total_stars: data.reduce(
