@@ -6,7 +6,16 @@
   "scripts": {
     "build": "turbo build",
     "start": "turbo start",
-    "dev": "turbo dev"
+    "dev": "turbo dev",
+    "build:www": "turbo build --filter=www",
+    "start:www": "turbo start --filter=www",
+    "dev:www": "turbo dev --filter=www",
+    "build:api": "turbo build --filter=api",
+    "start:api": "turbo start --filter=api",
+    "dev:api": "turbo dev --filter=api"
+  },
+  "engines": {
+    "node": ">=18.16.0"
   },
   "repository": {
     "type": "git",
