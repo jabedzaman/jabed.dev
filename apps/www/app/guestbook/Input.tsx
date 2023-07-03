@@ -4,7 +4,6 @@ import * as React from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { FaGoogle } from "react-icons/fa";
-import * as utils from "@/utils";
 
 const Input = () => {
   const { data: session } = useSession();
