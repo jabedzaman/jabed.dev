@@ -1,4 +1,4 @@
-import { githubService } from "../services/github.service";
+import { githubService } from "~/services/github.service";
 import { Request, Response } from "express";
 
 const github = {

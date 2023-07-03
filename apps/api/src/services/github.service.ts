@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { axiosClient } from "../helpers/axios_client";
+import { axiosClient } from "~/helpers/axios_client";
 
 export const githubService = {
   getGithubStats: async () => {

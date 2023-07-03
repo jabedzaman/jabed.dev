@@ -1,4 +1,4 @@
-import { discordService } from "../services/discord.service";
+import { discordService } from "~/services/discord.service";
 import { Response, Request } from "express";
 
 const discord = {

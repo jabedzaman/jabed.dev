@@ -1,4 +1,4 @@
-import gitub from "../controllers/github.controller";
+import gitub from "~/controllers/github.controller";
 import { Router } from "express";
 
 const router = Router();

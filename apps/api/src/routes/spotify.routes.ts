@@ -1,4 +1,4 @@
-import spotify from "../controllers/spotify.controller";
+import spotify from "~/controllers/spotify.controller";
 import { Router } from "express";
 
 const router = Router();

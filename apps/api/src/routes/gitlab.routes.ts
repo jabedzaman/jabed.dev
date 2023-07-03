@@ -1,4 +1,4 @@
-import gitlab from "../controllers/gitlab.controller";
+import gitlab from "~/controllers/gitlab.controller";
 import { Router } from "express";
 
 const router = Router();

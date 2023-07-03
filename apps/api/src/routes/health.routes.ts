@@ -1,4 +1,4 @@
-import health from "../controllers/health.controller";
+import health from "~/controllers/health.controller";
 ("../controllers/health.controller");
 import { Router } from "express";
 

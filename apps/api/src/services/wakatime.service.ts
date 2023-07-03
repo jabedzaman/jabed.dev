@@ -1,4 +1,4 @@
-import { axiosClient } from "../helpers/axios_client";
+import { axiosClient } from "~/helpers/axios_client";
 import "dotenv/config";
 
 export const wakatimeService = async () => {

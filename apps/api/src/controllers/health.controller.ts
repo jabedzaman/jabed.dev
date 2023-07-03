@@ -1,4 +1,4 @@
-import { healthService } from "../services/health.service";
+import { healthService } from "~/services/health.service";
 import { Request, Response } from "express";
 
 const health = {

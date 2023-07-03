@@ -1,4 +1,4 @@
-import { gitlabService } from "../services/gitlab.service";
+import { gitlabService } from "~/services/gitlab.service";
 import { Request, Response } from "express";
 
 const gitlab = {

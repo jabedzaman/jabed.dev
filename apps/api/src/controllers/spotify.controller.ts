@@ -1,4 +1,4 @@
-import { spotifyService } from "../services/spotify.service";
+import { spotifyService } from "~/services/spotify.service";
 import { Request, Response } from "express";
 
 const spotify = {

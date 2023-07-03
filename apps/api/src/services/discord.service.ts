@@ -1,4 +1,4 @@
-import { axiosClient } from "../helpers/axios_client";
+import { axiosClient } from "~/helpers/axios_client";
 import "dotenv/config";
 
 export const discordService = {
@@ -7,10 +7,10 @@ export const discordService = {
       `https://api.lanyard.rest/v1/users/` + process.env.DISCORD_USER_ID
     );
     const active_device = () => {
-      let devices = [];
-      data?.data?.active_on_discord_web && devices.push("Web");
-      data?.data?.active_on_discord_mobile && devices.push("Mobile");
-      data?.data?.active_on_discord_desktop && devices.push("Desktop");
+      let devices = []; //@ts-ignore
+      data?.data?.active_on_discord_web && devices.push("Web"); //@ts-ignore
+      data?.data?.active_on_discord_mobile && devices.push("Mobile"); //@ts-ignore
+      data?.data?.active_on_discord_desktop && devices.push("Desktop"); //@ts-ignore
       devices.length === 0 && devices.push("None");
       return devices;
     };
