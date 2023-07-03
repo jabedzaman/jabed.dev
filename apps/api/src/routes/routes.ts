@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { healthRoutes } from "./health.routes";
 import { wakatimeRoutes } from "./wakatime.routes";
 import { githubRoutes } from "./github.routes";
 import { spotifyRoutes } from "./spotify.routes";
 import { gitlabRouter } from "./gitlab.routes";
 import { discordRoutes } from "./discord.routes";
+import { healthRoutes } from "./health.routes";
 
 export const router: Router = Router();
 

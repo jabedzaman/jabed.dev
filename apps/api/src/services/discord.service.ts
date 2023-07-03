@@ -4,9 +4,26 @@ import "dotenv/config";
 export const discordService = {
   getDiscordStats: async () => {
     const { data } = await axiosClient.get(
-      `https://api.lanyard.rest/v1/users/` + process.env.DISCORD_USER_ID,
+      `https://api.lanyard.rest/v1/users/` + process.env.DISCORD_USER_ID
     );
-    return data;
+    const active_device = () => {
+      let devices = [];
+      data?.data?.active_on_discord_web && devices.push("Web");
+      data?.data?.active_on_discord_mobile && devices.push("Mobile");
+      data?.data?.active_on_discord_desktop && devices.push("Desktop");
+      devices.length === 0 && devices.push("None");
+      return devices;
+    };
+    return {
+      id: data?.data?.discord_user?.id,
+      username: data?.data?.discord_user?.username,
+      avatar: data?.data?.discord_user?.avatar,
+      global_name: data?.data?.discord_user?.global_name,
+      display_name: data?.data?.discord_user?.display_name,
+      status: data?.data?.discord_status,
+      active_device: active_device(),
+      listening_to_spotify: data?.data?.listening_to_spotify,
+    };
   },
 
   getDiscordPresence: async () => {

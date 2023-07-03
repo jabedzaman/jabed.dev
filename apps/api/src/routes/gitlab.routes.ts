@@ -1,8 +1,9 @@
-import { gitlabController } from "../controllers/gitlab.controller";
+import gitlab from "../controllers/gitlab.controller";
 import { Router } from "express";
 
 const router = Router();
 
-router.get("/", gitlabController);
+router.get("/", gitlab.stats);
+router.get("/projects", gitlab.projects);
 
-export { router as gitlabRouter}
+export { router as gitlabRouter };

@@ -1,9 +1,9 @@
-import { discordPresence,discordStats } from "../controllers/discord.controller";
+import discord from "../controllers/discord.controller";
 import { Router } from "express";
 
-const router : Router = Router();
+const router: Router = Router();
 
-router.get("/stats", discordStats);
-router.get("/presence", discordPresence);
+router.get("/", discord.stats);
+router.get("/presence", discord.presence);
 
-export { router as discordRoutes}
+export { router as discordRoutes };

@@ -1,27 +1,16 @@
-// import { readFileSync } from "fs";
-// import { join } from "path";
-// import maxmind, { type CityResponse } from "maxmind";
+import os from "os";
 
-/*
-const dirname = join(process.cwd(), "apps/api/public");
-const db = readFileSync(join(dirname, "GeoLite2-City.mmdb"));
-
-const getCity = (ip: string) => {
-  const lookup = maxmind
-    .open<CityResponse>(db as unknown as string)
-    .then((lookup) => {
-      return lookup.get(ip);
-    });
-  return lookup;
-};
-*/
-
-export const health = async (ip: string, version: string) => {
+export const healthService = async (ip: string, version: string) => {
   return {
     app: "@jabed.dev/api",
-    status: "up",
     version: version,
+    timestamp: new Date().toISOString(),
+    status: "up",
     ip: ip,
-    // location: getCity(ip),
+    hostname: os.hostname(),
+    operatingSystem: os.type(),
+    distribution: os.release(),
+    uptime: os.uptime(),
+    node: process.version,
   };
 };

@@ -1,12 +1,9 @@
-import {
-  getGithubRepos,
-  getGithubStats,
-} from "../controllers/github.controller";
+import gitub from "../controllers/github.controller";
 import { Router } from "express";
 
 const router = Router();
 
-router.get("/stats", getGithubStats);
-router.get("/repos", getGithubRepos);
+router.get("/", gitub.stats);
+router.get("/repos", gitub.repos);
 
 export { router as githubRoutes };
