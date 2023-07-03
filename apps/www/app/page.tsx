@@ -5,27 +5,12 @@ import Link from "next/link";
 import { BiTrendingUp } from "react-icons/bi";
 import { IoPeopleOutline } from "react-icons/io5";
 import { AiOutlineDesktop } from "react-icons/ai";
-import { Octokit } from "@octokit/rest";
 
 const page = async () => {
-  const octokit = new Octokit({
-    auth: process.env.GITHUB_TOKEN,
-  });
-  const followers = await octokit.users.listFollowersForUser({
-    username: "jabedzaman",
-  });
-  const repos = await octokit.repos.listForUser({
-    username: "jabedzaman",
-  });
-  const total_stars = repos.data.reduce((acc, repo) => {
-    return acc + repo.stargazers_count;
-  }, 0);
-  const public_repos = repos.data.length;
-  const github_data = {
-    total_followers: followers.data.length,
-    total_stars,
-    public_repos,
-  };
+  const res = await fetch("https://api.jabed.dev/api/v1/github");
+  const waka = await fetch("https://api.jabed.dev/api/v1/wakatime");
+  const github = await res.json();
+  const wakatime = await waka.json();
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div>
@@ -69,19 +54,21 @@ const page = async () => {
             <BiTrendingUp className="inline-block mr-2" />
           </div>
           <div>
-            Got {github_data?.total_followers} followers on{" "}
+            Got {github?.followers} followers on{" "}
             <Link href={"/github"}>
               <Highlight>Github</Highlight>
             </Link>{" "}
-            with {github_data?.total_stars} stars on {github_data?.public_repos}{" "}
-            public repos.
+            {/* with { total_stars?.total_stars} stars on {github?.public_repos} public
+            repos. */}
           </div>
         </div>
         <div className="flex flex-row items-stretch space-x-2">
           <div>
             <AiOutlineDesktop className="inline-block mr-2" />
           </div>
-          <div>Been coding for 728 hours since Jan &apos;23.</div>
+          <div>Been coding for  {" "}
+              {wakatime?.total_coding_hours}
+             {" "}since Jan &apos;23.</div>
         </div>
         <div className="flex flex-row items-stretch space-x-2">
           <div>

@@ -14,10 +14,10 @@ export const generateMetadata = ({ params }) => {
       title: post.title,
       description: post.summary,
       type: "article",
-      url: `https://jabed.me/post/${params.slug}`,
+      url: `https://jabed.dev/post/${params.slug}`,
       images: [
         {
-          url: `https://jabed.me/api/og?title=${post.title}`,
+          url: `https://jabed.dev/api/og?title=${post.title}`,
         },
       ],
     },

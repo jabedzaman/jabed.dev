@@ -5,8 +5,8 @@ export default function robots() {
           userAgent: '*',
         },
       ],
-      sitemap: 'https://jabed.me/sitemap.xml',
-      host: 'https://jabed.me',
+      sitemap: 'https://jabed.dev/sitemap.xml',
+      host: 'https://jabed.dev',
     };
   }
   
