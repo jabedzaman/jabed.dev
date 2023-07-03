@@ -1,0 +1,249 @@
+---
+title: Jwt authentication with access token and refresh token
+slug: jwt-authentication-with-access-token-and-refresh-token
+summary: Jwt authentication with access token and refresh token and protected routes with redis and nodejs
+date: 2023-06-14
+tags: JWT, Authentication, Authorization, Security, Accesstoken, refreshtoken, redis
+---
+
+Authentication is one of the most important parts of any web application. Implementing authentication in a web application can be a complex task. It can be achieved in many ways. 
+
+In this article, we will see how to implement authentication using JWT and refresh and access tokens. We will also see how to protect routes using access tokens and refresh tokens. We will also see how to invalidate refresh tokens.
+
+## What is JWT?
+
+JWT stands for JSON Web Token. It is a standard for securely transmitting information between parties as a JSON object. It is a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. JWTs can be signed using a secret or a public/private key pair. 
+
+- Access Token : It is a short-lived token. It is used to access protected routes. It contains all the information that is required to access protected routes. A stateless token, stored on the client-side on the local storage of the browser.
+
+- Refresh Token : It is a long-lived token. It is used to get a new access token when the access token expires. It contains all the information that is required to get a new access token. A stateful token, stored on the server-side in the database, usually in Redis. 
+
+### Getting started
+
+_Hope so you know how to create a express server in nodejs.. So I am not going to explain that part here..And you must be knowing that cause you are here to learn about jwt authentication.._
+
+***So let's start!!!*** 
+
+You will need the `jsonwebtoken` and `redis` packages. So install them using the following command.
+
+```bash
+pnpm i jsonwebtoken redis
+```
+
+### Creating public and private keys
+
+```bash
+ssh-keygen -t rsa -b 4096 -m PEM -f jwtRS256.key
+```
+
+```bash
+# Don't add passphrase
+openssl rsa -in jwtRS256.key -pubout -outform PEM -out jwtRS256.key.pub
+```
+
+> Don't share your private key with anyone. Keep it safe. We only share the public key...
+
+### Creating a redis client
+
+```ts
+import redis from 'redis';
+
+const redisClient = redis.createClient({
+  url: process.env.REDIS_URL,
+});
+```
+
+The redis url will be `redis://localhost:6379` if you are running redis locally. Dont forget to add the redis url in the `.env` file.
+
+### Creating functions to generate access token and refresh token
+
+```ts
+import jwt from 'jsonwebtoken';
+import { readFileSync } from 'fs';
+
+const exp = 60 * 15; // 15 minutes
+const expRefresh = 60 * 60 * 24 * 7; // 7 days
+
+// reading private key and public key
+const privateKey = readFileSync('./jwtRS256.key');
+const publicKey = readFileSync('./jwtRS256.key.pub');
+
+// function to generate access token
+export const generateAccessToken = (payload: any) => {
+  return jwt.sign(payload, privateKey, {
+    algorithm: 'RS256',
+    expiresIn: exp,
+  });
+};
+
+// function to generate refresh token
+export const generateRefreshToken = (payload: any) => {
+  return jwt.sign(payload, privateKey, {
+    algorithm: 'RS256',
+    expiresIn: expRefresh,
+  });
+};
+```
+
+### Now getting to your login route
+
+```ts
+import { generateAccessToken, generateRefreshToken } from './jwt';
+
+/*
+your login validation code
+*/
+
+const accessToken = generateAccessToken({ id: user.id });
+const refreshToken = generateRefreshToken({ id: user.id });
+
+// saving refresh token in redis
+await redisClient.setEx(refreshToken, expRefresh, user.id);
+
+// storing access token in httpOnly cookie
+
+res.cookie('accessToken', accessToken, {
+  httpOnly: true,
+  maxAge: exp * 1000,
+});
+
+/*
+your login response code
+*/
+```
+
+What we did was we generated an access token and a refresh token. We stored the refresh token in redis and the access token in the httpOnly cookie. 
+
+### Creating a middleware to protect routes
+
+```ts
+import { verify } from 'jsonwebtoken';
+import { readFileSync } from 'fs';
+import { Request, Response, NextFunction } from 'express';
+
+const publicKey = readFileSync('./jwtRS256.key.pub');
+
+export const middleware(res: Request, res: Response, next: NextFunction) => {
+  const accessToken = req.cookies.accessToken;
+
+  if (!accessToken) {
+    return res.status(401).json({
+      message: 'Access token not found',
+    });
+  }
+
+  try {
+    const payload = verify(accessToken, publicKey, {
+      algorithms: ['RS256'],
+    });
+
+    req.user = payload;
+
+    next();
+  } catch (err) {
+    return res.status(401).json({
+      message: 'Invalid access token',
+    });
+  }
+};
+```
+
+### Using the middleware
+
+```ts
+import { middleware } from './middleware';
+
+/*
+your other routes
+*/
+
+app.get('/protected', middleware, (req, res) => {
+  res.json({
+    message: 'Protected route',
+  });
+});
+```
+
+### Creating a route to get a new access token
+
+```ts
+import { verify } from 'jsonwebtoken';
+import { readFileSync } from 'fs';
+import { Request, Response, NextFunction } from 'express';
+
+const publicKey = readFileSync('./jwtRS256.key.pub');
+const privateKey = readFileSync('./jwtRS256.key');
+
+app.get('/new-access-token', async (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+
+  if (!refreshToken) {
+    return res.status(401).json({
+      message: 'Refresh token not found',
+    });
+  }
+
+  try {
+    const payload = verify(refreshToken, publicKey, {
+      algorithms: ['RS256'],
+    });
+
+    const accessToken = generateAccessToken({ id: payload.id });
+
+    res.cookie('accessToken', accessToken, {
+      httpOnly: true,
+      maxAge: exp * 1000,
+    });
+
+    res.json({
+      message: 'New access token generated',
+    });
+  } catch (err) {
+    return res.status(401).json({
+      message: 'Invalid refresh token',
+    });
+  }
+});
+```
+
+The reason to store the refresh token in redis is that we can invalidate the refresh token. So when the user logs out we can delete the refresh token from redis. So the user will not be able to get a new access token.
+
+### Creating a route to logout
+
+```ts
+app.get('/logout', async (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+
+  if (!refreshToken) {
+    return res.status(401).json({
+      message: 'Refresh token not found',
+    });
+  }
+
+  try {
+    const payload = verify(refreshToken, publicKey, {
+      algorithms: ['RS256'],
+    });
+
+    await redisClient.del(payload.id);
+
+    res.clearCookie('accessToken');
+    res.clearCookie('refreshToken');
+
+    res.json({
+      message: 'Logged out successfully',
+    });
+  } catch (err) {
+    return res.status(401).json({
+      message: 'Invalid refresh token',
+    });
+  }
+});
+```
+
+Hope so you understood the code.
+
+
+
+
+
