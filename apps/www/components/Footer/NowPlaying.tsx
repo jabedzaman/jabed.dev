@@ -1,6 +1,5 @@
 "use client";
 
-import useSWR from "swr";
 import { useEffect } from "react";
 import { animate } from "motion";
 
@@ -64,8 +63,6 @@ function AnimatedBars() {
   );
 }
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 export interface NowPlayingSong {
   songUrl: string;
   title: string;
@@ -74,20 +71,16 @@ export interface NowPlayingSong {
   albumImageUrl: string;
 }
 
-export default function NowPlaying() {
-  const { data } = useSWR<NowPlayingSong>("/api/v1/spotify", fetcher);
-  // const data = fetch("/api/v1/spotify",
-  //   {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     cache: "no-cache",
-  //     next: {
-  //       revalidate: 1,
-  //     }
-  //   }
-  // ) as unknown as NowPlayingSong;
+export default async function NowPlaying() {
+  const res = await fetch(
+    "http://172.17.0.3:5000/api/v1/spotify",
+    {
+      next: {
+        revalidate: 60 * 10,
+      },
+    }
+  );
+  const data = await res.json();
   return (
     <div className="flex flex-row-reverse items-center sm:flex-row mb-3 space-x-0 sm:space-x-2 w-full">
       {data?.songUrl ? (

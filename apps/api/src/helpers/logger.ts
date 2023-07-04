@@ -8,7 +8,7 @@ const myFormat = printf(({ level, message, label, timestamp }) => {
 });
 
 const logger = createLogger({
-  format: combine(label({ label: "auth" }), timestamp(), myFormat),
+  format: combine(label({ label: "API" }), timestamp(), myFormat),
   transports: [
     new transports.Console(),
     new transports.File({ filename: "error.log", level: "error" }),

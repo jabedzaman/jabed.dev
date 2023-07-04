@@ -7,10 +7,28 @@ import { IoPeopleOutline } from "react-icons/io5";
 import { AiOutlineDesktop } from "react-icons/ai";
 
 const page = async () => {
-  const res = await fetch("https://api.jabed.dev/api/v1/github");
-  const waka = await fetch("https://api.jabed.dev/api/v1/wakatime");
-  const github = await res.json();
-  const wakatime = await waka.json();
+  const github = await fetch("http://172.17.0.3:5000/api/v1/github", {
+    method: "GET",
+    next: {
+      revalidate: 60 * 60 * 24,
+    },
+  }).then((res) => {
+    if (res.status === 200) {
+      return res.json();
+    }
+    return null;
+  });
+  const wakatime = await fetch("http://172.17.0.3:5000/api/v1/wakatime", {
+    method: "GET",
+    next: {
+      revalidate: 60 * 60 * 24,
+    },
+  }).then((res) => {
+    if (res.status === 200) {
+      return res.json();
+    }
+    return null;
+  });
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div>
@@ -27,7 +45,7 @@ const page = async () => {
         <br />
         <p>
           Get in touch via{" "}
-          <Link href="mailto:jabed@tuta.io">
+          <Link href="mailto:hi@jabed.dev">
             <Highlight>email</Highlight>
           </Link>{" "}
           or{" "}
@@ -48,35 +66,36 @@ const page = async () => {
         </Link>{" "}
         for future visitors.
       </div>
-      <div className="mt-4">
-        <div className="flex flex-row items-stretch space-x-2">
-          <div>
-            <BiTrendingUp className="inline-block mr-2" />
-          </div>
-          <div>
-            Got {github?.followers} followers on{" "}
-            <Link href={"/github"}>
-              <Highlight>Github</Highlight>
-            </Link>{" "}
-            {/* with { total_stars?.total_stars} stars on {github?.public_repos} public
-            repos. */}
-          </div>
-        </div>
-        <div className="flex flex-row items-stretch space-x-2">
-          <div>
-            <AiOutlineDesktop className="inline-block mr-2" />
-          </div>
-          <div>Been coding for  {" "}
-              {wakatime?.total_coding_hours}
-             {" "}since Jan &apos;23.</div>
-        </div>
-        <div className="flex flex-row items-stretch space-x-2">
-          <div>
-            <IoPeopleOutline className="inline-block mr-2" />
-          </div>
-          <div> 4325 views on this website.</div>
-        </div>
-      </div>
+     {github && wakatime && (
+       <div className="mt-4">
+       <div className="flex flex-row items-stretch space-x-2">
+         <div>
+           <BiTrendingUp className="inline-block mr-2" />
+         </div>
+         <div>
+           Got {github?.followers} followers on{" "}
+           <Link href={"/github"}>
+             <Highlight>Github</Highlight>
+           </Link>{" "}
+           with { github?.total_stars} stars on {github?.public_repos} public
+           repos.
+         </div>
+       </div>
+       <div className="flex flex-row items-stretch space-x-2">
+         <div>
+           <AiOutlineDesktop className="inline-block mr-2" />
+         </div>
+         <div>
+           Been coding for {wakatime?.total_coding_hours} since Jan &apos;23.
+         </div>
+       </div>
+       <div className="flex flex-row items-stretch space-x-2">
+         <div>
+           <IoPeopleOutline className="inline-block mr-2" />
+         </div>
+         <div> 4325 views on this website.</div>
+       </div>
+     </div>)}
     </Suspense>
   );
 };

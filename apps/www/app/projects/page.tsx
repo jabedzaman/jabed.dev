@@ -14,8 +14,8 @@ const page = async () => {
       "Content-Type": "application/json",
     },
     next: {
-      revalidate: 60,
-    }
+      revalidate: 60 * 60 * 24,
+    },
   }).then((res) => {
     if (res.status === 200) {
       return res.json();
@@ -28,9 +28,7 @@ const page = async () => {
         <section className="grid md:grid-cols-2 grid-cols-1 gap-1 ease-in-out">
           {data?.repos
             .sort((a: any, b: any) => b.stars + b.forks - (a.stars + a.forks))
-            .filter(
-              (repo: any) => !repo.name.includes("jabedzaman") && !repo.isfork
-            )
+            .filter((repo: any) => !repo.name.includes("jabedzaman"))
             .map((repo: any, key: number) => (
               <ProjectItem
                 key={key}
