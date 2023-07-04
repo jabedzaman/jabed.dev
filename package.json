@@ -12,7 +12,8 @@
     "dev:www": "turbo dev --filter=www",
     "build:api": "turbo build --filter=api",
     "start:api": "turbo start --filter=api",
-    "dev:api": "turbo dev --filter=api"
+    "dev:api": "turbo dev --filter=api",
+    "clean": "./bin/clean-up.sh"
   },
   "engines": {
     "node": ">=18.16.0"
