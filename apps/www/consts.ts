@@ -10,12 +10,11 @@ export type SiteConfig = {
   };
 };
 
-
 export const siteConfig: SiteConfig = {
   title: "Jabed",
   fullname: "Jabed Zaman",
   description: "Full Stack Developer",
-  url : "https://jabed.dev",
+  url: "https://jabed.dev",
   avatar: "https://avatars.githubusercontent.com/u/99767817?v=4",
   twitter: {
     title: "jabed",

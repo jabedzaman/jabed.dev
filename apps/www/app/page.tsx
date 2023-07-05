@@ -7,7 +7,7 @@ import { IoPeopleOutline } from "react-icons/io5";
 import { AiOutlineDesktop } from "react-icons/ai";
 
 const page = async () => {
-  const github = await fetch("http://172.17.0.3:5000/api/v1/github", {
+  const github = await fetch("https://api.jabed.dev/api/v1/github", {
     method: "GET",
     next: {
       revalidate: 60 * 60 * 24,
@@ -18,7 +18,7 @@ const page = async () => {
     }
     return null;
   });
-  const wakatime = await fetch("http://172.17.0.3:5000/api/v1/wakatime", {
+  const wakatime = await fetch("https://api.jabed.dev/api/v1/wakatime", {
     method: "GET",
     next: {
       revalidate: 60 * 60 * 24,
@@ -66,36 +66,37 @@ const page = async () => {
         </Link>{" "}
         for future visitors.
       </div>
-     {github && wakatime && (
-       <div className="mt-4">
-       <div className="flex flex-row items-stretch space-x-2">
-         <div>
-           <BiTrendingUp className="inline-block mr-2" />
-         </div>
-         <div>
-           Got {github?.followers} followers on{" "}
-           <Link href={"/github"}>
-             <Highlight>Github</Highlight>
-           </Link>{" "}
-           with { github?.total_stars} stars on {github?.public_repos} public
-           repos.
-         </div>
-       </div>
-       <div className="flex flex-row items-stretch space-x-2">
-         <div>
-           <AiOutlineDesktop className="inline-block mr-2" />
-         </div>
-         <div>
-           Been coding for {wakatime?.total_coding_hours} since Jan &apos;23.
-         </div>
-       </div>
-       <div className="flex flex-row items-stretch space-x-2">
-         <div>
-           <IoPeopleOutline className="inline-block mr-2" />
-         </div>
-         <div> 4325 views on this website.</div>
-       </div>
-     </div>)}
+      {github && wakatime && (
+        <div className="mt-4">
+          <div className="flex flex-row items-stretch space-x-2">
+            <div>
+              <BiTrendingUp className="inline-block mr-2" />
+            </div>
+            <div>
+              Got {github?.followers} followers on{" "}
+              <Link href={"/github"}>
+                <Highlight>Github</Highlight>
+              </Link>{" "}
+              with {github?.total_stars} stars on {github?.public_repos} public
+              repos.
+            </div>
+          </div>
+          <div className="flex flex-row items-stretch space-x-2">
+            <div>
+              <AiOutlineDesktop className="inline-block mr-2" />
+            </div>
+            <div>
+              Been coding for {wakatime?.total_coding_hours} since Jan &apos;23.
+            </div>
+          </div>
+          <div className="flex flex-row items-stretch space-x-2">
+            <div>
+              <IoPeopleOutline className="inline-block mr-2" />
+            </div>
+            <div> 4325 views on this website.</div>
+          </div>
+        </div>
+      )}
     </Suspense>
   );
 };

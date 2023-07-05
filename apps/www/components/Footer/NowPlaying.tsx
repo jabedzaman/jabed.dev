@@ -72,14 +72,11 @@ export interface NowPlayingSong {
 }
 
 export default async function NowPlaying() {
-  const res = await fetch(
-    "http://172.17.0.3:5000/api/v1/spotify",
-    {
-      next: {
-        revalidate: 60 * 10,
-      },
-    }
-  );
+  const res = await fetch("https://api.jabed.dev/api/v1/spotify", {
+    next: {
+      revalidate: 60 * 10,
+    },
+  });
   const data = await res.json();
   return (
     <div className="flex flex-row-reverse items-center sm:flex-row mb-3 space-x-0 sm:space-x-2 w-full">

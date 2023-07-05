@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-// import Input from "./Input";
+import Input from "./Input";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
@@ -10,18 +10,27 @@ export type signature = {
   id: string;
   name: string;
   email: string;
-  message: string;
+  signature: string;
   createdAt: string;
 };
 
 const page = async () => {
+  const res = await fetch("https://api.jabed.dev/api/v1/guestbook", {
+    method: "GET",
+    cache: "no-cache",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": process.env.API_KEY,
+    },
+  });
+  const data = await res.json();
+  const signatures: signature[] = data?.signatures;
   return (
     <div>
       <h1 className="text-2xl font-semibold">Guestbook</h1>
       <Suspense fallback={<div className="h-screen">Loading...</div>}>
-        {/* <Input /> */}
-        <div>Fixing Soon</div>
-        {/* <ul className="space-y-2">
+        <Input />
+        <ul className="space-y-2">
           {signatures?.length > 0 ? (
             signatures
               .sort((a: signature, b: signature) => {
@@ -30,19 +39,19 @@ const page = async () => {
                   new Date(a.createdAt).getTime()
                 );
               })
-              .map((signature: signature) => (
-                <li key={signature.id}>
+              .map((s: signature) => (
+                <li key={s.id}>
                   <span className="text-gray-400">
-                    {signature.name}
+                    {s.name}
                     {" : "}
                   </span>
-                  {signature.message}
+                  {s.signature}
                 </li>
               ))
           ) : (
             <li className="text-gray-400">No signatures yet.</li>
           )}
-        </ul> */}
+        </ul>
       </Suspense>
     </div>
   );

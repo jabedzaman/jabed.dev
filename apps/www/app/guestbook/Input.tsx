@@ -36,23 +36,28 @@ const NotLoggedIn = () => {
 };
 
 const Form = () => {
+  console.log(process.env.API_KEY);
   const { data: session } = useSession();
   const [input, setInput] = React.useState<string>("");
   const handlesubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await fetch("/api/v1/addsignature", {
+    await fetch("https://api.jabed.dev/api/v1/guestbook", {
       method: "POST",
       body: JSON.stringify({
         email: session?.user?.email,
         name: session?.user?.name,
-        message: input,
+        signature: input,
       }),
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.API_KEY,
+      },
     })
       .then((res) => {
         if (res.ok) {
           setInput("");
           const data = res.json();
-          // TODO: Add toast
+          console.log(data);
         }
       })
       .catch((err) => console.log(err));
