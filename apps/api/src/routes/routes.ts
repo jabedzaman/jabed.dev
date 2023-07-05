@@ -6,6 +6,7 @@ import { gitlabRouter } from "./gitlab.routes";
 import { discordRoutes } from "./discord.routes";
 import { healthRoutes } from "./health.routes";
 import { youtubeRoutes } from "./youtube.routes";
+import { guestbookRoutes } from "./guestbook.routes";
 
 export const router: Router = Router();
 
@@ -16,5 +17,6 @@ router.use("/spotify", spotifyRoutes);
 router.use("/gitlab", gitlabRouter);
 router.use("/discord", discordRoutes);
 router.use("/youtube", youtubeRoutes);
+router.use("/guestbook", guestbookRoutes);
 
 export { router as routes };

@@ -13,7 +13,8 @@
     "build:api": "turbo build --filter=api",
     "start:api": "turbo start --filter=api",
     "dev:api": "turbo dev --filter=api",
-    "clean": "./bin/clean-up.sh"
+    "clean": "./bin/clean-up.sh",
+    "seed": "cd ./apps/api && pnpm run seed"
   },
   "engines": {
     "node": ">=18.16.0"

@@ -6,6 +6,7 @@ import { json } from "body-parser";
 import { router } from "./routes/routes";
 import "dotenv/config";
 import logger from "./helpers/logger";
+import pgPool from "./helpers/pg_pool";
 
 export const app: Express = express();
 
@@ -41,6 +42,20 @@ app.get("*", (_, res: Response) =>
 app.use((err: Error, _: Request, res: Response) => {
   logger.error(err.stack);
   res.status(500).json({ message: "Internal Server Error" });
+});
+
+pgPool.connect((err, client, release) => {
+  if (err) {
+    console.log(err);
+    return logger.error("Error acquiring client", err.stack);
+  }
+  client.query("SELECT NOW()", (err, result) => {
+    release();
+    if (err) {
+      return logger.error("Error executing query", err.stack);
+    }
+    logger.info(`Connected to database at ${result.rows[0].now}`);
+  });
 });
 
 app.listen(process.env.PORT, () => {
