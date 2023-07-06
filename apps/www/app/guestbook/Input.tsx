@@ -36,7 +36,6 @@ const NotLoggedIn = () => {
 };
 
 const Form = () => {
-  console.log(process.env.API_KEY);
   const { data: session } = useSession();
   const [input, setInput] = React.useState<string>("");
   const handlesubmit = async (e: React.FormEvent<HTMLFormElement>) => {
