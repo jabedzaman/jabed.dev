@@ -83,13 +83,18 @@ const ExternalLink = ({ href, children }: any) => (
   </a>
 );
 
-async function index() {
-  const res = await fetch("https://api.jabed.dev/api/v1/spotify", {
-    next: {
-      revalidate: 60 * 10,
-    },
-  });
-  const data = await res.json();
+function index() {
+  // const res = await fetch("https://api.jabed.dev/api/v1/spotify", {
+  //   next: {
+  //     revalidate: 60 * 10,
+  //   },
+  // });
+  // const data = await res.json();
+  const data = {
+    songUrl: "https://open.spotify.com/track/6Hj9jySrnFppAI0sEMCZpJ",
+    title: "Never Gonna Give You Up",
+    artist: "Rick Astley",
+  };
   return (
     <footer className="flex flex-col justify-center items-start max-w-2xl mx-auto w-full md:mt10 mt-5 mb-8 ease-in-out">
       <hr className="w-full border-1 border-gray-800 mb-3" />

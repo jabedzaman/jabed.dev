@@ -25,7 +25,6 @@ const page = async () => {
   });
   const data = await res.json();
   const signatures: signature[] = data?.signatures;
-  console.log(signatures);
   return (
     <div>
       <h1 className="text-2xl font-semibold">Guestbook</h1>
