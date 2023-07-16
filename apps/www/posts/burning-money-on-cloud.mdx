@@ -1,0 +1,40 @@
+---
+title: Burning your money with Cloud
+slug: burning-your-money-with-cloud
+summary:  How to burn your money with Cloud services
+date: 2023-06-25
+tags: aws, cloud, money, EC2, railway, heroku, render
+---
+
+Its the pleasent summer of June 2023, my production app was running for free of cost on [railway](https://railway.app/) when I suddenly get a mail from them saying that they are shutting down their starter plan... Railway, the Heroku Alternative, Shuts Down Their Free Tier.
+
+![ah-shit](/images/ah-shit-here-we-go-again.png)
+
+After heroku it was time to say goodbye to railway... 
+
+Railway founded in 2019, offered easy deployments for your applications and provided a viable alternative to Heroku. It quickly gained popularity among developers due to its simplicity and powerful features. However, the recent shutdown of the starter plan came as a shock to many users who relied on Railway for their projects. 
+
+The starter plan of Railway had been a go-to choice for developers who wanted to deploy their applications without any cost. It allowed users to host small-scale projects, experiment with new ideas, and learn the ropes of deployment without incurring any expenses. The sudden discontinuation of this plan left many developers searching for alternatives and contemplating their next steps.
+
+Now what was the next choice??? AWS 🗿 
+
+If you have endless money than AWS might be the solution... but that case doesnt holds for me... 
+
+### Finding alternatives 
+
+There are also other alternatives to Railway like [Render](https://render.com/) and [Fly.io](https://fly.io/). But the cold starts in [Render](https://render.com/) turns out to be a deal breaker for me... When its comes to [Fly.io](https://fly.io/) all plans require a credit card to be added, also it doesnt actually provides _free tier_ instead it provides some free resources... The starting plan for a dedicated VM is $29/mo... 
+
+### AWS cult
+
+AWS now comes into the picture... I could spin up an EC2 instance and deploy my app there... The billing would be done at the end of the month based on the usage... But the AWS cult is not for me... AWS had been a nightmare for most of the developers. The pricing is very complex and the documentation is not very helpful. The UI is also very confusing and it is difficult to find what you are looking for. For a small project/individual developer AWS is not a good choice.
+
+
+***SO WHATS THE SOLUTION???***
+
+Run up my own home server!!! Yeah literally running a server at your basement 💀 Then use cloudflare to protect yourself from DDOS attacks. But there are lots of issues with this approach. Power cuts and internet outages turns out to be barrier to this. 
+
+### The final choice
+
+Digital Ocean... turns to be the best choice at this date according to me. It provides a great alternative to AWS and pricing is also very simple. A single droplet costs $5/mo and you can scale up as your needs grow. You can run one droplet and then use a reverse proxy like nginx to route traffic to your app and host multiple services on a single droplet. To host your static sites you can use [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/) which provides a free tier. And trust me that free tier is even enough for a medium scale project. 
+
+![vercel-netlify-meme](/images/vercel-netlify-meme.jpg)
