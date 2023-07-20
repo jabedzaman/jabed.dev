@@ -8,10 +8,7 @@ import { AiOutlineDesktop } from "react-icons/ai";
 
 const page = async () => {
   const github = await fetch("https://api.jabed.dev/api/v1/github", {
-    method: "GET",
-    next: {
-      revalidate: 60 * 60 * 24,
-    },
+    cache: "no-cache",
   }).then((res) => {
     if (res.status === 200) {
       return res.json();
@@ -19,10 +16,7 @@ const page = async () => {
     return null;
   });
   const wakatime = await fetch("https://api.jabed.dev/api/v1/wakatime", {
-    method: "GET",
-    next: {
-      revalidate: 60 * 60 * 24,
-    },
+    cache: "no-cache",
   }).then((res) => {
     if (res.status === 200) {
       return res.json();

@@ -1,0 +1,81 @@
+---
+title: Doing Environment Variables the Right Way
+slug: doing-environment-variables-the-right-way
+date: 2023-07-20
+summary: Environment variables are a great way to store sensitive information, but they can be a pain to manage. Here's how to do it right.
+tags: dotenv, environment variables, security, vault, secrets
+---
+
+Few days back I was working on one of my side projects, yeah one of those 1000 side projects which never worked out like your past relationships. So somehow I suddenly decied to again rice my distro for the 10th time in a month, I use [arch](https://bit.ly/3NSr9Bj) btw. Unaware of the fact that I had to backup my environment variables I just again had a fresh reinstall of [ARCH LINUX](https://bit.ly/3NSr9Bj), which later made me rant again about how I lost my environment variables and how I have to again set them up. Again generating new tokens and keys for my project and setting them up.
+
+This was not the only time I messed up. Back once I mistakenly pushed my environment variables to github, which was another trouble I created for myself.
+
+![peter-hiding](/images/peter-hiding.jpg)
+
+So after so many ranting and messing up, I finally decided to do find a better way to manage my environment variables. I was thinking about getting some cloud hosted vault to store my environment variables, but then I thought why not just use my own server to store my environment variables. But again thats a mess, Heckers might try to poke around my server, moreover power cuts, 24/7 running server, and what not.
+
+Then I came around the [dotenv](https://www.dotenv.org/). Probably you have used this package in your nodejs apps to load environment variables. They also provide a free service to store your environment variables.
+
+This was the perfect solution for me. I just had to install the package and load my environment variables from the dotenv server. It was simple and easy. Morever they make managing environment variables in your deployment pipeline easy.
+
+### How to get it working???
+
+- Firstly get a free account on [dotenv](https://www.dotenv.org/).
+
+- Now in the directory where you have your environment variables or the `.env` file, run the following command.
+
+```bash
+npx dotenv-vault@latest login
+```
+
+- So this will ask you to login to your dotenv account. After logging in, it will automatically create a `.env.me` file in your directory. This will have the access token to access your environment variables.
+
+- Now make sure you dont push this file to your version control system. Add this file to your `.gitignore` file. Dotenv will automatically add this file to your `.gitignore` file.
+
+- Now time to push your environment variables to the dotenv server. Run the following command.
+
+```bash
+npx dotenv-vault@latest push
+```
+
+- This will push your environment variables to the dotenv server. You can check your environment variables on the dotenv server. Visit your [dotenv dashboard](https://vault.dotenv.org/ui/) to check your environment variables.
+
+- Now time to load your environment variables in your app. Run the following command.
+
+```bash
+npx dotenv-vault@latest pull
+```
+
+- This will load your environment variables from the dotenv server.
+
+This whole thing is pretty simple and easy to use and gets the job done.
+
+### How to use it in your deployment pipeline???
+
+- Run the following command.
+
+```bash
+npx dotenv-vault build
+```
+
+- This will create a `env.vault`, something similar to this
+
+```bash
+    #/-------------------.env.vault---------------------/
+    #/         cloud-agnostic vaulting standard         /
+    #/   [how it works](https://dotenv.org/env-vault)   /
+    #/--------------------------------------------------/
+
+    # development
+    DOTENV_VAULT_DEVELOPMENT="/HqNgQWsf6Oh6XB9pI/CGkdgCe6d4/vWZHgP50RRoDTzkzPQk/xOaQs="
+    DOTENV_VAULT_DEVELOPMENT_VERSION=2
+
+    # production
+    DOTENV_VAULT_PRODUCTION="x26PuIKQ/xZ5eKrYomKngM+dO/9v1vxhwslE/zjHdg3l+H6q6PheB5GVDVIbZg=="
+    DOTENV_VAULT_PRODUCTION_VERSION=2
+```
+
+- This encrypted `.env.vault` file along with a `.env.keys` file containing the encryption keys. Set the DOTENV_KEY environment variable by copying and pasting the key value from the `.env.keys` file onto your server or cloud provider
+
+- Commit your `.env.vault` file safely to code and deploy. Your `.env.vault` fill be decrypted on boot, its environment variables injected, and your app work as expected.
+
