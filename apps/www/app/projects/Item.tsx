@@ -20,8 +20,8 @@ function ProjectItem(props: ProjectProps) {
     case "TypeScript":
       langcolor = "bg-blue-400";
       break;
-    case "Python":
-      langcolor = "bg-blue-500";
+    case "OCaml":
+      langcolor = "bg-orange-500";
       break;
     case "Rust":
       langcolor = "bg-red-400";
@@ -34,6 +34,7 @@ function ProjectItem(props: ProjectProps) {
       break;
     case "Makefile":
       langcolor = "bg-green-800";
+      break;
     default:
       langcolor = "bg-blue-600";
   }
@@ -47,8 +48,8 @@ function ProjectItem(props: ProjectProps) {
               <p className="font-semibold">{props.name}</p>
             </span>
             <span className="text-gray-500 text-sm">
-              {props.description.length > 80 ? (
-                <p>{props.description.substring(0, 80)}...</p>
+              {props.description?.length > 80 ? (
+                <p>{props.description?.substring(0, 80)}...</p>
               ) : (
                 <p>{props.description}</p>
               )}

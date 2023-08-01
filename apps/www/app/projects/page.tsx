@@ -15,6 +15,8 @@ const page = async () => {
       return res.json();
     }
   });
+    console.log(data);
+    
   return (
     <div>
       <h1 className="text-2xl font-semibold mb-1">Projects</h1>
