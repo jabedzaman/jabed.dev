@@ -9,14 +9,8 @@ export const metadata: Metadata = {
 
 const page = async () => {
   const data = await fetch("https://api.jabed.dev/api/v1/github/repos", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    next: {
-      revalidate: 60 * 60 * 24,
-    },
-  }).then((res) => {
+    cache: "no-cache",    
+    }).then((res) => {
     if (res.status === 200) {
       return res.json();
     }
