@@ -19,7 +19,7 @@ function AnimatedBars() {
         duration: 1.0,
         repeat: Infinity,
         easing: ["ease-in-out"],
-      }
+      },
     );
     animate(
       "#bar2",
@@ -35,7 +35,7 @@ function AnimatedBars() {
         duration: 1.5,
         repeat: Infinity,
         easing: ["ease-in-out"],
-      }
+      },
     );
     animate(
       "#bar3",
@@ -51,7 +51,7 @@ function AnimatedBars() {
         duration: 1.5,
         repeat: Infinity,
         easing: ["ease-in-out"],
-      }
+      },
     );
   }, []);
 
@@ -82,13 +82,10 @@ const ExternalLink = ({ href, children }: any) => (
     {children}
   </a>
 );
-
 function index() {
   // const res = await fetch("https://api.jabed.dev/api/v1/spotify", {
-  //   next: {
-  //     revalidate: 60 * 10,
-  //   },
-  // });
+  // cache:"no-cache"
+  // });index.tsx
   // const data = await res.json();
   const data = {
     songUrl: "https://open.spotify.com/track/6Hj9jySrnFppAI0sEMCZpJ",
