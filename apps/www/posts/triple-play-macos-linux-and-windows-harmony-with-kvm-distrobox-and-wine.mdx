@@ -1,0 +1,118 @@
+---
+title: Triple Play - macOS, Linux, and Windows Harmony with KVM, DistroBox, and Wine
+slug : triple-play-macos-linux-and-windows-harmony-with-kvm-distrobox-and-wine
+summary: A guide to run macOS, Linux distributions, and Windows together on a single machine with KVM, DistroBox, and Wine.
+date: 2023-09-22
+tags: macos, linux, windows, kvm, distrobox, wine, docker, distrobox, virtualization, virtualbox, qemu, virtual-mac
+---
+
+Picture this: Your computer, the ultimate Casanova of machines, has a secret talent - it can flirt effortlessly with not one, not two, but three different operating systems at the same time. It's like a sizzling love triangle between macOS, Linux, and Windows, and your computer is the charming matchmaker. Why, you ask? Because who wouldn't want to be the Don Juan of the digital world, wooing every OS with KVM, DistroBox, and Wine?
+
+In this guide, we'll learn how to run macOS, Linux distributions, and Windows together on a single machine with KVM, DistroBox, and Wine. 
+
+## What is KVM?
+
+KVM is a virtualization technology that allows you to run multiple operating systems on a single machine. It's a great way to test out new software without having to install it on your computer. Basically, KVM is a hypervisor that allows you to run multiple operating systems on a single machine. It's a great way to test out new software without having to install it on your computer. The best part is that it's free and open source! 
+
+> KVM and VMware are both virtualization technologies, but they are not the same. KVM is an open-source virtualization technology that is built into the Linux kernel. VMware is a proprietary virtualization technology that is built on top of the Linux kernel. 
+
+
+**DistroBox** is an open source project that allows you to run multiple Linux distributions on a single machine. It is a tool for providing containerised runtimes of several different Linux distributions. It's a great way to test out new software without having to install it on your computer. The distrobox environment is based on an OCI image. This image is used to create a container that seamlessly integrates with the rest of the operating system by providing access to the user's home directory, the Wayland and X11 sockets, networking, removable devices (like USB sticks), systemd journal, SSH agent, D-Bus, ulimits, /dev and the udev database, etc...
+
+**Wine** is a compatibility layer that allows you to run Windows applications on Linux and macOS. _The best part is that its not an emultar, instead it translates Windows API calls into POSIX calls on-the-fly, eliminating the performance and memory penalties of other methods and allowing you to cleanly integrate Windows applications into your desktop._ The benefit of using Wine is that it requires less resources than running a full Windows virtual machine, and it allows you to run Windows applications without having to install Windows.
+
+## My Nerds, Lets get into it!!
+
+OKAY ITS MUST TO HAVE A LINUX HOST FOR THIS TO WORK. I use [Arch Linux](/posts/the-arch-linux-cult) BTW.
+
+### Linux
+
+Okay you already have Linux installed, so you are good to go. But lets see what if you want a different distro????? Gals and Guys, here comes [DistroBox](https://github.com/89luca89/distrobox) to the rescue. Install it with the following command:
+
+```bash
+curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh -s -- --next
+```
+Now for this you might need to have docker installed. If you don't have it, install it with the following command:
+
+```bash
+sudo pacman -S docker
+```
+
+Now you can run the following command to create a new container:
+
+```bash
+distrobox create --image=fedora # replace fedora with your favorite distro or the one you want to try
+```
+
+Next to enter the container, run the following command:
+
+```bash
+distrobox enter fedora
+```
+
+AHHHHHHAHH!!!! You are now in a container running your favorite distro. You can now install whatever you want in it. You can also run GUI apps in it. For that you need to install X11 server on your host.
+
+![Fedora running in a container on my Arch Linux host](/images/distrobox.png)
+
+### macOS
+
+Okay, so you want to run macOS on your Linux host. Well, you can do that with [macOS-Simple-KVM](https://github.com/foxlet/macOS-Simple-KVM) project. It is a tool that allows you to easily create a macOS virtual machine on Linux. It uses QEMU and KVM to run the virtual machine. It also includes a script that allows you to easily install macOS on the virtual machine. 
+
+To install macOS-Simple-KVM, firstly install the dependencies:
+
+```bash
+sudo apt-get install qemu-system qemu-utils python3 python3-pip  # for Ubuntu, Debian, Mint, and PopOS.
+sudo pacman -S qemu python python-pip python-wheel  # for Arch.
+sudo xbps-install -Su qemu python3 python3-pip   # for Void Linux.
+sudo zypper in qemu-tools qemu-kvm qemu-x86 qemu-audio-pa python3-pip  # for openSUSE Tumbleweed
+sudo dnf install qemu qemu-img python3 python3-pip # for Fedora
+sudo emerge -a qemu python:3.4 pip # for Gentoo
+```
+
+Now clone the repo and install it:
+
+```bash
+git clone git@github.com:foxlet/macOS-Simple-KVM.git
+cd macOS-Simple-KVM
+./jumpstart.sh
+```
+
+Next its time to create the cowspace for it. Cowspace is referred to as the disk space that is used by the virtual machine. It is a file that is used to store the virtual machine's disk image. The cowspace is created by running the following command:
+
+```bash
+qemu-img create -f qcow2 MyDisk.qcow2 64G
+```
+
+Now add the following to the `basic.sh` file:
+
+```bash
+    -drive id=SystemDisk,if=none,file=MyDisk.qcow2 \
+    -device ide-hd,bus=sata.4,drive=SystemDisk \
+```
+
+Now run the following command to start the virtual machine:
+
+```bash
+./basic.sh
+```
+
+You can refer to the [official documentation](https://github.com/foxlet/macOS-Simple-KVM/tree/master/docs) to improve the performance of the virtual machine.
+
+### Windows
+
+The final one... especially what the linux gamers lust for!!! Windows. You can run Windows on your Linux host with [Wine](https://www.winehq.org/). 
+Its extremely easy to install. Just run the following command:
+
+```bash
+sudo pacman -S wine
+```
+
+Now you can run Windows apps on your Linux. For example to run `nfx.exe` run the following command:
+
+```bash
+wine nfx.exe
+```
+
+---
+
+This was how you can run macOS, Linux, and Windows together on a single machine with KVM, DistroBox, and Wine. Personally just [Arch](/posts/the-arch-linux-cult) is enough for me. I am loyal to Arch even more than my disillusional girlfriend. But if you need to run all three of them, this is the way to go.

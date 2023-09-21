@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/jabedzaman/jabed.dev#readme",
   "devDependencies": {
-    "turbo": "^1.10.9",
-    "typescript": "^5.1.6"
+    "turbo": "^1.10.14",
+    "typescript": "^5.2.2"
   }
 }
