@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title><![CDATA[Max Leiter]]></title>
-        <description><![CDATA[Max Leiter's blog]]></description>
-        <link>https://maxleiter.com</link>
+        <title><![CDATA[Jabed's Blog]]></title>
+        <description><![CDATA[Jabed's blog]]></description>
+        <link>https://www.jabed.dev</link>
+        <image>
+            <url>https://avatars.githubusercontent.com/u/99767817?v=4</url>
+            <title>Jabed&apos;s Blog</title>
+            <link>https://www.jabed.dev</link>
+        </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Fri, 29 Sep 2023 23:29:01 GMT</lastBuildDate>
-        <atom:link href="https://maxleiter.com/feed.xml" rel="self" type="application/rss+xml"/>
+        <lastBuildDate>Fri, 29 Sep 2023 23:55:29 GMT</lastBuildDate>
+        <atom:link href="https://www.jabed.dev/feed.xml" rel="self" type="application/rss+xml"/>
         <language><![CDATA[en]]></language>
         <item>
-            <title><![CDATA[Triple Play - macOS, Linux, and Windows Harmony with KVM, DistroBox, and Wine]]></title>
+            <title><![CDATA[Triple Play with KVM, DistroBox, and Wine]]></title>
             <description><![CDATA[<p>Picture this: Your computer, the ultimate Casanova of machines, has a secret talent - it can flirt effortlessly with not one, not two, but three different operating systems at the same time. It&#39;s like a sizzling love triangle between macOS, Linux, and Windows, and your computer is the charming matchmaker. Why, you ask? Because who wouldn&#39;t want to be the Don Juan of the digital world, wooing every OS with KVM, DistroBox, and Wine?</p>
 <p>In this guide, we&#39;ll learn how to run macOS, Linux distributions, and Windows together on a single machine with KVM, DistroBox, and Wine. </p>
 <h2>What is KVM?</h2>
@@ -71,8 +76,8 @@ cd macOS-Simple-KVM
 <hr>
 <p>This was how you can run macOS, Linux, and Windows together on a single machine with KVM, DistroBox, and Wine. Personally just <a href="/posts/the-arch-linux-cult" target="_blank" rel="noopener noreferrer">Arch</a> is enough for me. I am loyal to Arch even more than my disillusional girlfriend. But if you need to run all three of them, this is the way to go.</p>
 ]]></description>
-            <link>https://maxleiter.com/blog/triple-play-macos-linux-and-windows-harmony-with-kvm-distrobox-and-wine</link>
-            <guid isPermaLink="false">https://maxleiter.com/blog/triple-play-macos-linux-and-windows-harmony-with-kvm-distrobox-and-wine</guid>
+            <link>https://www.jabed.dev/post/triple-play-with-kvm-distrobox-and-wine</link>
+            <guid isPermaLink="false">https://www.jabed.dev/post/triple-play-with-kvm-distrobox-and-wine</guid>
             <dc:creator><![CDATA[Max Leiter]]></dc:creator>
             <pubDate>Fri, 22 Sep 2023 00:00:00 GMT</pubDate>
         </item>
@@ -102,8 +107,8 @@ cd macOS-Simple-KVM
 </ul>
 <p>Remember, there&#39;s no one-size-fits-all solution – the right choice depends on your project&#39;s unique needs and your team&#39;s collaboration style. By mastering these strategies, you can turn the headache of VCS into a well-managed, streamlined process that empowers your team to work together effectively.</p>
 ]]></description>
-            <link>https://maxleiter.com/blog/demystifying-rebase-merge-and-sqash</link>
-            <guid isPermaLink="false">https://maxleiter.com/blog/demystifying-rebase-merge-and-sqash</guid>
+            <link>https://www.jabed.dev/post/demystifying-rebase-merge-and-sqash</link>
+            <guid isPermaLink="false">https://www.jabed.dev/post/demystifying-rebase-merge-and-sqash</guid>
             <dc:creator><![CDATA[Max Leiter]]></dc:creator>
             <pubDate>Fri, 04 Aug 2023 00:00:00 GMT</pubDate>
         </item>
@@ -124,8 +129,8 @@ There are lots of reason why arch is the perfect distro, and linux is way better
 </code></pre>
 <p><img src="https://cdn.jabed.dev/windows-bobe.png" alt="windows-bobe"></p>
 ]]></description>
-            <link>https://maxleiter.com/blog/the-arch-linux-cult</link>
-            <guid isPermaLink="false">https://maxleiter.com/blog/the-arch-linux-cult</guid>
+            <link>https://www.jabed.dev/post/the-arch-linux-cult</link>
+            <guid isPermaLink="false">https://www.jabed.dev/post/the-arch-linux-cult</guid>
             <dc:creator><![CDATA[Max Leiter]]></dc:creator>
             <pubDate>Sat, 22 Jul 2023 00:00:00 GMT</pubDate>
         </item>
@@ -197,8 +202,8 @@ There are lots of reason why arch is the perfect distro, and linux is way better
 </li>
 </ul>
 ]]></description>
-            <link>https://maxleiter.com/blog/doing-environment-variables-the-right-way</link>
-            <guid isPermaLink="false">https://maxleiter.com/blog/doing-environment-variables-the-right-way</guid>
+            <link>https://www.jabed.dev/post/doing-environment-variables-the-right-way</link>
+            <guid isPermaLink="false">https://www.jabed.dev/post/doing-environment-variables-the-right-way</guid>
             <dc:creator><![CDATA[Max Leiter]]></dc:creator>
             <pubDate>Thu, 20 Jul 2023 00:00:00 GMT</pubDate>
         </item>
@@ -221,8 +226,8 @@ There are lots of reason why arch is the perfect distro, and linux is way better
 <p>Digital Ocean... turns to be the best choice at this date according to me. It provides a great alternative to AWS and pricing is also very simple. A single droplet costs $5/mo and you can scale up as your needs grow. You can run one droplet and then use a reverse proxy like nginx to route traffic to your app and host multiple services on a single droplet. To host your static sites you can use <a href="https://vercel.com/" target="_blank" rel="noopener noreferrer">Vercel</a> or <a href="https://www.netlify.com/" target="_blank" rel="noopener noreferrer">Netlify</a> which provides a free tier. And trust me that free tier is even enough for a medium scale project. </p>
 <p><img src="https://cdn.jabed.dev/vercel-netlify-meme.jpg" alt="vercel-netlify-meme"></p>
 ]]></description>
-            <link>https://maxleiter.com/blog/burning-your-money-with-cloud</link>
-            <guid isPermaLink="false">https://maxleiter.com/blog/burning-your-money-with-cloud</guid>
+            <link>https://www.jabed.dev/post/burning-your-money-with-cloud</link>
+            <guid isPermaLink="false">https://www.jabed.dev/post/burning-your-money-with-cloud</guid>
             <dc:creator><![CDATA[Max Leiter]]></dc:creator>
             <pubDate>Sun, 25 Jun 2023 00:00:00 GMT</pubDate>
         </item>
@@ -429,8 +434,8 @@ app.get(&#39;/new-access-token&#39;, async (req, res) =&gt; {
 </code></pre>
 <p>Hope so you understood the code.</p>
 ]]></description>
-            <link>https://maxleiter.com/blog/jwt-authentication-with-access-token-and-refresh-token</link>
-            <guid isPermaLink="false">https://maxleiter.com/blog/jwt-authentication-with-access-token-and-refresh-token</guid>
+            <link>https://www.jabed.dev/post/jwt-authentication-with-access-token-and-refresh-token</link>
+            <guid isPermaLink="false">https://www.jabed.dev/post/jwt-authentication-with-access-token-and-refresh-token</guid>
             <dc:creator><![CDATA[Max Leiter]]></dc:creator>
             <pubDate>Wed, 14 Jun 2023 00:00:00 GMT</pubDate>
         </item>
@@ -473,8 +478,8 @@ app.get(&#39;/new-access-token&#39;, async (req, res) =&gt; {
   run the container in the background.
 </Callout>
 ]]></description>
-            <link>https://maxleiter.com/blog/port-forwarding-with-cloudflare-tunnel</link>
-            <guid isPermaLink="false">https://maxleiter.com/blog/port-forwarding-with-cloudflare-tunnel</guid>
+            <link>https://www.jabed.dev/post/port-forwarding-with-cloudflare-tunnel</link>
+            <guid isPermaLink="false">https://www.jabed.dev/post/port-forwarding-with-cloudflare-tunnel</guid>
             <dc:creator><![CDATA[Max Leiter]]></dc:creator>
             <pubDate>Tue, 30 May 2023 00:00:00 GMT</pubDate>
         </item>
@@ -641,8 +646,8 @@ docker-compose down
 
 <p>Hopefuly you have understood the basics of Docker Compose with the help of this demo. </p>
 ]]></description>
-            <link>https://maxleiter.com/blog/run-multiple-container-with-docker-compose</link>
-            <guid isPermaLink="false">https://maxleiter.com/blog/run-multiple-container-with-docker-compose</guid>
+            <link>https://www.jabed.dev/post/run-multiple-container-with-docker-compose</link>
+            <guid isPermaLink="false">https://www.jabed.dev/post/run-multiple-container-with-docker-compose</guid>
             <dc:creator><![CDATA[Max Leiter]]></dc:creator>
             <pubDate>Sun, 21 May 2023 00:00:00 GMT</pubDate>
         </item>
@@ -678,8 +683,8 @@ docker-compose down
 <h2>Conclusion</h2>
 <p>Both monolith and microservices have their own pros and cons. You should choose the architecture that best suits your needs. If you are a startup, you probably don&#39;t need microservices. You can start with a monolith and move to microservices when you need to scale. If you are a large enterprise, you probably need microservices.</p>
 ]]></description>
-            <link>https://maxleiter.com/blog/breaking-down-a-monolith-when-and-how-to-move-to-microservices</link>
-            <guid isPermaLink="false">https://maxleiter.com/blog/breaking-down-a-monolith-when-and-how-to-move-to-microservices</guid>
+            <link>https://www.jabed.dev/post/breaking-down-a-monolith-when-and-how-to-move-to-microservices</link>
+            <guid isPermaLink="false">https://www.jabed.dev/post/breaking-down-a-monolith-when-and-how-to-move-to-microservices</guid>
             <dc:creator><![CDATA[Max Leiter]]></dc:creator>
             <pubDate>Mon, 08 May 2023 00:00:00 GMT</pubDate>
         </item>
@@ -978,8 +983,8 @@ app.listen(3000, () =&gt; {
 </code></pre>
 <p>THATS IT!!! You have successfully created a magic auth system.<br><Callout emoji="📚"><br>You can find the source code for this project on <a href="https://github.com/jabedzaman/magicauth/">My Github</a><br></Callout></p>
 ]]></description>
-            <link>https://maxleiter.com/blog/magic-auth-with-sendgrid-jwt-postgres-prisma</link>
-            <guid isPermaLink="false">https://maxleiter.com/blog/magic-auth-with-sendgrid-jwt-postgres-prisma</guid>
+            <link>https://www.jabed.dev/post/magic-auth-with-sendgrid-jwt-postgres-prisma</link>
+            <guid isPermaLink="false">https://www.jabed.dev/post/magic-auth-with-sendgrid-jwt-postgres-prisma</guid>
             <dc:creator><![CDATA[Max Leiter]]></dc:creator>
             <pubDate>Sun, 07 May 2023 00:00:00 GMT</pubDate>
         </item>
@@ -1023,8 +1028,8 @@ npx vercel
 </code></pre>
 <p>And that&#39;s it. Our app is live.</p>
 ]]></description>
-            <link>https://maxleiter.com/blog/my-tech-stack-for-2023</link>
-            <guid isPermaLink="false">https://maxleiter.com/blog/my-tech-stack-for-2023</guid>
+            <link>https://www.jabed.dev/post/my-tech-stack-for-2023</link>
+            <guid isPermaLink="false">https://www.jabed.dev/post/my-tech-stack-for-2023</guid>
             <dc:creator><![CDATA[Max Leiter]]></dc:creator>
             <pubDate>Sun, 30 Apr 2023 00:00:00 GMT</pubDate>
         </item>
@@ -1126,8 +1131,8 @@ const client = redis.createClient();
 <h3>Conclusion 🎉</h3>
 <p>After reading this article, you should be able to boost the performance of your Node.js app with Redis. You should be able to use Redis as a cache for your Node.js app and cache the response of your API. This method will help you to reduce the load on your server and improve the performance of your app.</p>
 ]]></description>
-            <link>https://maxleiter.com/blog/caching-with-redis</link>
-            <guid isPermaLink="false">https://maxleiter.com/blog/caching-with-redis</guid>
+            <link>https://www.jabed.dev/post/caching-with-redis</link>
+            <guid isPermaLink="false">https://www.jabed.dev/post/caching-with-redis</guid>
             <dc:creator><![CDATA[Max Leiter]]></dc:creator>
             <pubDate>Thu, 06 Apr 2023 00:00:00 GMT</pubDate>
         </item>
