@@ -35,7 +35,7 @@ const main = () => {
     title: 'Jabed\'s Blog',
     site_url: 'https://www.jabed.dev',
     feed_url: 'https://www.jabed.dev/feed.xml',
-    image_url: 'https://www.jabed.dev/favicon.ico',
+    image_url: 'https://avatars.githubusercontent.com/u/99767817?v=4',
     language: 'en',
     description: "Jabed's blog",
   })
