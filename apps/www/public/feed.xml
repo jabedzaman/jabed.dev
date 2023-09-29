@@ -1,0 +1,1135 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[Max Leiter]]></title>
+        <description><![CDATA[Max Leiter's blog]]></description>
+        <link>https://maxleiter.com</link>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Fri, 29 Sep 2023 23:29:01 GMT</lastBuildDate>
+        <atom:link href="https://maxleiter.com/feed.xml" rel="self" type="application/rss+xml"/>
+        <language><![CDATA[en]]></language>
+        <item>
+            <title><![CDATA[Triple Play - macOS, Linux, and Windows Harmony with KVM, DistroBox, and Wine]]></title>
+            <description><![CDATA[<p>Picture this: Your computer, the ultimate Casanova of machines, has a secret talent - it can flirt effortlessly with not one, not two, but three different operating systems at the same time. It&#39;s like a sizzling love triangle between macOS, Linux, and Windows, and your computer is the charming matchmaker. Why, you ask? Because who wouldn&#39;t want to be the Don Juan of the digital world, wooing every OS with KVM, DistroBox, and Wine?</p>
+<p>In this guide, we&#39;ll learn how to run macOS, Linux distributions, and Windows together on a single machine with KVM, DistroBox, and Wine. </p>
+<h2>What is KVM?</h2>
+<p>KVM is a virtualization technology that allows you to run multiple operating systems on a single machine. It&#39;s a great way to test out new software without having to install it on your computer. Basically, KVM is a hypervisor that allows you to run multiple operating systems on a single machine. It&#39;s a great way to test out new software without having to install it on your computer. The best part is that it&#39;s free and open source! </p>
+<blockquote>
+<p>KVM and VMware are both virtualization technologies, but they are not the same. KVM is an open-source virtualization technology that is built into the Linux kernel. VMware is a proprietary virtualization technology that is built on top of the Linux kernel. </p>
+</blockquote>
+<p><strong>DistroBox</strong> is an open source project that allows you to run multiple Linux distributions on a single machine. It is a tool for providing containerised runtimes of several different Linux distributions. It&#39;s a great way to test out new software without having to install it on your computer. The distrobox environment is based on an OCI image. This image is used to create a container that seamlessly integrates with the rest of the operating system by providing access to the user&#39;s home directory, the Wayland and X11 sockets, networking, removable devices (like USB sticks), systemd journal, SSH agent, D-Bus, ulimits, /dev and the udev database, etc...</p>
+<p><strong>Wine</strong> is a compatibility layer that allows you to run Windows applications on Linux and macOS. <em>The best part is that its not an emultar, instead it translates Windows API calls into POSIX calls on-the-fly, eliminating the performance and memory penalties of other methods and allowing you to cleanly integrate Windows applications into your desktop.</em> The benefit of using Wine is that it requires less resources than running a full Windows virtual machine, and it allows you to run Windows applications without having to install Windows.</p>
+<h2>My Nerds, Lets get into it!!</h2>
+<p>OKAY ITS MUST TO HAVE A LINUX HOST FOR THIS TO WORK. I use <a href="/posts/the-arch-linux-cult" target="_blank" rel="noopener noreferrer">Arch Linux</a> BTW.</p>
+<h3>Linux</h3>
+<p>Okay you already have Linux installed, so you are good to go. But lets see what if you want a different distro????? Gals and Guys, here comes <a href="https://github.com/89luca89/distrobox" target="_blank" rel="noopener noreferrer">DistroBox</a> to the rescue. Install it with the following command:</p>
+<pre><code class="language-bash">curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh -s -- --next
+</code></pre>
+<p>Now for this you might need to have docker installed. If you don&#39;t have it, install it with the following command:</p>
+<pre><code class="language-bash">sudo pacman -S docker
+</code></pre>
+<p>Now you can run the following command to create a new container:</p>
+<pre><code class="language-bash">distrobox create --image=fedora # replace fedora with your favorite distro or the one you want to try
+</code></pre>
+<p>Next to enter the container, run the following command:</p>
+<pre><code class="language-bash">distrobox enter fedora
+</code></pre>
+<p>AHHHHHHAHH!!!! You are now in a container running your favorite distro. You can now install whatever you want in it. You can also run GUI apps in it. For that you need to install X11 server on your host.</p>
+<p><img src="https://cdn.jabed.dev/distrobox.png" alt="Fedora running in a container on my Arch Linux host"></p>
+<h3>macOS</h3>
+<p>Okay, so you want to run macOS on your Linux host. Well, you can do that with <a href="https://github.com/foxlet/macOS-Simple-KVM" target="_blank" rel="noopener noreferrer">macOS-Simple-KVM</a> project. It is a tool that allows you to easily create a macOS virtual machine on Linux. It uses QEMU and KVM to run the virtual machine. It also includes a script that allows you to easily install macOS on the virtual machine. </p>
+<p>To install macOS-Simple-KVM, firstly install the dependencies:</p>
+<pre><code class="language-bash">sudo apt-get install qemu-system qemu-utils python3 python3-pip  # for Ubuntu, Debian, Mint, and PopOS.
+sudo pacman -S qemu python python-pip python-wheel  # for Arch.
+sudo xbps-install -Su qemu python3 python3-pip   # for Void Linux.
+sudo zypper in qemu-tools qemu-kvm qemu-x86 qemu-audio-pa python3-pip  # for openSUSE Tumbleweed
+sudo dnf install qemu qemu-img python3 python3-pip # for Fedora
+sudo emerge -a qemu python:3.4 pip # for Gentoo
+</code></pre>
+<p>Now clone the repo and install it:</p>
+<pre><code class="language-bash">git clone git@github.com:foxlet/macOS-Simple-KVM.git
+cd macOS-Simple-KVM
+./jumpstart.sh
+</code></pre>
+<p>Next its time to create the cowspace for it. Cowspace is referred to as the disk space that is used by the virtual machine. It is a file that is used to store the virtual machine&#39;s disk image. The cowspace is created by running the following command:</p>
+<pre><code class="language-bash">qemu-img create -f qcow2 MyDisk.qcow2 64G
+</code></pre>
+<p>Now add the following to the <code>basic.sh</code> file:</p>
+<pre><code class="language-bash">    -drive id=SystemDisk,if=none,file=MyDisk.qcow2 \
+    -device ide-hd,bus=sata.4,drive=SystemDisk \
+</code></pre>
+<p>Now run the following command to start the virtual machine:</p>
+<pre><code class="language-bash">./basic.sh
+</code></pre>
+<p>You can refer to the <a href="https://github.com/foxlet/macOS-Simple-KVM/tree/master/docs" target="_blank" rel="noopener noreferrer">official documentation</a> to improve the performance of the virtual machine.</p>
+<h3>Windows</h3>
+<p>The final one... especially what the linux gamers lust for!!! Windows. You can run Windows on your Linux host with <a href="https://www.winehq.org/" target="_blank" rel="noopener noreferrer">Wine</a>.<br>Its extremely easy to install. Just run the following command:</p>
+<pre><code class="language-bash">sudo pacman -S wine
+</code></pre>
+<p>Now you can run Windows apps on your Linux. For example to run <code>nfx.exe</code> run the following command:</p>
+<pre><code class="language-bash">wine nfx.exe
+</code></pre>
+<hr>
+<p>This was how you can run macOS, Linux, and Windows together on a single machine with KVM, DistroBox, and Wine. Personally just <a href="/posts/the-arch-linux-cult" target="_blank" rel="noopener noreferrer">Arch</a> is enough for me. I am loyal to Arch even more than my disillusional girlfriend. But if you need to run all three of them, this is the way to go.</p>
+]]></description>
+            <link>https://maxleiter.com/blog/triple-play-macos-linux-and-windows-harmony-with-kvm-distrobox-and-wine</link>
+            <guid isPermaLink="false">https://maxleiter.com/blog/triple-play-macos-linux-and-windows-harmony-with-kvm-distrobox-and-wine</guid>
+            <dc:creator><![CDATA[Max Leiter]]></dc:creator>
+            <pubDate>Fri, 22 Sep 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Demystifying Rebase, Merge, and Squash]]></title>
+            <description><![CDATA[<p>Version Control has been one of the headache for developers from a long time.<br>Few days back I got a comment on my PR from the mantainer of the repo...</p>
+<p><img src="https://cdn.jabed.dev/git-pr-comment.png" alt="PR comment burh"></p>
+<p>My dumbass couldnt figure out and I mistakenly closed the PR itself (which I couldnt reopen again)</p>
+<p>Version Control Systems, such as Git, offer a structured environment for development teams to work together. However, it&#39;s not all smooth sailing. Developers often find themselves wrestling with issues like Confliciting Cranches, Commit Proliferation, Branch Overload, etc.</p>
+<p>Now, let&#39;s tackle the three major strategies for integrating changes in Git: rebase, merge, and squash.</p>
+<ol>
+<li><p>Rebase:<br>Rebasing is the process of moving the entire history of a branch to a new base commit. It appears as if the work was done sequentially, making the commit history linear and easier to understand. This is a great way to keep the main branch&#39;s history clean and can prevent unnecessary merge commits. However, rebasing can lead to conflicts, especially if the base commit has been altered since the branch was created.</p>
+</li>
+<li><p>Merge:<br>Merging involves integrating changes from one branch into another. It creates a new merge commit that joins the histories of both branches. Merging is straightforward and works well for preserving the context of each branch&#39;s work. It&#39;s a good strategy for incorporating completed features into the main branch. But, excessive merging can lead to a convoluted commit history, making it harder to trace the evolution of the code.</p>
+</li>
+<li><p>Squash:<br>Squashing is the act of combining multiple commits into one. This strategy is particularly useful when you want to condense a series of small, related commits into a single meaningful commit before merging. Squashing maintains a clean commit history and is favored for ensuring that only important changes are recorded in the main branch. However, squashing can make it difficult to trace the individual steps taken during development.</p>
+</li>
+</ol>
+<p>Selecting the appropriate strategy depends on the specific context of your project and development workflow. Here are a few considerations:</p>
+<ul>
+<li><p><strong>rebase</strong> : Use when you want a clean and linear history. Be cautious if working in a collaborative environment where others are also contributing to the same branch.</p>
+</li>
+<li><p><strong>merge</strong> : Opt for merging when preserving context and clear separation of features is essential. Suitable for teams working on different features simultaneously.</p>
+</li>
+<li><p><strong>squash</strong> : Choose squash when you want a concise commit history, particularly for feature branches. It&#39;s great for cleaning up before merging into a shared branch.</p>
+</li>
+</ul>
+<p>Remember, there&#39;s no one-size-fits-all solution – the right choice depends on your project&#39;s unique needs and your team&#39;s collaboration style. By mastering these strategies, you can turn the headache of VCS into a well-managed, streamlined process that empowers your team to work together effectively.</p>
+]]></description>
+            <link>https://maxleiter.com/blog/demystifying-rebase-merge-and-sqash</link>
+            <guid isPermaLink="false">https://maxleiter.com/blog/demystifying-rebase-merge-and-sqash</guid>
+            <dc:creator><![CDATA[Max Leiter]]></dc:creator>
+            <pubDate>Fri, 04 Aug 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[The arch linux cult]]></title>
+            <description><![CDATA[<p>Okay as in my <a href="https://www.jabed.dev/posts/doing-environment-variables-the-right-way" target="_blank" rel="noopener noreferrer">last post</a> I recently embarked on yet another clean reinstall of Arch Linux. I ran into some problems with my kernel and GRUB... The arch wiki couldnt help me out... I went to reddit, but still couldnt find the fix... yeah the arch community is the most toxic community in existance and even I send the arch wiki link when someone asks me how to install arch (Bruh just read the manual)</p>
+<p>Back in earlier days I had a dual boot setup with both arch and windows. Although I became a ubuntu noob for a short period, after which I finally removed the windows partition which i rarely ever used and became a true arch chad (Just need to get the programming socks, already got the waifu on my desktop)</p>
+<p><img src="https://cdn.jabed.dev/arch-btw.jpg" alt="arch-btw"></p>
+<pre><code>Arch linux is basically the distro for those elites who are deep into the tech. The installation itself is a pain, but yeah you can follow the arch wiki and get it done easily. There&#39;s something exhilarating about building your system from the ground up, tailored to suit your exact needs and preferences, although this honeymoon phase doesnt lasts long, there are updates at time which just breakdown your whole system. That sudden urgue to suddenly rice your distro (inserts moyai emoji), its like playing Russian roulette with your system. 
+
+One might ask, why do I keep subjecting myself to this whirlwind of emotions? The answer is simple – the arch cult is addictive. The thrill of tweaking configuration files, exploring the AUR for obscure packages, and delving into the intricacies of the command line can be strangely rewarding. It&#39;s like an ever-growing puzzle, and I can&#39;t help but take a few more pieces from the box to see where they fit.
+
+Okay now if you are a windows user, then you must be complaing that &quot;the arch fanboys are toxic af, they spend 90% of the time making their distro work rather than working&quot;.
+
+If you are a windows user, firstly I would say may god have mercy on you, SEE!!! ARCH IS NOT FOR EVRYONE, here you are expected to do the things by yourself, when you manually install arch, you will eventually get to know about your system way better. You create your own config, this actually makes your dev workflow faster. On arch, you can just hit `pacman -S firefox` and get your browser ready, meanwhile on windows you have to download the installer first, then go through the installation steps and then get it finally installed, you may also need a reboot.Arch makes it easier and faster to install things. _&quot;HEY DUMB$$, YOU CANT PLAY GAMES ON LINUX!!!&quot;_, oh you poor soul, stuck in the past with your outdated beliefs! It&#39;s quite sad to see someone living in a time warp while the world around them evolves. Linux has come a long way, and it&#39;s more powerful than ever! I hate to break it to you, but your statement reeks of ignorance. With Proton and Wine, Linux users can now effortlessly play a wide range of Windows games. 
+
+There are lots of reason why arch is the perfect distro, and linux is way better than windows. Arch was a love hate relationship thou. On one hand, its unparalleled customizability and bleeding-edge technology captivate me, allowing me to craft a system tailored to my every desire. The rolling release model keeps my software up-to-date, and the extensive Arch Wiki guides me through even the most intricate configurations. Yet, in this journey of empowerment, I often find myself struggling with the complexities it presents. There are lot of times when the system breaks down. But still the love for Arch Linux is inseparable from the frustrations it brings and how it makes you superior from other people.
+</code></pre>
+<p><img src="https://cdn.jabed.dev/windows-bobe.png" alt="windows-bobe"></p>
+]]></description>
+            <link>https://maxleiter.com/blog/the-arch-linux-cult</link>
+            <guid isPermaLink="false">https://maxleiter.com/blog/the-arch-linux-cult</guid>
+            <dc:creator><![CDATA[Max Leiter]]></dc:creator>
+            <pubDate>Sat, 22 Jul 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Doing Environment Variables the Right Way]]></title>
+            <description><![CDATA[<p>Few days back I was working on one of my side projects, yeah one of those 1000 side projects which never worked out like your past relationships. So somehow I suddenly decied to again rice my distro for the 10th time in a month, I use <a href="https://bit.ly/3NSr9Bj" target="_blank" rel="noopener noreferrer">arch</a> btw. Unaware of the fact that I had to backup my environment variables I just again had a fresh reinstall of <a href="https://bit.ly/3NSr9Bj" target="_blank" rel="noopener noreferrer">ARCH LINUX</a>, which later made me rant again about how I lost my environment variables and how I have to again set them up. Again generating new tokens and keys for my project and setting them up.</p>
+<p>This was not the only time I messed up. Back once I mistakenly pushed my environment variables to github, which was another trouble I created for myself.</p>
+<p><img src="https://cdn.jabed.dev/peter-hiding.jpg" alt="peter-hiding"></p>
+<p>So after so many ranting and messing up, I finally decided to do find a better way to manage my environment variables. I was thinking about getting some cloud hosted vault to store my environment variables, but then I thought why not just use my own server to store my environment variables. But again thats a mess, Heckers might try to poke around my server, moreover power cuts, 24/7 running server, and what not.</p>
+<p>Then I came around the <a href="https://www.dotenv.org/" target="_blank" rel="noopener noreferrer">dotenv</a>. Probably you have used this package in your nodejs apps to load environment variables. They also provide a free service to store your environment variables.</p>
+<p>This was the perfect solution for me. I just had to install the package and load my environment variables from the dotenv server. It was simple and easy. Morever they make managing environment variables in your deployment pipeline easy.</p>
+<h3>How to get it working???</h3>
+<ul>
+<li><p>Firstly get a free account on <a href="https://www.dotenv.org/" target="_blank" rel="noopener noreferrer">dotenv</a>.</p>
+</li>
+<li><p>Now in the directory where you have your environment variables or the <code>.env</code> file, run the following command.</p>
+</li>
+</ul>
+<pre><code class="language-bash">npx dotenv-vault@latest login
+</code></pre>
+<ul>
+<li><p>So this will ask you to login to your dotenv account. After logging in, it will automatically create a <code>.env.me</code> file in your directory. This will have the access token to access your environment variables.</p>
+</li>
+<li><p>Now make sure you dont push this file to your version control system. Add this file to your <code>.gitignore</code> file. Dotenv will automatically add this file to your <code>.gitignore</code> file.</p>
+</li>
+<li><p>Now time to push your environment variables to the dotenv server. Run the following command.</p>
+</li>
+</ul>
+<pre><code class="language-bash">npx dotenv-vault@latest push
+</code></pre>
+<ul>
+<li><p>This will push your environment variables to the dotenv server. You can check your environment variables on the dotenv server. Visit your <a href="https://vault.dotenv.org/ui/" target="_blank" rel="noopener noreferrer">dotenv dashboard</a> to check your environment variables.</p>
+</li>
+<li><p>Now time to load your environment variables in your app. Run the following command.</p>
+</li>
+</ul>
+<pre><code class="language-bash">npx dotenv-vault@latest pull
+</code></pre>
+<ul>
+<li>This will load your environment variables from the dotenv server.</li>
+</ul>
+<p>This whole thing is pretty simple and easy to use and gets the job done.</p>
+<h3>How to use it in your deployment pipeline???</h3>
+<ul>
+<li>Run the following command.</li>
+</ul>
+<pre><code class="language-bash">npx dotenv-vault build
+</code></pre>
+<ul>
+<li>This will create a <code>env.vault</code>, something similar to this</li>
+</ul>
+<pre><code class="language-bash">    #/-------------------.env.vault---------------------/
+    #/         cloud-agnostic vaulting standard         /
+    #/   [how it works](https://dotenv.org/env-vault)   /
+    #/--------------------------------------------------/
+
+    # development
+    DOTENV_VAULT_DEVELOPMENT=&quot;/HqNgQWsf6Oh6XB9pI/CGkdgCe6d4/vWZHgP50RRoDTzkzPQk/xOaQs=&quot;
+    DOTENV_VAULT_DEVELOPMENT_VERSION=2
+
+    # production
+    DOTENV_VAULT_PRODUCTION=&quot;x26PuIKQ/xZ5eKrYomKngM+dO/9v1vxhwslE/zjHdg3l+H6q6PheB5GVDVIbZg==&quot;
+    DOTENV_VAULT_PRODUCTION_VERSION=2
+</code></pre>
+<ul>
+<li><p>This encrypted <code>.env.vault</code> file along with a <code>.env.keys</code> file containing the encryption keys. Set the DOTENV_KEY environment variable by copying and pasting the key value from the <code>.env.keys</code> file onto your server or cloud provider</p>
+</li>
+<li><p>Commit your <code>.env.vault</code> file safely to code and deploy. Your <code>.env.vault</code> fill be decrypted on boot, its environment variables injected, and your app work as expected.</p>
+</li>
+</ul>
+]]></description>
+            <link>https://maxleiter.com/blog/doing-environment-variables-the-right-way</link>
+            <guid isPermaLink="false">https://maxleiter.com/blog/doing-environment-variables-the-right-way</guid>
+            <dc:creator><![CDATA[Max Leiter]]></dc:creator>
+            <pubDate>Thu, 20 Jul 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Burning your money with Cloud]]></title>
+            <description><![CDATA[<p>Its the pleasent summer of June 2023, my production app was running for free of cost on <a href="https://railway.app/" target="_blank" rel="noopener noreferrer">railway</a> when I suddenly get a mail from them saying that they are shutting down their starter plan... Railway, the Heroku Alternative, Shuts Down Their Free Tier.</p>
+<p><img src="https://cdn.jabed.dev/ah-shit-here-we-go-again.png" alt="ah-shit"></p>
+<p>After heroku it was time to say goodbye to railway... </p>
+<p>Railway founded in 2019, offered easy deployments for your applications and provided a viable alternative to Heroku. It quickly gained popularity among developers due to its simplicity and powerful features. However, the recent shutdown of the starter plan came as a shock to many users who relied on Railway for their projects. </p>
+<p>The starter plan of Railway had been a go-to choice for developers who wanted to deploy their applications without any cost. It allowed users to host small-scale projects, experiment with new ideas, and learn the ropes of deployment without incurring any expenses. The sudden discontinuation of this plan left many developers searching for alternatives and contemplating their next steps.</p>
+<p>Now what was the next choice??? AWS 🗿 </p>
+<p>If you have endless money than AWS might be the solution... but that case doesnt holds for me... </p>
+<h3>Finding alternatives</h3>
+<p>There are also other alternatives to Railway like <a href="https://render.com/" target="_blank" rel="noopener noreferrer">Render</a> and <a href="https://fly.io/" target="_blank" rel="noopener noreferrer">Fly.io</a>. But the cold starts in <a href="https://render.com/" target="_blank" rel="noopener noreferrer">Render</a> turns out to be a deal breaker for me... When its comes to <a href="https://fly.io/" target="_blank" rel="noopener noreferrer">Fly.io</a> all plans require a credit card to be added, also it doesnt actually provides <em>free tier</em> instead it provides some free resources... The starting plan for a dedicated VM is $29/mo... </p>
+<h3>AWS cult</h3>
+<p>AWS now comes into the picture... I could spin up an EC2 instance and deploy my app there... The billing would be done at the end of the month based on the usage... But the AWS cult is not for me... AWS had been a nightmare for most of the developers. The pricing is very complex and the documentation is not very helpful. The UI is also very confusing and it is difficult to find what you are looking for. For a small project/individual developer AWS is not a good choice.</p>
+<p><em><strong>SO WHATS THE SOLUTION???</strong></em></p>
+<p>Run up my own home server!!! Yeah literally running a server at your basement 💀 Then use cloudflare to protect yourself from DDOS attacks. But there are lots of issues with this approach. Power cuts and internet outages turns out to be barrier to this. </p>
+<h3>The final choice</h3>
+<p>Digital Ocean... turns to be the best choice at this date according to me. It provides a great alternative to AWS and pricing is also very simple. A single droplet costs $5/mo and you can scale up as your needs grow. You can run one droplet and then use a reverse proxy like nginx to route traffic to your app and host multiple services on a single droplet. To host your static sites you can use <a href="https://vercel.com/" target="_blank" rel="noopener noreferrer">Vercel</a> or <a href="https://www.netlify.com/" target="_blank" rel="noopener noreferrer">Netlify</a> which provides a free tier. And trust me that free tier is even enough for a medium scale project. </p>
+<p><img src="https://cdn.jabed.dev/vercel-netlify-meme.jpg" alt="vercel-netlify-meme"></p>
+]]></description>
+            <link>https://maxleiter.com/blog/burning-your-money-with-cloud</link>
+            <guid isPermaLink="false">https://maxleiter.com/blog/burning-your-money-with-cloud</guid>
+            <dc:creator><![CDATA[Max Leiter]]></dc:creator>
+            <pubDate>Sun, 25 Jun 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Jwt authentication with access token and refresh token]]></title>
+            <description><![CDATA[<p>Authentication is one of the most important parts of any web application. Implementing authentication in a web application can be a complex task. It can be achieved in many ways. </p>
+<p>In this article, we will see how to implement authentication using JWT and refresh and access tokens. We will also see how to protect routes using access tokens and refresh tokens. We will also see how to invalidate refresh tokens.</p>
+<h2>What is JWT?</h2>
+<p>JWT stands for JSON Web Token. It is a standard for securely transmitting information between parties as a JSON object. It is a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. JWTs can be signed using a secret or a public/private key pair. </p>
+<ul>
+<li><p>Access Token : It is a short-lived token. It is used to access protected routes. It contains all the information that is required to access protected routes. A stateless token, stored on the client-side on the local storage of the browser.</p>
+</li>
+<li><p>Refresh Token : It is a long-lived token. It is used to get a new access token when the access token expires. It contains all the information that is required to get a new access token. A stateful token, stored on the server-side in the database, usually in Redis.</p>
+</li>
+</ul>
+<h3>Getting started</h3>
+<p><em>Hope so you know how to create a express server in nodejs.. So I am not going to explain that part here..And you must be knowing that cause you are here to learn about jwt authentication..</em></p>
+<p><em><strong>So let&#39;s start!!!</strong></em> </p>
+<p>You will need the <code>jsonwebtoken</code> and <code>redis</code> packages. So install them using the following command.</p>
+<pre><code class="language-bash">pnpm i jsonwebtoken redis
+</code></pre>
+<h3>Creating public and private keys</h3>
+<pre><code class="language-bash">ssh-keygen -t rsa -b 4096 -m PEM -f jwtRS256.key
+</code></pre>
+<pre><code class="language-bash"># Don&#39;t add passphrase
+openssl rsa -in jwtRS256.key -pubout -outform PEM -out jwtRS256.key.pub
+</code></pre>
+<blockquote>
+<p>Don&#39;t share your private key with anyone. Keep it safe. We only share the public key...</p>
+</blockquote>
+<h3>Creating a redis client</h3>
+<pre><code class="language-ts">import redis from &#39;redis&#39;;
+
+const redisClient = redis.createClient({
+  url: process.env.REDIS_URL,
+});
+</code></pre>
+<p>The redis url will be <code>redis://localhost:6379</code> if you are running redis locally. Dont forget to add the redis url in the <code>.env</code> file.</p>
+<h3>Creating functions to generate access token and refresh token</h3>
+<pre><code class="language-ts">import jwt from &#39;jsonwebtoken&#39;;
+import { readFileSync } from &#39;fs&#39;;
+
+const exp = 60 * 15; // 15 minutes
+const expRefresh = 60 * 60 * 24 * 7; // 7 days
+
+// reading private key and public key
+const privateKey = readFileSync(&#39;./jwtRS256.key&#39;);
+const publicKey = readFileSync(&#39;./jwtRS256.key.pub&#39;);
+
+// function to generate access token
+export const generateAccessToken = (payload: any) =&gt; {
+  return jwt.sign(payload, privateKey, {
+    algorithm: &#39;RS256&#39;,
+    expiresIn: exp,
+  });
+};
+
+// function to generate refresh token
+export const generateRefreshToken = (payload: any) =&gt; {
+  return jwt.sign(payload, privateKey, {
+    algorithm: &#39;RS256&#39;,
+    expiresIn: expRefresh,
+  });
+};
+</code></pre>
+<h3>Now getting to your login route</h3>
+<pre><code class="language-ts">import { generateAccessToken, generateRefreshToken } from &#39;./jwt&#39;;
+
+/*
+your login validation code
+*/
+
+const accessToken = generateAccessToken({ id: user.id });
+const refreshToken = generateRefreshToken({ id: user.id });
+
+// saving refresh token in redis
+await redisClient.setEx(refreshToken, expRefresh, user.id);
+
+// storing access token in httpOnly cookie
+
+res.cookie(&#39;accessToken&#39;, accessToken, {
+  httpOnly: true,
+  maxAge: exp * 1000,
+});
+
+/*
+your login response code
+*/
+</code></pre>
+<p>What we did was we generated an access token and a refresh token. We stored the refresh token in redis and the access token in the httpOnly cookie. </p>
+<h3>Creating a middleware to protect routes</h3>
+<pre><code class="language-ts">import { verify } from &#39;jsonwebtoken&#39;;
+import { readFileSync } from &#39;fs&#39;;
+import { Request, Response, NextFunction } from &#39;express&#39;;
+
+const publicKey = readFileSync(&#39;./jwtRS256.key.pub&#39;);
+
+export const middleware(res: Request, res: Response, next: NextFunction) =&gt; {
+  const accessToken = req.cookies.accessToken;
+
+  if (!accessToken) {
+    return res.status(401).json({
+      message: &#39;Access token not found&#39;,
+    });
+  }
+
+  try {
+    const payload = verify(accessToken, publicKey, {
+      algorithms: [&#39;RS256&#39;],
+    });
+
+    req.user = payload;
+
+    next();
+  } catch (err) {
+    return res.status(401).json({
+      message: &#39;Invalid access token&#39;,
+    });
+  }
+};
+</code></pre>
+<h3>Using the middleware</h3>
+<pre><code class="language-ts">import { middleware } from &#39;./middleware&#39;;
+
+/*
+your other routes
+*/
+
+app.get(&#39;/protected&#39;, middleware, (req, res) =&gt; {
+  res.json({
+    message: &#39;Protected route&#39;,
+  });
+});
+</code></pre>
+<h3>Creating a route to get a new access token</h3>
+<pre><code class="language-ts">import { verify } from &#39;jsonwebtoken&#39;;
+import { readFileSync } from &#39;fs&#39;;
+import { Request, Response, NextFunction } from &#39;express&#39;;
+
+const publicKey = readFileSync(&#39;./jwtRS256.key.pub&#39;);
+const privateKey = readFileSync(&#39;./jwtRS256.key&#39;);
+
+app.get(&#39;/new-access-token&#39;, async (req, res) =&gt; {
+  const refreshToken = req.cookies.refreshToken;
+
+  if (!refreshToken) {
+    return res.status(401).json({
+      message: &#39;Refresh token not found&#39;,
+    });
+  }
+
+  try {
+    const payload = verify(refreshToken, publicKey, {
+      algorithms: [&#39;RS256&#39;],
+    });
+
+    const accessToken = generateAccessToken({ id: payload.id });
+
+    res.cookie(&#39;accessToken&#39;, accessToken, {
+      httpOnly: true,
+      maxAge: exp * 1000,
+    });
+
+    res.json({
+      message: &#39;New access token generated&#39;,
+    });
+  } catch (err) {
+    return res.status(401).json({
+      message: &#39;Invalid refresh token&#39;,
+    });
+  }
+});
+</code></pre>
+<p>The reason to store the refresh token in redis is that we can invalidate the refresh token. So when the user logs out we can delete the refresh token from redis. So the user will not be able to get a new access token.</p>
+<h3>Creating a route to logout</h3>
+<pre><code class="language-ts">app.get(&#39;/logout&#39;, async (req, res) =&gt; {
+  const refreshToken = req.cookies.refreshToken;
+
+  if (!refreshToken) {
+    return res.status(401).json({
+      message: &#39;Refresh token not found&#39;,
+    });
+  }
+
+  try {
+    const payload = verify(refreshToken, publicKey, {
+      algorithms: [&#39;RS256&#39;],
+    });
+
+    await redisClient.del(payload.id);
+
+    res.clearCookie(&#39;accessToken&#39;);
+    res.clearCookie(&#39;refreshToken&#39;);
+
+    res.json({
+      message: &#39;Logged out successfully&#39;,
+    });
+  } catch (err) {
+    return res.status(401).json({
+      message: &#39;Invalid refresh token&#39;,
+    });
+  }
+});
+</code></pre>
+<p>Hope so you understood the code.</p>
+]]></description>
+            <link>https://maxleiter.com/blog/jwt-authentication-with-access-token-and-refresh-token</link>
+            <guid isPermaLink="false">https://maxleiter.com/blog/jwt-authentication-with-access-token-and-refresh-token</guid>
+            <dc:creator><![CDATA[Max Leiter]]></dc:creator>
+            <pubDate>Wed, 14 Jun 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Port Forwarding with Cloudflare Tunnel]]></title>
+            <description><![CDATA[<p>Exposing your ip address to the public to forward ports is a bad idea. It&#39;s a security risk and it&#39;s not very convenient. With cloudflare tunnel you dont need to punch holes in your firewall or expose your ip address to the world. You can forward ports to your local machine without exposing your ip address to the world.</p>
+<p><strong>Yes this can be done with the help of cloudflare tunnel</strong></p>
+<h2>What is Cloudflare Tunnel?</h2>
+<p>Cloudflare Tunnel is a service that allows you to expose your local web server to the internet without exposing your ip address to the world. It&#39;s a secure way to expose your local web server to the internet.</p>
+<h2>How does it work?</h2>
+<p>Cloudflare Tunnel works by creating a secure connection between your local machine and cloudflare&#39;s edge network. It uses TLS to encrypt the connection between your local machine and cloudflare&#39;s edge network. It also uses TLS to encrypt the connection between cloudflare&#39;s edge network and the internet.</p>
+<p>Lets see how it works in action by forwarding one of my local web server to the internet.</p>
+<p>In this example I am going to forward port 8080 of my host machine to the internet.</p>
+<h3>Step 1: Get your cloudflare account</h3>
+<p>If you dont have a cloudflare account you can create one <a href="https://dash.cloudflare.com/sign-up" target="_blank" rel="noopener noreferrer">here</a>. And you must have one if you are reading this article.<br><em>Cloudflare is not sponsoring me to say this.</em></p>
+<h3>Step 2: Get you Domain name</h3>
+<p>If you dont have a domain name you can get one from <a href="https://www.namecheap.com/" target="_blank" rel="noopener noreferrer">here</a> or any other domain name provider and add cloudflare nameservers to your domain name. So that you can manage your domain name from cloudflare dashboard.</p>
+<h3>Step 3: Activate Cloudflare Zero Trust</h3>
+<p>AHHMMM... You need a credit card to activate cloudflare zero trust. Select your suitable plan and activate it.</p>
+<Callout emoji="💳" type="info">
+  Shhh!!! There is a free plan too... Secret between you and me.
+</Callout>
+
+<h3>Step 4: Creating a new tunnel</h3>
+<p>From the cloudflare dashboard select <code>Access</code> from the side menu and move to <code>Tunnel</code><br>Click on <code>New Tunnel</code> button to create a new tunnel.</p>
+<p><strong>Things may look different in the future.</strong></p>
+<p><img src="https://cdn.jabed.dev/cloudflare-zero-trust.png" alt="New Tunnel"><br><img src="https://cdn.jabed.dev/cloudflare-zero-trust-new.png" alt="New Tunnel"></p>
+<h3>Step 5: Connecting to the tunnel</h3>
+<p>After giving a name to your tunnel you will be presented with a command to connect to the tunnel. Copy the command and run it in your terminal.</p>
+<p>I would prefer docker, the bad boy of the container world. And yeah you need to add a <code>-d</code> flag to run it in the background.</p>
+<pre><code class="language-bash">docker run -d cloudflare/cloudflared:latest tunnel --no-autoupdate run --token &lt;your-secret-token&gt;
+</code></pre>
+<h3>Step 6: Forwarding the port</h3>
+<p>Time to configure. Keep the settings as this and click on <code>Next</code></p>
+<p><img src="https://cdn.jabed.dev/cloudflare-zero-trust-config.png" alt="New Tunnel"></p>
+<p><strong>Add the domain which you earlier added to cloudflare. On the Service section keep, enter the url as <code>&lt;your-ip-address&gt;:&lt;port-you-want-to-forward&gt;</code></strong></p>
+<p>BINGO!! You have just forwarded a port to the internet without exposing your ip address to the world. Kinda was a sort of reverse proxy.</p>
+<Callout emoji="🚨">
+  If the container is stopped the tunnel will be disconnected. So make sure to
+  run the container in the background.
+</Callout>
+]]></description>
+            <link>https://maxleiter.com/blog/port-forwarding-with-cloudflare-tunnel</link>
+            <guid isPermaLink="false">https://maxleiter.com/blog/port-forwarding-with-cloudflare-tunnel</guid>
+            <dc:creator><![CDATA[Max Leiter]]></dc:creator>
+            <pubDate>Tue, 30 May 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Running multiple containers with Docker Compose]]></title>
+            <description><![CDATA[<p>Lets take a situation where you have a web application which uses a database. You have to run both the application and database in separate containers. You can do this by using Docker. But what if you have to run multiple instances of the application and database? creating and running multiple containers is a tedious task. So how can we solve this problem?</p>
+<p><strong>Docker Compose</strong> is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. Then, with a single command, you create and start all the services from your configuration.</p>
+<blockquote>
+<p>Docker Compose doesnt comes with Docker Desktop. You have to install it separately. To install Docker Compose, follow the instructions <a href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener noreferrer">here</a></p>
+</blockquote>
+<p>Lets take a example to understand the basics of Docker Compose. We will create a simple web application which uses a database. We will use Docker Compose to run both the application and database in separate containers.</p>
+<h2>Getting Started</h2>
+<p>Create a new directory and give it a name of your choice. For this demo I will name it <code>docker-compose-demo</code><br>    <code>bash     mkdir docker-compose-demo     cd docker-compose-demo     </code><br>Now create a new file named <code>docker-compose.yml</code> . This is the file where we will define our application&#39;s services. It serves a similar purpose as <code>Dockerfile</code> but for multiple containers and acts as a config file for Docker Compose.</p>
+<p>At the top of the file, we specify the version of Docker Compose we are using. For this demo we will use version 3.9. You can find the latest version <a href="https://docs.docker.com/compose/compose-file/compose-versioning/" target="_blank" rel="noopener noreferrer">here</a></p>
+<pre><code>```yaml
+version: &quot;3.9&quot;
+```
+</code></pre>
+<p>Lets create a basic express server to serve our web application. In the terminal hit <code>npm init -y</code> to create a new node project. Then install express and pg using <code>npm install express pg</code>. Create a new file named <code>index.js</code> and add the following code to it.</p>
+<pre><code>```javascript
+const express = require(&#39;express&#39;)
+const pg = require(&#39;pg&#39;)
+
+const app = express()
+const port = 3000
+
+const pool = new Pool({
+    user : &#39;root&#39;,
+    host : &#39;db&#39;,
+    database : &#39;mydb&#39;,
+    password : &#39;example&#39;,
+    port : 5430
+})
+
+app.get(&quot;/&quot;, (req, res) =&gt; {
+    pool.query(&quot;SELECT NOW()&quot;, (error, result) =&gt; {
+        if(error) {
+            res.send(error)
+        }
+        res.send(`Connected to database. Current time: ${result.rows[0].now}`);
+    })
+})
+
+app.listen(port, () =&gt; {
+    console.log(`Server running at http://localhost:${port}`)
+})
+```
+</code></pre>
+<p>Now in the <code>package.json</code> file, add the following script to start the server.</p>
+<pre><code>```json
+&quot;scripts&quot;: {
+    &quot;start&quot;: &quot;node index.js&quot;
+}
+```
+</code></pre>
+<p>Now lets create a Dockerfile to build our application image. Create a new file named <code>Dockerfile</code> and add the following code to it.</p>
+<pre><code>```dockerfile
+FROM node:18
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN yarn install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD [&quot;yarn&quot;, &quot;start&quot;]
+```
+</code></pre>
+<p>Dont forget to add <code>.dockerignore</code> file to ignore <code>node_modules</code> folder.</p>
+<pre><code>```bash
+node_modules
+```
+</code></pre>
+<p>Coming back to our <code>docker-compose.yml</code> , we need to define our services. In the example we will create two services namely db and app. Add the following code to out yaml file to define two containers.</p>
+<pre><code>```yaml
+services:
+    db:
+    app:
+```
+</code></pre>
+<p>Now the first container named <code>db</code> will have a image of postgres. We will also define the environment variables for the container. Add the following code to the <code>db</code> service. Witht the help of port mapping we will map the port 5432 of the container to port 5432 of the host machine.</p>
+<pre><code>```yaml
+
+```yaml
+db:
+    image: postgres
+    environment:
+        POSTGRES_USER: root
+        POSTGRES_PASSWORD: example
+        POSTGRES_DB: mydb
+    ports:
+        - &quot;5432:5432&quot;
+```
+</code></pre>
+<p>Now for the app container, we will use the image we created using the Dockerfile. Add the following code to the <code>app</code> service. Witht the help of port mapping we will map the port 3000 of the container to port 3000 of the host machine.</p>
+<pre><code>```yaml
+app:
+    build: .
+    ports:
+        - &quot;3000:3000&quot;
+```
+</code></pre>
+<p>Our app depends on the database. So we need to define the dependency. Add the following code to the <code>app</code> service.</p>
+<pre><code>```yaml
+depends_on:
+    - db
+```
+</code></pre>
+<p>Also Imagine if the container goes down then we will lose all the data. So we need to define a volume to persist the data. Add the following code to the <code>db</code> service.</p>
+<pre><code>```yaml
+volumes:
+      - ./data:/var/lib/postgresql/data
+```
+</code></pre>
+<p>Now we are done. Our <code>docker-compose.yml</code> file should look like this.</p>
+<pre><code>```yaml
+version: &quot;3.9&quot;
+
+services:
+    db:
+        image: postgres
+        environment:
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: example
+            POSTGRES_DB: mydb
+        ports:
+            - &quot;5432:5432&quot;
+        volumes:
+            - ./data:/var/lib/postgresql/data
+    app:
+        build: .
+        ports:
+            - &quot;3000:3000&quot;
+        depends_on:
+            - db
+```
+</code></pre>
+<p>Time to build and run our application. In the terminal run the following command to build and run the application.</p>
+<pre><code>```bash
+docker-compose build
+```
+![docker-compose-build](https://cdn.jabed.dev/docker-compose-build.png)
+</code></pre>
+<p>Now lets start the application in detached mode. In the terminal run the following command to run the application in detached mode.</p>
+<pre><code>```bash
+docker-compose up -d
+```
+</code></pre>
+<p>Now we are done!!!</p>
+<p>  <img src="https://cdn.jabed.dev/docker-compose-up.png" alt="docker-compose-up"></p>
+<p>To stop the application, run the following command.</p>
+<pre><code>```bash
+docker-compose down
+```
+</code></pre>
+<Callout emoji="💡">
+     You can use <code>docker-compose log</code> to view the logs of the containers.
+</Callout>
+
+
+<p>Hopefuly you have understood the basics of Docker Compose with the help of this demo. </p>
+]]></description>
+            <link>https://maxleiter.com/blog/run-multiple-container-with-docker-compose</link>
+            <guid isPermaLink="false">https://maxleiter.com/blog/run-multiple-container-with-docker-compose</guid>
+            <dc:creator><![CDATA[Max Leiter]]></dc:creator>
+            <pubDate>Sun, 21 May 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Breaking Down a Monolith - When and How to Move to Microservices]]></title>
+            <description><![CDATA[<p>So what were the limitations of the monolith? Why did we move to microservices? What are the benefits of microservices? When should you move to microservices? How do you move to microservices? Let&#39;s answer these questions.</p>
+<Callout emoji="💡" type="tip">
+ **Architecture** is the fundamental organization of a system embodied in its components, their relationships to each other, and to the environment, and the principles guiding its design and evolution.
+</Callout>
+
+<h2>The Limitations of the Monolith</h2>
+<p>Coming to the traditional monolith, it was a single codebase that was deployed as a single unit. Single process that ran on a single machine. A single release cycle that was followed for the entire codebase. It was a single point of failure that could bring down the entire application.</p>
+<p>Let us assume that we want to scale the application. We would have to scale the entire application. This type of scaling is called vertical scaling. It is expensive and not very efficient. We would have to scale the entire application even if only a small part of the application is being used heavily.</p>
+<h2>Difference Between Monolith and Microservices Architecture</h2>
+<p>In the microservices architecture, the application is broken down into multiple services. Each service is a separate codebase. Each service is deployed as a separate unit. Each service runs as a separate process. Each service can be scaled independently. This type of scaling is called horizontal scaling. It is cheaper and more efficient. We can scale only the services that are being used heavily.</p>
+<p>The benefits of having a microservice architecture is that it resolves the limitations of the monolith. It is more scalable, more resilient, and more flexible. It is also more complex and more expensive to build and maintain.</p>
+<p>But when should you move to microservices? How do you move to microservices?</p>
+<p>Most of the time, you don&#39;t need to move to microservices. You can start with a monolith and move to microservices when you need to scale. But if you are a large enterprise, you probably need microservices. You can start with a monolith and move to microservices when you need to scale.</p>
+<h2>When to Move to Microservices?</h2>
+<p>The first question that you should ask yourself is, do you really need microservices? If you are a startup, you probably don&#39;t need microservices. You can start with a monolith and move to microservices when you need to scale. If you are a large enterprise, you probably need microservices. You can start with a monolith and move to microservices when you need to scale.</p>
+<p>The second question that you should ask yourself is, do you have the resources to build and maintain microservices? If you are a startup, you probably don&#39;t have the resources to build and maintain microservices. You can start with a monolith and move to microservices when you have the resources. If you are a large enterprise, you probably have the resources to build and maintain microservices. You can start with a monolith and move to microservices when you need to scale.</p>
+<blockquote>
+<p>Was my opinion on when to move to microservices... Still its your choice to decide when to move to microservices.</p>
+</blockquote>
+<h2>How to Move to Microservices?</h2>
+<p>Firstly identify the services. Identify the boundaries of the services. Identify the dependencies between the services.<br>Now you can start breaking down the monolith into microservices. You can start with the services that are independent of each other. You can start with the services that have the least dependencies, easy to breakdown, easy to test/deploy.</p>
+<blockquote>
+<p>Most of the large enterprises have already moved to microservices. Netlfix is one of the biggest examples of microservices. They have over 700 microservices.</p>
+</blockquote>
+<h2>But is Microservices the Best Architecture?</h2>
+<p>Microservices is not the best architecture. It is just another architecture. It has its own pros and cons. It is more scalable, more resilient, and more flexible. It is also more complex and more expensive to build and maintain.</p>
+<p>With a microservices architecture, the system is composed of many independent services that communicate with each other, which can make the system more complex to understand and manage. As microservices are distributed systems, they can introduce additional challenges related to networking, communication, and handling failures across the distributed system. Maintaining data consistency across multiple services can be challenging, especially when changes to data need to be made across multiple services. Defining proper service boundaries can be challenging, especially when different services share functionality or data.</p>
+<h2>Conclusion</h2>
+<p>Both monolith and microservices have their own pros and cons. You should choose the architecture that best suits your needs. If you are a startup, you probably don&#39;t need microservices. You can start with a monolith and move to microservices when you need to scale. If you are a large enterprise, you probably need microservices.</p>
+]]></description>
+            <link>https://maxleiter.com/blog/breaking-down-a-monolith-when-and-how-to-move-to-microservices</link>
+            <guid isPermaLink="false">https://maxleiter.com/blog/breaking-down-a-monolith-when-and-how-to-move-to-microservices</guid>
+            <dc:creator><![CDATA[Max Leiter]]></dc:creator>
+            <pubDate>Mon, 08 May 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Magic Auth with SendGrid, JWT, Postgres & Prisma]]></title>
+            <description><![CDATA[<p>Ever thought how some apps/services that send you a verfication link to your email, which you click and you get your email verfied!!!<br>Today we are going to build a simple app that does just that in a SMOOTH WAY!!!</p>
+<h2>Tech Stack that we are going to use</h2>
+<ul>
+<li><a href="https://sendgrid.com/" target="_blank" rel="noopener noreferrer">SendGrid</a> - For sending emails</li>
+<li><a href="https://jwt.io/" target="_blank" rel="noopener noreferrer">JWT</a> - For generating tokens</li>
+<li><a href="https://www.postgresql.org/" target="_blank" rel="noopener noreferrer">Postgres</a> - For storing data</li>
+<li><a href="https://www.prisma.io/" target="_blank" rel="noopener noreferrer">Prisma</a> - For ORM</li>
+<li><a href="https://expressjs.com/" target="_blank" rel="noopener noreferrer">Express</a> - For building the API</li>
+<li><a href="https://nodejs.org/en/" target="_blank" rel="noopener noreferrer">Nodejs</a> - For running the server</li>
+</ul>
+<h2>Let&#39;s get started</h2>
+<p>Firstly we would need our SendGrid API key &amp; postgres database url.</p>
+<h3>Getting our SendGrid API key</h3>
+<p>Visit <a href="https://sendgrid.com/" target="_blank" rel="noopener noreferrer">SendGrid</a> and create an account if you don&#39;t have one already.</p>
+<p><img src="https://cdn.jabed.dev/sendgrid-login.png" alt="SendGrid API Keys"></p>
+<p>Click on API keys on the left side menu and then click on Create API Key.</p>
+<p><img src="https://cdn.jabed.dev/sendgrid-apikey.png" alt="SendGrid API Keys"><br><img src="https://cdn.jabed.dev/sendgrid-apikey-create.png" alt="SendGrid API Keys"></p>
+<p>Give your API key a name and then select restricted access and then set the permissions to Mail Send. Then click on Create &amp; View.</p>
+<p><img src="https://cdn.jabed.dev/sendgrid-apikey-create-tut.png" alt="SendGrid API Keys"><br><img src="https://cdn.jabed.dev/sendgrid-apikey-create-view.png" alt="SendGrid API Keys"></p>
+<p>Copy the API key and save it somewhere safe.</p>
+<h3>Getting our Postgres database url</h3>
+<p>Visit <a href="https://railway.app/" target="_blank" rel="noopener noreferrer">Railway</a> and create an account if you don&#39;t have one already.<br>Move to the dashboard and click on New Project and select <code>Provision PostgreSQL</code> and then click on <code>Create Project</code>.</p>
+<p><img src="https://cdn.jabed.dev/railway-new-db.png" alt="Railway"></p>
+<blockquote>
+<p>You can also use any other service like <a href="https://www.elephantsql.com/" target="_blank" rel="noopener noreferrer">ElephantSQL</a> or <a href="https://www.heroku.com/" target="_blank" rel="noopener noreferrer">Heroku</a> to get your postgres database url.</p>
+</blockquote>
+<p>Click on the database and then click on <code>Connect</code> and then click on Database URL and copy the url and save it somewhere safe.</p>
+<p><img src="https://cdn.jabed.dev/railway-new-db-connect.png" alt="Railway"></p>
+<h3>Creating our project</h3>
+<p>Create a new folder and then open it in your terminal and run the following command.</p>
+<pre><code class="language-bash">npm init -y
+</code></pre>
+<p>Now install the following dependencies.</p>
+<pre><code class="language-bash">npm i express cors @prisma/client dotenv jsonwebtoken @sendgrid/mail
+</code></pre>
+<p>Now install the following dev dependencies.</p>
+<pre><code class="language-bash">npm i -D typescript tsup @types/express @types/cors @types/node @types/jsonwebtoken
+</code></pre>
+<p>Create a <code>.env</code> file and add the following variables.</p>
+<pre><code class="language-env">SENDGRID_API_KEY=YOUR_SENDGRID_API_KEY
+DATABASE_URL=YOUR_DATABASE_URL
+JWT_SECRET=YOUR_JWT_SECRET # You can generate a random secret using openssl rand -hex 32
+NODE_ENV=development # You can change this to production when you are ready to deploy
+</code></pre>
+<p>Create a <code>tsconfig.json</code> file and add the following code.</p>
+<pre><code class="language-json">{
+  &quot;compilerOptions&quot;: {
+    &quot;target&quot;: &quot;es2020&quot;,
+    &quot;module&quot;: &quot;commonjs&quot;,
+    &quot;outDir&quot;: &quot;dist&quot;,
+    &quot;strict&quot;: true,
+    &quot;esModuleInterop&quot;: true,
+    &quot;skipLibCheck&quot;: true,
+    &quot;forceConsistentCasingInFileNames&quot;: true,
+    &quot;resolveJsonModule&quot;: true,
+    &quot;lib&quot;: [&quot;es2020&quot;, &quot;dom&quot;],
+    &quot;moduleResolution&quot;: &quot;node&quot;,
+    &quot;baseUrl&quot;: &quot;.&quot;,
+    &quot;paths&quot;: {
+      &quot;*&quot;: [&quot;node_modules/*&quot;, &quot;src/types/*&quot;]
+    }
+  },
+  &quot;include&quot;: [&quot;src/**/*&quot;],
+  &quot;exclude&quot;: [&quot;node_modules&quot;, &quot;dist&quot;]
+}
+</code></pre>
+<p>Create a <code>tsup.config.ts</code> file and add the following code.</p>
+<pre><code class="language-ts">import { defineConfig } from &quot;tsup&quot;;
+import &quot;dotenv/config&quot;;
+
+const isDev = process.env.NODE_ENV === &quot;development&quot; ? true : false;
+
+isDev &amp;&amp; console.log(&quot;🚧  Running in development mode&quot;);
+
+export default defineConfig({
+  clean: !isDev,
+  dts: !isDev,
+  entry: [&quot;src/index.ts&quot;],
+  format: [&quot;esm&quot;],
+  minify: !isDev,
+  metafile: !isDev,
+  sourcemap: true,
+  target: &quot;esnext&quot;,
+  outDir: &quot;dist&quot;,
+  onSuccess: isDev ? &quot;node dist/index.mjs&quot; : undefined,
+});
+</code></pre>
+<p>Edit your <code>package.json</code> file and add the following scripts.</p>
+<pre><code class="language-json">{
+  &quot;scripts&quot;: {
+    &quot;dev&quot;: &quot;tsup --watch&quot;,
+    &quot;build&quot;: &quot;tsup&quot;,
+    &quot;start&quot;: &quot;node dist/index.mjs&quot;
+  }
+}
+</code></pre>
+<p>Create a <code>src/index.ts</code> file and add the following code.</p>
+<pre><code class="language-ts">console.log(&quot;Hello World&quot;);
+</code></pre>
+<p>Now run the following command to start the server.</p>
+<pre><code class="language-bash">npm run dev
+</code></pre>
+<Callout emoji="🚧">
+  You should see <code>Hello World</code> in your terminal. If you don't see it
+  then you might have done something wrong.
+</Callout>
+
+<h3>Setting up Prisma</h3>
+<p>Run the following command to generate the prisma schema. This will create a <code>prisma</code> folder and a <code>schema.prisma</code> file inside it.</p>
+<pre><code class="language-bash">npx prisma init
+</code></pre>
+<pre><code>.
+├── node_modules/
+├── src/
+│   └── index.ts
+├── prisma/
+│   └── prisma.schema
+├── tsconfig.ts
+├── tsup.config.ts
+├── package.json
+└── package-lock.json
+</code></pre>
+<p>Now edit your <code>schema.prisma</code> file and add the following code.</p>
+<pre><code class="language-prisma">// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = &quot;prisma-client-js&quot;
+}
+
+datasource db {
+  provider = &quot;postgresql&quot;
+  url      = env(&quot;DATABASE_URL&quot;)
+}
+
+model User {
+  id                Int     @id @default(autoincrement())
+  email             String  @unique
+  verified          Boolean @default(false) // this is to check if the user has verified their email
+  verificationToken String // this is the token that will be sent to the user&#39;s email
+  createdAt DateTime @default(now())
+}
+</code></pre>
+<p>Now run the following command to generate the prisma client and push the schema to the database.</p>
+<pre><code class="language-bash">npx prisma generate &amp;&amp; npx prisma db push
+</code></pre>
+<p>Now create a new file <code>src/config/prisma.ts</code> and add the following code.</p>
+<pre><code class="language-ts">import { PrismaClient } from &quot;@prisma/client&quot;;
+import { isDev } from &quot;../utils&quot;;
+
+const prisma = new PrismaClient(
+  isDev
+    ? { log: [&quot;query&quot;, &quot;info&quot;, &quot;warn&quot;] } // log all queries
+    : undefined // log nothing in production
+);
+
+export default prisma;
+</code></pre>
+<p>This will create a prisma client instance which we will use to interact with our database.</p>
+<p>Now time to create helpers to generate tokens and verify them. Create a new file <code>src/utils/jwt.ts</code> and add the following code.</p>
+<pre><code class="language-ts">import jwt from &quot;jsonwebtoken&quot;;
+import &quot;dotenv/config&quot;;
+
+const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_EXPIRES_IN = &quot;1d&quot;;
+
+export const generateToken = (payload: any) =&gt; {
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+};
+
+export const verifyToken = (token: string) =&gt; {
+  return jwt.verify(token, JWT_SECRET);
+};
+</code></pre>
+<p>Time to create a service which will send the mail with the token verfication link. Create a new file <code>src/services/sendMail.ts</code> and add the following code.</p>
+<pre><code class="language-ts">import sgMail from &quot;@sendgrid/mail&quot;;
+import &quot;dotenv/config&quot;;
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+export const sendMail = async (to: string, token: string) =&gt; {
+  const msg = {
+    to,
+    from: &quot;&lt;YOUR_EMAIL&gt;&quot;,
+    subject: &quot;Verify your email&quot;,
+    html: `&lt;a href=&quot;http://localhost:3000/verify?token=${token}&quot;&gt;Click here to verify your email&lt;/a&gt;`,
+  };
+  await sgMail.send(msg);
+
+  return;
+};
+</code></pre>
+<p>Now time to create the Controller for our API. Create a new file <code>src/controllers/createUser.ts</code> and add the following code.</p>
+<pre><code class="language-ts">import { Request, Response } from &quot;express&quot;;
+import { generateToken } from &quot;../utils/jwt&quot;;
+import { sendMail } from &quot;../services/sendMail&quot;;
+import prisma from &quot;../config/prisma&quot;;
+
+export const createUser = async (req: Request, res: Response) =&gt; {
+  const { email } = req.body;
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
+  if (user) {
+    return res.status(400).json({ error: &quot;User already exists&quot; });
+  } else {
+    try {
+        const user = await prisma.user.create({
+        data: {
+            email,
+            verificationToken: generateToken({ email }),
+        },
+        });
+    }.catch((err) =&gt; {
+        console.log(err);
+        return res.status(500).json({ error: &quot;Something went wrong&quot; });
+    }).finally(async () =&gt; {
+        await sendMail(email, user.verificationToken);
+        return res.status(201).json({ message: &quot;User created&quot; });
+    });
+  }
+};
+</code></pre>
+<p>Now we alredy have sent the mail. Time to verify the token. Create a new file <code>src/controllers/verifyUser.ts</code> and add the following code.</p>
+<pre><code class="language-ts">import { Request, Response } from &quot;express&quot;;
+import { verifyToken } from &quot;../utils/jwt&quot;;
+import prisma from &quot;../config/prisma&quot;;
+
+const verificationToken = async (req: Request, res: Response) =&gt; {
+  const { token } = req.query;
+  try {
+    const { email } = verifyToken(token as string) as any;
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+    if (user) {
+      await prisma.user.update({
+        where: { email },
+        data: { verified: true },
+      });
+      return res.status(200).json({ message: &quot;User verified&quot; });
+    } else {
+      return res.status(400).json({ error: &quot;User not found&quot; });
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: &quot;Something went wrong&quot; });
+  }
+};
+
+export default verificationToken;
+</code></pre>
+<p>Now lets sum up everything... Edit your <code>src/index.ts</code> file and add the following code.</p>
+<pre><code class="language-ts">import express from &quot;express&quot;;
+import cors from &quot;cors&quot;;
+import createUser from &quot;./controllers/createUser&quot;;
+import verificationToken from &quot;./controllers/verifyUser&quot;;
+
+const app = express();
+
+app.use(express.json());
+app.use(cors());
+
+app.post(&quot;/create&quot;, createUser);
+app.get(&quot;/verify&quot;, verificationToken);
+
+app.listen(3000, () =&gt; {
+  console.log(&quot;🚀 Server started on http://localhost:3000&quot;);
+});
+</code></pre>
+<p>Now run the following command to start the server.</p>
+<pre><code class="language-bash">npm run dev
+</code></pre>
+<h3>Testing our API</h3>
+<p>Open Postman and create a new request to <code>http://localhost:3000/create</code> and set the method to <code>POST</code> and then click on <code>Body</code> and then select <code>raw</code> and then select <code>JSON</code> and then add the following code.</p>
+<pre><code class="language-json">{
+  &quot;email&quot;: &quot;&lt;YOUR_EMAIL&gt;&quot;
+}
+</code></pre>
+<p>Now click on <code>Send</code> and you should get a response like this.</p>
+<pre><code class="language-json">{
+  &quot;message&quot;: &quot;User created&quot;
+}
+</code></pre>
+<p>Now open your email and you should have received an email from SendGrid.</p>
+<p><img src="https://cdn.jabed.dev/sendgrid-email.png" alt="SendGrid Email"></p>
+<p>Now click on the link and you should get a response like this.</p>
+<pre><code class="language-json">{
+  &quot;message&quot;: &quot;User verified&quot;
+}
+</code></pre>
+<p>THATS IT!!! You have successfully created a magic auth system.<br><Callout emoji="📚"><br>You can find the source code for this project on <a href="https://github.com/jabedzaman/magicauth/">My Github</a><br></Callout></p>
+]]></description>
+            <link>https://maxleiter.com/blog/magic-auth-with-sendgrid-jwt-postgres-prisma</link>
+            <guid isPermaLink="false">https://maxleiter.com/blog/magic-auth-with-sendgrid-jwt-postgres-prisma</guid>
+            <dc:creator><![CDATA[Max Leiter]]></dc:creator>
+            <pubDate>Sun, 07 May 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[My Tech Stack For 2023]]></title>
+            <description><![CDATA[<p>Its 2023 and there are a lot of technologies to select from when building your side project which can make you feel overwhelmed. Choosing a wrong tech may make you endup rewriting your project from scratch. With the right tech stack, we can conquer anything the digital world throws our way.</p>
+<p>&quot;Ain&#39;t nobody got time for slow-loading websites,&quot; am I right? With <a href="https://nextjs.org/" target="_blank" rel="noopener noreferrer">Next.js</a>, we can create blazing-fast, SEO-friendly applications in no time. The new app directory, <a href="https://nextjs.org/docs/basic-features/font-optimization" target="_blank" rel="noopener noreferrer">@next/fonts</a>, image optimization, and <a href="https://nextjs.org/docs/api-reference/next/head" target="_blank" rel="noopener noreferrer">metdata api</a> are some of the new features that make Next.js so great.</p>
+<blockquote>
+<p><strong>Warning:</strong> Appdir in Next 13 is an experimental feature and may cause issues.</p>
+</blockquote>
+<p>In the era of serverless and edge computing, <a href="https://nextjs.org/" target="_blank" rel="noopener noreferrer">Next.js</a> is the best choice for frontend development. It supports serverless functions, edge caching, and a lot more. You no longer need to worry about setting up a server for the backend. You can just write your backend code in the app/api directory and it will be deployed as a serverless/edge function.</p>
+<p>Edge functions are the future... I am gonna prefer them as it resolves the issues of cold starts and latency. To create an edge function, we just need to create a file in the app/api directory and export a function.</p>
+<pre><code class="language-ts">export const runtime = &quot;edge&quot;;
+
+export default function handler(req, res) {
+  res.status(200).json({ name: &quot;John Doe&quot; });
+}
+</code></pre>
+<p>This function will be deployed as an edge function and will be executed at the edge. This means that the function will be executed at the nearest location to the user. This will reduce the latency and improve the performance of our app.</p>
+<Callout emoji="🚒">
+  And yes Typescript is must. I don't think I need to explain why.
+</Callout>
+
+<p>And when it comes to frontend styling, TailwindCSS is the way to go. &quot;Who has time to write custom CSS? Ain&#39;t nobody got time for that!&quot; With TailwindCSS, we can create beautiful, responsive designs with pre-built components and easy-to-use class names.</p>
+<pre><code class="language-html">&lt;p className=&quot;text-2xl font-bold text-center text-blue-500&quot;&gt;Hello World!&lt;/p&gt;
+</code></pre>
+<p>As easy as that!</p>
+<p>Coming on to authentication, <a href="https://authjs.dev" target="_blank" rel="noopener noreferrer">authjs</a> is the easiest and fastest way to add authentication to your Next.js app. It supports multiple providers like Google, Facebook, etc ...</p>
+<p>OKAY NOW PERSISTING THE DATA ?? HOW DO WE DO THAT ??</p>
+<p>Oviously we need a database. I was a firebase fan earlier ... but its 2023 and there are lot other compititors in the market. I would go with <a href="https://planetscale.com" target="_blank" rel="noopener noreferrer">planetScale</a> for my database. Its a MySQL database with a lot of features like realtime updates, easy to use API, etc ...</p>
+<p>Now the question is how do we connect our frontend to the database ??</p>
+<p><a href="https://prisma.io" target="_blank" rel="noopener noreferrer">prisma</a> is the answer. Prisma is an ORM that makes it easy to connect our database to our frontend. It supports a lot of databases like MySQL, Postgres, etc ...</p>
+<p>Now we have a frontend, a database, and a way to connect them. But how do we deploy our app ??</p>
+<p>AWS would gonna be my choice for deploying my app.</p>
+<p>JK!!! Once you get into the aws loop, you can&#39;t get out of it.<br>(Jeff gonna sue me for this)</p>
+<p>So which??</p>
+<p><a href="https://vercel.com" target="_blank" rel="noopener noreferrer">vercel</a>, the one who made Next.js, is the best place to deploy our app.<br><a href="https://vercel.com" target="_blank" rel="noopener noreferrer">vercel</a> has a lot of features like <a href="https://vercel.com/analytics" target="_blank" rel="noopener noreferrer">analytics</a>, <a href="https://vercel.com/monitor" target="_blank" rel="noopener noreferrer">monitoring</a>, <a href="https://vercel.com/edge-network" target="_blank" rel="noopener noreferrer">edge network</a>, etc ... which makes it the best place to manage our app also ...</p>
+<p>Its very easy to deploy our app to vercel.</p>
+<pre><code class="language-bash">npx vercel login
+npx vercel
+</code></pre>
+<p>And that&#39;s it. Our app is live.</p>
+]]></description>
+            <link>https://maxleiter.com/blog/my-tech-stack-for-2023</link>
+            <guid isPermaLink="false">https://maxleiter.com/blog/my-tech-stack-for-2023</guid>
+            <dc:creator><![CDATA[Max Leiter]]></dc:creator>
+            <pubDate>Sun, 30 Apr 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Boosting Real-time Performance with Redis and Node.js]]></title>
+            <description><![CDATA[<p>Okay, so you&#39;ve got a Node.js app that&#39;s doing great. It&#39;s handling a lot of traffic, and your server is not able to handle it. You&#39;re not sure how to do it. You&#39;ve heard of Redis, but you&#39;re not sure how it can help you.</p>
+<p>In this article, you will learn how to performance boost your Node.js app with Redis.</p>
+<p>Redis is an open-source, in-memory data structure store, used as a database, cache, and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs, geospatial indexes with radius queries, and streams. Redis has built-in replication, Lua scripting, LRU eviction, transactions, and different levels of on-disk persistence, and provides high availability via Redis Sentinel and automatic partitioning with Redis Cluster.</p>
+<blockquote>
+<p>assusmes you know both js and nodejs basics 🗿</p>
+</blockquote>
+<hr>
+<p>Here comes the main part of the article. We are going to use redis to solve our problem. We are going to use redis as a cache and as a pub/sub.</p>
+<h3>Setting up the project 🛠️</h3>
+<p>First, we are going to create a new node project.</p>
+<pre><code class="language-bash">mkdir redis-nodejs
+cd redis-nodejs
+npm init -y ## using -y flag to skip the questions
+</code></pre>
+<p>This will create a new node project for us. Its time to add the dependencies.</p>
+<pre><code class="language-bash">npm i express redis
+</code></pre>
+<p>Now we need to modify the <code>package.json</code> file to add the <code>start</code> script.</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;redis-nodejs&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;node index.js&quot;,
+    &quot;dev&quot;: &quot;nodemon index.js&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;dependencies&quot;: {
+    &quot;express&quot;: &quot;^4.17.1&quot;,
+    &quot;redis&quot;: &quot;^3.1.2&quot;
+  }
+}
+</code></pre>
+<blockquote>
+<p><strong>Note:</strong> We are using nodemon for development. You can use it or not. It is up to you.</p>
+</blockquote>
+<h3>Setting up the server 🖥️</h3>
+<p>Now we are going to set up the server. We are going to use express as our server.</p>
+<pre><code class="language-js">import express from &quot;express&quot;;
+
+const app = express();
+const port = 3000;
+
+app.get(&quot;/&quot;, (req, res) =&gt; {
+  res.send(&quot;Hello World!&quot;);
+});
+
+app.listen(port, () =&gt; {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
+</code></pre>
+<h3>Creating a basic REST API 📡</h3>
+<p>For this example, we are going to create a basic REST API which returns us with a random number. We are going to use this API to test our caching system.</p>
+<pre><code class="language-js">app.get(&quot;/random&quot;, (req, res) =&gt; {
+  res.send({ number: Math.floor(Math.random() * 100) });
+});
+</code></pre>
+<h3>Setting up Redis 🧠</h3>
+<p>Now we are going to set up Redis. We are going to use the default configuration for Redis. You can change it according to your needs.</p>
+<pre><code class="language-js">import redis from &quot;redis&quot;;
+
+const client = redis.createClient();
+</code></pre>
+<h3>Caching the response 📦</h3>
+<p>Now we are going to cache the response of our API. We are going to use the <code>EX</code> option to set the expiration time of the cache. We are going to set it to 10 seconds.</p>
+<pre><code class="language-js">app.get(&quot;/random&quot;, (req, res) =&gt; {
+  client.get(&quot;randomNumber&quot;, (err, data) =&gt; {
+    if (err) throw err;
+
+    if (data !== null) {
+      res.send({ number: data });
+    } else {
+      const randomNumber = Math.floor(Math.random() * 100);
+      client.setex(&quot;randomNumber&quot;, 10, randomNumber);
+      res.send({ number: randomNumber });
+    }
+  });
+});
+</code></pre>
+<h3>Testing the caching system 🧪</h3>
+<p>Now we are going to test our caching system. We are going to use <code>curl</code> to test our API.</p>
+<pre><code class="language-bash">curl http://localhost:3000/random
+</code></pre>
+<p>This will return us with a random number. Now we are going to test the caching system. We are going to run the same command again.</p>
+<pre><code class="language-bash">curl http://localhost:3000/random
+</code></pre>
+<p>This time, it will return us with the same number. This is because we have cached the response. Now we are going to wait for 10 seconds and run the same command again.</p>
+<pre><code class="language-bash">curl http://localhost:3000/random
+</code></pre>
+<p>This time, it will return us with a new number. This is because the cache has expired.</p>
+<h3>Conclusion 🎉</h3>
+<p>After reading this article, you should be able to boost the performance of your Node.js app with Redis. You should be able to use Redis as a cache for your Node.js app and cache the response of your API. This method will help you to reduce the load on your server and improve the performance of your app.</p>
+]]></description>
+            <link>https://maxleiter.com/blog/caching-with-redis</link>
+            <guid isPermaLink="false">https://maxleiter.com/blog/caching-with-redis</guid>
+            <dc:creator><![CDATA[Max Leiter]]></dc:creator>
+            <pubDate>Thu, 06 Apr 2023 00:00:00 GMT</pubDate>
+        </item>
+    </channel>
+</rss>
