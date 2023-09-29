@@ -32,16 +32,16 @@ const renderPost = (md: string) => marked.parse(md)
 
 const main = () => {
   const feed = new RSS({
-    title: 'Max Leiter',
-    site_url: 'https://maxleiter.com',
-    feed_url: 'https://maxleiter.com/feed.xml',
-    // image_url: 'https://maxleiter.com/og.png',
+    title: 'Jabed\'s Blog',
+    site_url: 'https://www.jabed.dev',
+    feed_url: 'https://www.jabed.dev/feed.xml',
+    image_url: 'https://www.jabed.dev/favicon.ico',
     language: 'en',
-    description: "Max Leiter's blog",
+    description: "Jabed's blog",
   })
 
   posts.forEach((post) => {
-    const url = `https://maxleiter.com/blog/${post.slug}`
+    const url = `https://www.jabed.dev/post/${post.slug}`
 
     feed.item({
       title: post.title,
