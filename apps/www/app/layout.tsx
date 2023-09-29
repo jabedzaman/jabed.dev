@@ -16,6 +16,13 @@ export const metadata: Metadata = {
     default: siteConfig.title,
     template: "%s | " + siteConfig.title,
   },
+  metadataBase: new URL('https://jabed.dev'),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'en-US': '/en-US',
+    },
+  },
   description: siteConfig.description,
   openGraph: {
     title: siteConfig.title,
