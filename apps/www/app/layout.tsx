@@ -78,7 +78,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <body
           className={`${prompt.className} p-4 bg-neutral-900 text-gray-100`}
         >
-          <main className="max-w-2xl mx-auto">
+          <main className="max-w-3xl mx-auto">
             <Header />
             {children}
             <Analytics />

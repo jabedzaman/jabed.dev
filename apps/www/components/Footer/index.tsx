@@ -93,7 +93,7 @@ function index() {
     artist: "Rick Astley",
   };
   return (
-    <footer className="flex flex-col justify-center items-start max-w-2xl mx-auto w-full md:mt10 mt-5 mb-8 ease-in-out">
+    <footer className="flex flex-col justify-center items-start max-w-3xl mx-auto w-full md:mt10 mt-5 mb-8 ease-in-out">
       <hr className="w-full border-1 border-gray-800 mb-3" />
       <div className="flex flex-row-reverse items-center sm:flex-row mb-3 space-x-0 sm:space-x-2 w-full">
         {data?.songUrl ? (
