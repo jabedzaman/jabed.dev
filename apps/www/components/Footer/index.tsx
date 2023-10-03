@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { animate } from "motion";
+import { useSpotify } from "@/hooks/useSpotify";
 
 function AnimatedBars() {
   useEffect(() => {
@@ -82,16 +83,8 @@ const ExternalLink = ({ href, children }: any) => (
     {children}
   </a>
 );
-function index() {
-  // const res = await fetch("https://api.jabed.dev/api/v1/spotify", {
-  // cache:"no-cache"
-  // });index.tsx
-  // const data = await res.json();
-  const data = {
-    songUrl: "https://open.spotify.com/track/6Hj9jySrnFppAI0sEMCZpJ",
-    title: "Never Gonna Give You Up",
-    artist: "Rick Astley",
-  };
+function Index() {
+  const { data } = useSpotify()  
   return (
     <footer className="flex flex-col justify-center items-start max-w-3xl mx-auto w-full md:mt10 mt-5 mb-8 ease-in-out">
       <hr className="w-full border-1 border-gray-800 mb-3" />
@@ -178,4 +171,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;
