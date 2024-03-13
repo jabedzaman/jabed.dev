@@ -20,11 +20,17 @@ export function useWakatime() {
   //   };
 
   const getTotalCodingHours = async () => {
-    const { data } = await axios.get(
-      "https://wakatime.com/api/v1/users/current/all_time_since_today?api_key=" +
-        process.env.WAKATIME_API_KEY
-    );
-    return data.text;
+    try {
+      const { data } = await axios.get(
+        "https://wakatime.com/api/v1/users/current/all_time_since_today?api_key=" +
+          process.env.WAKATIME_API_KEY,
+      );
+      console.log(data);
+      return data.text;
+    } catch (error) {
+      console.log(error);
+      return 0;
+    }
   };
 
   return {

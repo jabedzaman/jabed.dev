@@ -11,9 +11,10 @@ import { useWakatime } from "@/hooks/useWakatime";
 const Page = async () => {
   const { getFollowers, getPublicRepos, getTotalStars } = useGithub();
   const { getTotalCodingHours } = useWakatime();
-  const wakatime = {
+  const wakatime2 = {
     total_coding_hours: await getTotalCodingHours(),
   };
+  console.log(wakatime2);
   const github = {
     followers: await getFollowers(),
     public_repos: await getPublicRepos(),
@@ -27,14 +28,14 @@ const Page = async () => {
   //   }
   //   return null;
   // });
-  // const wakatime = await fetch("https://api.jabed.dev/api/v1/wakatime", {
-  //   cache: "no-cache",
-  // }).then((res) => {
-  //   if (res.status === 200) {
-  //     return res.json();
-  //   }
-  //   return null;
-  // });
+  const wakatime = await fetch("https://api.jabed.dev/api/v1/wakatime", {
+    cache: "no-cache",
+  }).then((res) => {
+    if (res.status === 200) {
+      return res.json();
+    }
+    return null;
+  });
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div>
