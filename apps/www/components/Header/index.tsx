@@ -15,14 +15,14 @@ const tabs = [
     title: "Home",
     path: "/",
   },
-  {
-    title: "Guestbook",
-    path: "/guestbook",
-  },
-  {
-    title: "Projects",
-    path: "/projects",
-  },
+  // {
+  //   title: "Guestbook",
+  //   path: "/guestbook",
+  // },
+  // {
+  //   title: "Projects",
+  //   path: "/projects",
+  // },
   {
     title: "Blogs",
     path: "/posts",

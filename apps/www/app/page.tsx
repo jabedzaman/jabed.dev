@@ -5,16 +5,23 @@ import Link from "next/link";
 import { BiTrendingUp } from "react-icons/bi";
 import { IoPeopleOutline } from "react-icons/io5";
 import { AiOutlineDesktop } from "react-icons/ai";
+import { useGithub } from "@/hooks/useGithub";
 
-const page = async () => {
-  const github = await fetch("https://api.jabed.dev/api/v1/github", {
-    cache: "no-cache",
-  }).then((res) => {
-    if (res.status === 200) {
-      return res.json();
-    }
-    return null;
-  });
+const Page = async () => {
+  const { getFollowers, getPublicRepos, getTotalStars } = useGithub();
+  const github = {
+    followers: await getFollowers(),
+    public_repos: await getPublicRepos(),
+    total_stars: await getTotalStars(),
+  };
+  // const github = await fetch("https://api.jabed.dev/api/v1/github", {
+  //   cache: "no-cache",
+  // }).then((res) => {
+  //   if (res.status === 200) {
+  //     return res.json();
+  //   }
+  //   return null;
+  // });
   const wakatime = await fetch("https://api.jabed.dev/api/v1/wakatime", {
     cache: "no-cache",
   }).then((res) => {
@@ -101,7 +108,7 @@ const Highlight = ({ children }) => (
   </span>
 );
 
-export default page;
+export default Page;
 
 const getAge = () => {
   const birthDate = new Date(info.birthDate);
