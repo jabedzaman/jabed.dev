@@ -9,7 +9,6 @@ export function useGithub() {
     const { data } = await octokit.rest.search.repos({
       q: `user:jabedzaman`,
     });
-    console.log(data);
     let totalStars = 0;
     data.items.forEach((item) => {
       totalStars += item.stargazers_count;

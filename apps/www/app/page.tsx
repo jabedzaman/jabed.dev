@@ -6,9 +6,14 @@ import { BiTrendingUp } from "react-icons/bi";
 import { IoPeopleOutline } from "react-icons/io5";
 import { AiOutlineDesktop } from "react-icons/ai";
 import { useGithub } from "@/hooks/useGithub";
+import { useWakatime } from "@/hooks/useWakatime";
 
 const Page = async () => {
   const { getFollowers, getPublicRepos, getTotalStars } = useGithub();
+  const { getTotalCodingHours } = useWakatime();
+  const wakatime = {
+    total_coding_hours: await getTotalCodingHours(),
+  };
   const github = {
     followers: await getFollowers(),
     public_repos: await getPublicRepos(),
@@ -22,14 +27,14 @@ const Page = async () => {
   //   }
   //   return null;
   // });
-  const wakatime = await fetch("https://api.jabed.dev/api/v1/wakatime", {
-    cache: "no-cache",
-  }).then((res) => {
-    if (res.status === 200) {
-      return res.json();
-    }
-    return null;
-  });
+  // const wakatime = await fetch("https://api.jabed.dev/api/v1/wakatime", {
+  //   cache: "no-cache",
+  // }).then((res) => {
+  //   if (res.status === 200) {
+  //     return res.json();
+  //   }
+  //   return null;
+  // });
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div>
