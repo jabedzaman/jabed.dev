@@ -1,46 +1,30 @@
 {
   "name": "jabed.dev",
-  "version": "0.3.0",
-  "description": "Portfolio + Rest API for jabed.dev",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "build": "turbo build",
-    "start": "turbo start",
-    "dev": "turbo dev",
-    "build:www": "turbo build --filter=www",
-    "start:www": "turbo start --filter=www",
-    "dev:www": "turbo dev --filter=www",
-    "build:api": "turbo build --filter=api",
-    "start:api": "turbo start --filter=api",
-    "dev:api": "turbo dev --filter=api",
-    "clean": "./bin/clean-up.sh",
-    "seed": "cd ./apps/api && pnpm run seed"
-  },
-  "engines": {
-    "node": ">=18.16.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jabedzaman/jabed.dev.git"
-  },
-  "keywords": [
-    "Jabed Zaman",
-    "jabed.dev",
-    "portfolio",
-    "api"
-  ],
-  "author": "jabedzaman <hi@jabed.dev> (https://jabed.dev)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/jabedzaman/jabed.dev/issues"
-  },
-  "homepage": "https://github.com/jabedzaman/jabed.dev#readme",
-  "devDependencies": {
-    "turbo": "^1.10.14",
-    "typescript": "^5.2.2"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "@octokit/rest": "^20.0.2",
-    "www": "^0.0.0"
+    "@octokit/rest": "^20.1.0",
+    "envalid": "^8.0.0",
+    "next": "14.2.1",
+    "react": "^18",
+    "react-dom": "^18",
+    "rehype-highlight": "^7.0.0",
+    "remark-gfm": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.1",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   }
 }
