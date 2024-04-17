@@ -1,8 +1,13 @@
-import { Sora } from "next/font/google";
+import { Sora, Bricolage_Grotesque } from "next/font/google";
 
 const sora = Sora({
-  weight: ["400"],
+  weight: ["400", "600"],
   subsets: ["latin"],
 });
 
-export { sora };
+const bricolage = Bricolage_Grotesque({
+  weight: ["400", "600"],
+  subsets: ["latin"],
+});
+
+export { sora, bricolage };

@@ -8,7 +8,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-[#111111] text-[#e7e7e7] max-w-6xl mx-auto px-2">{children}</body>
+      <body className="bg-[#0d0d0d] text-[#e7e7e7] max-w-5xl mx-auto p-2">
+        {children}
+      </body>
     </html>
   );
 }
