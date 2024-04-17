@@ -8,7 +8,7 @@ import { FaGithub } from "react-icons/fa";
 
 import { bricolage } from "~/libs";
 import { githubConfig } from "~/config";
-import { projects as projectsData } from "~/data/projects.json";
+import { projects } from "~/data/projects.json";
 
 const octokit = new Octokit({
   auth: githubConfig.GITHUB_ACCESS_TOKEN,
@@ -106,7 +106,7 @@ export const Projects: React.FC = React.memo(() => {
         Projects
       </h1>
       <div className="grid md:grid-cols-2 grid-cols-1 gap-2 mt-4">
-        {projectsData.map((project, index) => (
+        {projects.map((project, index) => (
           <Project key={index} {...project} />
         ))}
       </div>

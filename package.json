@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "@octokit/rest": "^20.1.0",
+    "dns": "^0.2.2",
     "envalid": "^8.0.0",
+    "ioredis": "^5.4.0",
+    "moment": "^2.30.1",
     "motion": "^10.17.0",
     "next": "14.2.1",
     "react": "^18",

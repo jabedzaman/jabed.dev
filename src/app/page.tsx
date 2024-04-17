@@ -1,11 +1,10 @@
-import { Hero, Projects, Stats } from "~/components/home";
+import { Hero, Projects } from "~/components/home";
 
 export default function Home() {
   return (
-    <main className="grid grid-cols-1 gap-8 my-10">
+    <main className="grid grid-cols-1 gap-8 my-5">
       <Hero />
       <Projects />
-      <Stats />
     </main>
   );
 }
