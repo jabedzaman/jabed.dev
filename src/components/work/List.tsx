@@ -9,7 +9,12 @@ export const WorkList: React.FC = React.memo(() => {
       <h1 className={`${bricolage.className} text-2xl`}>Work Experience</h1>
       <div className="flex flex-col gap-5">
         {works.map((work, index) => (
-          <div key={index} className="my-4">
+          <div
+            key={index}
+            className={`my-4
+            ${index !== works.length - 1 ? "border-b-[0.5px] border-[#333333]" : ""}
+          `}
+          >
             <p className={`${sora.className} text-xs text-[#777777]`}>
               <Link
                 href={work.company.url}

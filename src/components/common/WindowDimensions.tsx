@@ -4,8 +4,8 @@ import * as React from "react";
 
 export const WindowDimensions: React.FC = React.memo(() => {
   const [dimensions, setDimensions] = React.useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: 0,
+    height: 0,
   });
 
   React.useEffect(() => {
