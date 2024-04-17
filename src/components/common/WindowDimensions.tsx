@@ -8,20 +8,21 @@ export const WindowDimensions: React.FC = React.memo(() => {
     height: 0,
   });
 
-  React.useEffect(() => {
-    const handleResize = () => {
-      setDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
+  const updateDimensions = React.useCallback(() => {
+    setDimensions({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+  }, []);
 
-    window.addEventListener("resize", handleResize);
+  React.useEffect(() => {
+    updateDimensions();
+    window.addEventListener("resize", updateDimensions);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", updateDimensions);
     };
-  }, []);
+  }, [updateDimensions]);
 
   return (
     <p className="text-[#666666] text-xs">
