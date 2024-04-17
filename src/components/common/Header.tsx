@@ -1,19 +1,12 @@
-"use client";
-
 import * as React from "react";
-import moment from "moment";
+import { Time } from "./Time";
+import { LastVisit } from "./LastVisit";
 
 export const Header: React.FC = React.memo(() => {
-  const [time, setTime] = React.useState(new Date());
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
   return (
-    <footer>
-      <p className="text-xs">{moment(time).format("HH:mm:ss")}</p>
+    <footer className="flex justify-between items-center mt-4">
+      <Time />
+      <LastVisit />
     </footer>
   );
 });

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@octokit/rest": "^20.1.0",
+    "axios": "^1.6.8",
     "dns": "^0.2.2",
     "envalid": "^8.0.0",
     "ioredis": "^5.4.0",
