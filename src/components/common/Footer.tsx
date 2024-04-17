@@ -1,9 +1,10 @@
 import * as React from "react";
 import Link from "next/link";
+import { WindowDimensions } from "./WindowDimensions";
 
 export const Footer: React.FC = React.memo(() => {
   return (
-    <footer>
+    <footer className="flex justify-between items-center my-10">
       <p className="text-xs">
         <Link
           href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
@@ -15,6 +16,7 @@ export const Footer: React.FC = React.memo(() => {
           &copy; 2020 - {new Date().getFullYear()} Jabed Zaman
         </span>
       </p>
+      <WindowDimensions />
     </footer>
   );
 });

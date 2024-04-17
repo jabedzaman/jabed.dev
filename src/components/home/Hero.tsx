@@ -26,10 +26,24 @@ export const Hero: React.FC = React.memo(() => {
           (a secure cloud suite to store & backup your files).
         </p>
         <p>
+          Currently{" "}
+          <Link href={"/work"} className="link">
+            working
+          </Link>{" "}
+          as an SDE Intern at{" "}
+          <Link
+            href={"https://play.google.com/store/apps/details?id=com.dipeat"}
+            target="_blank"
+            className="link"
+          >
+            dipEAT Foods Pvt. Ltd.
+          </Link>{" "}
+        </p>
+        <p>
           Proficient in developing full-stack web and mobile applications, along
-          with expertise in DevOps and system design. A strong
-          foundation in DevOps principles and excel in integrating latest tech
-          stack into real world applications.
+          with expertise in DevOps and system design. A strong foundation in
+          DevOps principles and excel in integrating latest tech stack into real
+          world applications.
         </p>
       </div>
     </section>
