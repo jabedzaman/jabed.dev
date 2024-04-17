@@ -1,7 +1,6 @@
 import * as React from "react";
-import { ipDataConfig, redisConfig } from "~/config";
-import axios from "axios";
 import { Redis } from "ioredis";
+import { ipDataConfig, redisConfig } from "~/config";
 
 const redis = new Redis(redisConfig.REDIS_URL);
 
@@ -71,10 +70,19 @@ type IpData = {
 
 export const LastVisit: React.FC = React.memo(async () => {
   const getIpData = React.useCallback(async () => {
-    const { data } = await axios.get<IpData>(
-      `https://api.ipdata.co?api-key=${ipDataConfig.IPDATA_API_KEY}`
+    const data = await fetch(
+      `https://api.ipdata.co?api-key=${ipDataConfig.IPDATA_API_KEY}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        next: {
+          revalidate: 1,
+        },
+      }
     );
-    return data;
+    return (await data.json()) as IpData;
   }, []);
   const LastVisit = await redis.get("lastVisit");
   await getIpData().then(async (data) => {
