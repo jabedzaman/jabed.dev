@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Hero, Mail, Projects } from "~/components/home";
 
 export default function Home() {

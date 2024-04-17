@@ -9,11 +9,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <LenisProvider>
+      <body className="bg-[#0d0d0d] text-[#e7e7e7]">
         <NProgressProvider>
-          <body className="bg-[#0d0d0d] text-[#e7e7e7]">{children}</body>
+          <LenisProvider>{children}</LenisProvider>
         </NProgressProvider>
-      </LenisProvider>
+      </body>
     </html>
   );
 }

@@ -23,7 +23,18 @@ export const Hero: React.FC = React.memo(() => {
           <Link href={"https://rubiks.cloud"} target="_blank" className="link">
             rubiks
           </Link>{" "}
-          (a secure cloud suite to store & backup your files).
+          (a secure cloud suite to store & backup your files). Sometimes I click{" "}
+          <Link href={"/gallery"} className="link">
+            pictures
+          </Link>{" "}
+          too.
+        </p>
+        <p>
+          Leave a message in the{" "}
+          <Link href={"/guestbook"} className="link">
+            guestbook
+          </Link>{" "}
+          for me, maybe a suggestion, question or just some humor.
         </p>
         <p>
           Currently{" "}

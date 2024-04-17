@@ -6,7 +6,7 @@ export const Mail: React.FC = React.memo(() => {
     <section className="my-5">
       <p>
         <span className="inline text-[#a7a7a7] ">
-          Feel free to reach out to me at{" "}
+          Reach out at{" "}
         </span>
         <Link
           href="mailto:hi@jabed.dev"

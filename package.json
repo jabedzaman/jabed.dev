@@ -1,6 +1,13 @@
 {
   "name": "jabed.dev",
-  "version": "0.1.0",
+  "description": "My personal website",
+  "author": {
+    "email": "hi@jabed.dev",
+    "name": "Jabed Zaman",
+    "url": "https://jabed.dev"
+  },
+  "license": "CC0-1.0",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,9 +18,8 @@
   "dependencies": {
     "@octokit/rest": "^20.1.0",
     "@studio-freight/react-lenis": "^0.0.47",
-    "axios": "^1.6.8",
-    "dns": "^0.2.2",
     "envalid": "^8.0.0",
+    "firebase": "^10.11.0",
     "ioredis": "^5.4.1",
     "moment": "^2.30.1",
     "motion": "^10.17.0",
@@ -21,9 +27,7 @@
     "next-nprogress-bar": "^2.3.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^5.1.0",
-    "rehype-highlight": "^7.0.0",
-    "remark-gfm": "^4.0.0"
+    "react-icons": "^5.1.0"
   },
   "devDependencies": {
     "@types/node": "^20.12.7",
