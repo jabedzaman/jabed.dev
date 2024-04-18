@@ -1,9 +1,8 @@
 ---
 title: A Hitchhiker's Guide to Installing Arch Linux
-slug: a-hitchhokers-guide-to-installing-arch-linux
 summary: A no non-sense installtion guide for arch linux
 date: 2023-10-01
-tags: arch, unixporn, linux, installtion, 
+keywords: arch, unixporn, linux, installtion, 
 ---
 
 
@@ -62,9 +61,9 @@ Create two new directory (one if you skippped creating a single root partiton) n
 We then mount the partitons
 
 ```bash
-mount /mnt /dev/your_root_partition
-mount /mnt/boot/efi /dev/your_boot_partiton
-mount /mnt/home /dev/your_home_partition # if you made a seperate home partiton
+mount /dev/your_root_partition /mnt
+mount /dev/your_boot_partiton /mnt/boot/efi
+mount /dev/your_home_partition /mnt/home # if yjou made a seperate home partiton
 ```
 
 Turn on swap with `swapon /dev/your_swap_partition`

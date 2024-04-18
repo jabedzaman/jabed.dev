@@ -1,9 +1,8 @@
 ---
 title: Port Forwarding with Cloudflare Tunnel
-slug: port-forwarding-with-cloudflare-tunnel
 date: 2023-05-30
 summary: Forwarding ports without exposing your IP address to the world with Cloudflare Tunnel
-tags: cloudflare, tunnel, port-forwarding, security, firewall
+keywords: cloudflare, tunnel, port-forwarding, security, firewall
 ---
 
 Exposing your ip address to the public to forward ports is a bad idea. It's a security risk and it's not very convenient. With cloudflare tunnel you dont need to punch holes in your firewall or expose your ip address to the world. You can forward ports to your local machine without exposing your ip address to the world.
@@ -35,9 +34,6 @@ If you dont have a domain name you can get one from [here](https://www.namecheap
 
 AHHMMM... You need a credit card to activate cloudflare zero trust. Select your suitable plan and activate it.
 
-<Callout emoji="💳" type="info">
-  Shhh!!! There is a free plan too... Secret between you and me.
-</Callout>
 
 ### Step 4: Creating a new tunnel
 
@@ -69,7 +65,3 @@ Time to configure. Keep the settings as this and click on `Next`
 
 BINGO!! You have just forwarded a port to the internet without exposing your ip address to the world. Kinda was a sort of reverse proxy.
 
-<Callout emoji="🚨">
-  If the container is stopped the tunnel will be disconnected. So make sure to
-  run the container in the background.
-</Callout>

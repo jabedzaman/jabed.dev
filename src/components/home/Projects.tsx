@@ -105,7 +105,7 @@ export const Projects: React.FC = React.memo(() => {
       >
         Projects
       </h1>
-      <div className="grid md:grid-cols-2 grid-cols-1 gap-2 mt-4">
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-2 my-4">
         {projectData.projects.map((project, index) => (
           <Project key={index} {...project} />
         ))}
