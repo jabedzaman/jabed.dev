@@ -18,7 +18,7 @@ export const Hero: React.FC = React.memo(() => {
 
       <div className="flex flex-col gap-5 my-5 text-[#a7a7a7]">
         <p>
-          CS student, Full Stack Developer, <SiArchlinux className="inline" />{" "}
+          Full Stack Developer, <SiArchlinux className="inline" />{" "}
           Arch fanboy, CS Student, building{" "}
           <Link href={"https://rubiks.cloud"} target="_blank" className="link">
             rubiks
