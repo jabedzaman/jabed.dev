@@ -2,17 +2,7 @@ import { bricolage, sora } from "~/libs";
 import moment from "moment";
 import { getMdxContent, postMetaData, postPaths } from "~/libs/utils";
 import { Content } from "~/components/posts";
-
-export async function getStaticPaths() {
-  return {
-    paths: postPaths.map((slug) => ({
-      params: {
-        slug: slug.replace(/\.mdx?$/, ""),
-      },
-    })),
-    fallback: false,
-  };
-}
+import { notFound } from "next/navigation";
 
 export const generateMetadata = ({ params }: { params: { slug: string } }) => {
   const post = postMetaData.find((post) => post.slug === params.slug);
@@ -35,6 +25,10 @@ export const generateMetadata = ({ params }: { params: { slug: string } }) => {
 };
 
 export default async function Page({ params }: { params: { slug: string } }) {
+  const post = postMetaData.find((post) => post.slug === params.slug);
+  if (!post) {
+    return notFound();
+  }
   const { content, frontmatter } = await getMdxContent(params.slug);
   return (
     <main className="my-10">
