@@ -8,6 +8,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/git",
+        destination: "https://github.com/jabedzaman",
+        permanent: true,
+      },
+      {
         source: "/resume",
         destination: "https://cdn.jabed.dev/resume.pdf",
         permanent: true,
