@@ -8,7 +8,7 @@ export const Header: React.FC = React.memo(() => {
     <header>
       <div className="flex justify-between items-center mt-4">
         <Time />
-        {/* <LastVisit /> */}
+        <LastVisit />
       </div>
       <Back />
     </header>
