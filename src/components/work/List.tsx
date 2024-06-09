@@ -12,7 +12,11 @@ export const WorkList: React.FC = React.memo(() => {
           <div
             key={index}
             className={`my-4
-            ${index !== works.length - 1 ? "border-b-[0.5px] border-[#333333]" : ""}
+            ${
+              index !== works.length - 1
+                ? "border-b-[0.5px] border-[#333333]"
+                : ""
+            }
           `}
           >
             <p className={`${sora.className} text-xs text-[#777777]`}>
@@ -40,9 +44,19 @@ export const WorkList: React.FC = React.memo(() => {
                 </li>
               ))}
             </ul>
-            <p className={`${sora.className} my-4 text-[#888888]`}>
-              <strong>Techstack:</strong> {work.skills.join(", ")}
-            </p>
+            <div className={`${sora.className} my-6 text-[#888888]`}>
+              <div className="flex flex-row flex-wrap gap-2 my-2">
+                <strong>Techstack:</strong>
+                {work.skills.map((tech, i) => (
+                  <span
+                    key={i}
+                    className="text-xs bg-[#1a1a1a] text-[#666666] px-2 py-1 rounded-md hover:text-[#8a8a8a] duration-200 ease-in-out cursor-pointer"
+                  >
+                    # {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         ))}
       </div>
