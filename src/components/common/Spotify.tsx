@@ -116,6 +116,7 @@ export async function Spotify() {
     },
   });
   const data = (await response.json()) as SpotifyTrack;
+  if (!data.is_playing) return null;
   return (
     <div className="flex flex-row-reverse items-center sm:flex-row mb-3 space-x-0 sm:space-x-2 w-full">
       {data?.is_playing ? (
@@ -128,8 +129,11 @@ export async function Spotify() {
           />
         </svg>
       )}
-      <div className="inline-flex flex-col sm:flex-row w-full max-w-full truncate">
-        {data?.item.name ? (
+      <div className="inline-flex flex-col sm:flex-row w-full max-w-full truncate text-sm">
+        <span className="capsize text-gray-300 max-w-max truncate mr-2">
+          Currently listening to
+        </span>
+        {data?.item.name && (
           <Link
             className="capsize text-gray-200 font-medium  max-w-max truncate"
             href={data.item.external_urls.spotify}
@@ -138,8 +142,6 @@ export async function Spotify() {
           >
             {data.item.name}
           </Link>
-        ) : (
-          <p className="capsize text-gray-200 font-medium">Not Playing</p>
         )}
         <span className="capsize mx-2 text-gray-300 hidden sm:block">
           {" - "}

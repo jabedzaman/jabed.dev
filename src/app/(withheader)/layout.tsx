@@ -7,7 +7,7 @@ export default function PhotosLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="max-w-5xl mx-auto px-2 my-10">
+    <section className="max-w-4xl mx-auto px-2 my-10">
       <Header />
       {children}
       <Footer />

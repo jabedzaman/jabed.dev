@@ -18,8 +18,8 @@ export const Hero: React.FC = React.memo(() => {
 
       <div className="flex flex-col gap-5 my-5 text-[#a7a7a7]">
         <p>
-          Full Stack Developer, <SiArchlinux className="inline" />{" "}
-          Arch fanboy, CS Student, building{" "}
+          Full Stack Developer, <SiArchlinux className="inline" /> Arch fanboy,
+          CS Student, building{" "}
           <Link href={"https://rubiks.cloud"} target="_blank" className="link">
             rubiks
           </Link>{" "}
@@ -49,12 +49,6 @@ export const Hero: React.FC = React.memo(() => {
           >
             dipEAT Foods Pvt. Ltd.
           </Link>{" "}
-        </p>
-        <p>
-          Proficient in developing full-stack web and mobile applications, along
-          with expertise in DevOps and system design. A strong foundation in
-          DevOps principles and excel in integrating latest tech stack into real
-          world applications.
         </p>
       </div>
     </section>

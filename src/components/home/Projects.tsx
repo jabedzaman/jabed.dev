@@ -1,93 +1,89 @@
 import * as React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Octokit } from "@octokit/rest";
 import { LuGitFork, LuStar } from "react-icons/lu";
-import { IoIosLink } from "react-icons/io";
-import { FaGithub } from "react-icons/fa";
+import { IoIosArrowRoundUp } from "react-icons/io";
 
-import { bricolage } from "~/libs";
+import { bricolage, sora } from "~/libs";
+import { projects as ProjectData, ProjectProps } from "~/data/projects";
 import { githubConfig } from "~/config";
-import projectData from "~/data/projects.json";
 
 const octokit = new Octokit({
   auth: githubConfig.GITHUB_ACCESS_TOKEN,
 });
 
-type ProjectProps = {
-  displayName: string;
-  description: string;
-  image: string;
-  deployedLink?: string;
-  repo: {
-    owner: string;
-    name: string;
-    isPrivate: boolean;
-  };
-};
-
 const Project: React.FC<ProjectProps> = React.memo(
-  async ({ displayName, description, image, deployedLink, repo }) => {
+  async ({ displayName, description, preview, repo, techStack }) => {
     const stats = await octokit.repos.get({
       owner: repo.owner,
       repo: repo.name,
     });
     return (
-      <div className="relative overflow-hidden">
-        <Image
-          width={300}
-          height={300}
-          src={image}
-          className="w-full h-[300px] object-cover transition-transform duration-300 transform"
-          alt={displayName}
-        />
-        <div className="absolute inset-0 bg-black opacity-0 hover:none md:hover:opacity-80 transition-opacity duration-300 p-10 flex flex-col justify-between">
-          <div>
-            <h2 className={`${bricolage.className} font-semibold text-2xl`}>
-              {displayName}
-            </h2>
-            <p>{description}</p>
-          </div>
-          <div className="flex justify-between items-center">
-            <div>
-              {!!deployedLink && (
-                <Link
-                  href={deployedLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1"
-                >
-                  <IoIosLink />
-                  {deployedLink.split("/")[2]}
-                </Link>
-              )}
-              {!repo.isPrivate && (
+      <div>
+        <div className="flex flex-row justify-between items-center my-4">
+          <div className="max-w-2xl flex flex-row items-center gap-2">
+            <h2 className={`${sora.className}`}>{displayName}</h2>
+            {!repo.isPrivate && (
+              <div className="flex items-center gap-2">
                 <Link
                   href={`https://github.com/${repo.owner}/${repo.name}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1"
+                  className="flex items-center gap-1 text-[#666666] text-xs hover:text-[#8a8a8a] duration-200 ease-in-out cursor-pointer"
                 >
-                  <FaGithub />
-                </Link>
-              )}
-            </div>
-            {!repo.isPrivate ? (
-              <div className="flex items-center gap-2">
-                <span className="flex items-center gap-1 ">
                   <LuStar />
                   {stats.data.stargazers_count}
-                </span>
-                <span className="flex items-center gap-1 ">
+                </Link>
+                <Link
+                  href={`
+                  https://github.com/${repo.owner}/${repo.name}/network/members.${repo.name}
+                `}
+                  className="flex items-center gap-1 text-[#666666] text-xs hover:text-[#8a8a8a] duration-200 ease-in-out cursor-pointer"
+                >
                   <LuGitFork />
                   {stats.data.forks_count}
-                </span>
+                </Link>
               </div>
-            ) : (
-              <div />
+            )}
+          </div>
+          <div className="flex flex-row items-center gap-2">
+            {!repo.isPrivate && (
+              <Link
+                href={`https://github.com/${repo.owner}/${repo.name}`}
+                className="text-sm text-[#666666] hover:text-[#8a8a8a] duration-200 ease-in-out cursor-pointer"
+              >
+                <span>Repo</span>
+                <IoIosArrowRoundUp
+                  className="inline-block transform rotate-45 -mt-1 text-xs"
+                  size={20}
+                  color="#666666"
+                />
+              </Link>
+            )}
+            {preview && (
+              <Link
+                href={preview}
+                className="text-sm text-[#666666] hover:text-[#8a8a8a] duration-200 ease-in-out cursor-pointer"
+              >
+                <span>Live</span>
+                <IoIosArrowRoundUp
+                  className="inline-block transform rotate-45 -mt-1 text-xs"
+                  size={20}
+                  color="#666666"
+                />
+              </Link>
             )}
           </div>
         </div>
+        <div className="flex flex-row flex-wrap gap-2 my-2">
+          {techStack.map((tech, index) => (
+            <span
+              key={index}
+              className="text-xs bg-[#1a1a1a] text-[#666666] px-2 py-1 rounded-md hover:text-[#8a8a8a] duration-200 ease-in-out cursor-pointer"
+            >
+              # {tech}
+            </span>
+          ))}
+        </div>
+        <span className="text-sm text-[#666666]">{description}</span>
       </div>
     );
   }
@@ -105,8 +101,8 @@ export const Projects: React.FC = React.memo(() => {
       >
         Projects
       </h1>
-      <div className="grid md:grid-cols-2 grid-cols-1 gap-2 my-4">
-        {projectData.projects.map((project, index) => (
+      <div className="flex flex-col gap-6 my-4">
+        {ProjectData.map((project, index) => (
           <Project key={index} {...project} />
         ))}
       </div>
