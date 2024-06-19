@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Time } from "./Time";
 import { LastVisit } from "./LastVisit";
-import { Back } from "./Back";
 import Link from "next/link";
 import { sora } from "~/libs";
+import { Handler } from "./Handler";
 
 type Links = {
   label: string;
@@ -23,8 +23,8 @@ export const Header: React.FC = React.memo(() => {
         <Time />
         {process.env.NODE_ENV !== "development" && <LastVisit />}
       </div>
-      <div className="flex justify-between items-center mt-4">
-        <Back />
+      <div className="flex justify-between items-center my-4">
+        <Handler />
         <nav className="flex justify-center items-center gap-2">
           {links.map((link) => (
             <Link

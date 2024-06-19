@@ -1,4 +1,3 @@
-import { Spotify } from "~/components";
 import { Articles, Hero, Mail, Projects } from "~/components/home";
 
 export default function Home() {
@@ -8,7 +7,6 @@ export default function Home() {
       <Projects />
       <Articles />
       <Mail />
-      <Spotify />
     </main>
   );
 }

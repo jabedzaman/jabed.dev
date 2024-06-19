@@ -190,6 +190,7 @@ export type Artist = {
     spotify: string;
   };
   name: string;
+  followers: number;
 };
 
 export type Track = {
@@ -212,3 +213,79 @@ export type Image = {
   width: number;
   url: string;
 };
+
+export interface recent_tracks_res {
+  items?: ItemsEntity[] | null;
+  next: string;
+  cursors: Cursors;
+  limit: number;
+  href: string;
+}
+export interface ItemsEntity {
+  track: Recent_Track;
+  played_at: string;
+  context: Context;
+}
+export interface Recent_Track {
+  album: Album;
+  artists?: ArtistsEntity[] | null;
+  available_markets?: string[] | null;
+  disc_number: number;
+  duration_ms: number;
+  explicit: boolean;
+  external_ids: ExternalIds;
+  external_urls: ExternalUrls;
+  href: string;
+  id: string;
+  is_local: boolean;
+  name: string;
+  popularity: number;
+  preview_url?: string | null;
+  track_number: number;
+  type: string;
+  uri: string;
+}
+export interface Album {
+  album_type: string;
+  artists?: ArtistsEntity[] | null;
+  available_markets?: string[] | null;
+  external_urls: ExternalUrls;
+  href: string;
+  id: string;
+  images?: ImagesEntity[] | null;
+  name: string;
+  release_date: string;
+  release_date_precision: string;
+  total_tracks: number;
+  type: string;
+  uri: string;
+}
+export interface ArtistsEntity {
+  external_urls: ExternalUrls;
+  href: string;
+  id: string;
+  name: string;
+  type: string;
+  uri: string;
+}
+export interface ExternalUrls {
+  spotify: string;
+}
+export interface ImagesEntity {
+  height: number;
+  url: string;
+  width: number;
+}
+export interface ExternalIds {
+  isrc: string;
+}
+export interface Context {
+  type: string;
+  external_urls: ExternalUrls;
+  href: string;
+  uri: string;
+}
+export interface Cursors {
+  after: string;
+  before: string;
+}

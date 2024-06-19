@@ -6,7 +6,6 @@ import { bricolage } from "~/libs";
 export const Hero: React.FC = React.memo(() => {
   return (
     <section>
-      <span className="mb-10">Hey there👋</span>
       <h1
         className={
           bricolage.className +

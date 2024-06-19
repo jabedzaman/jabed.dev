@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { WorkList } from "~/components/work";
 
 export const metadata: Metadata = {
-  title: "🧳",
+  title: "work",
 };
 
 export default function Page() {

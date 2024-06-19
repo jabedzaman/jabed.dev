@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { bricolage } from "~/libs";
+
+export const metadata: Metadata = {
+  title: "stack",
+  description: "My Tech Stack",
+};
 
 export default function Page() {
   return (

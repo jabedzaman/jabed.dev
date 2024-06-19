@@ -1,7 +1,14 @@
 "use server";
 
 import { spotifyConfig } from "~/config";
-import { SpotifyTrack, Top_Artists, Top_Tracks } from "~/types/music";
+import {
+  SpotifyTrack,
+  Top_Artists,
+  Top_Tracks,
+  recent_tracks_res,
+} from "~/types/music";
+import path from "path";
+import fs from "fs";
 
 const client_id = spotifyConfig.SPOTIFY_CLIENT_ID;
 const client_secret = spotifyConfig.SPOTIFY_CLIENT_SECRET;
@@ -11,6 +18,7 @@ const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
 const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-playing`;
 const TOP_TRACKS_ENDPOINT = `https://api.spotify.com/v1/me/top/tracks`;
 const TOP_ARTISTS_ENDPOINT = `https://api.spotify.com/v1/me/top/artists`;
+const RECENTLY_PLAYED_ENDPOINT = `https://api.spotify.com/v1/me/player/recently-played`;
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
 
 const getAccessToken = async () => {
@@ -119,6 +127,7 @@ export async function getMusicInfo() {
         return {
           external_urls: artist.external_urls,
           name: artist.name,
+          followers: artist.followers.total,
           images: artist.images.map((image) => {
             return {
               height: image.height,
@@ -130,10 +139,55 @@ export async function getMusicInfo() {
       }),
     };
   });
+  const recently_played = await fetch(RECENTLY_PLAYED_ENDPOINT, {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+    next: {
+      revalidate: 1,
+    },
+  }).then(async (res) => {
+    const data = (await res.json()) as recent_tracks_res;
+    if (!data.items) {
+      return {
+        items: [],
+      };
+    }
+    const { items } = data;
+    return {
+      items: items.map((item) => {
+        return {
+          track: {
+            artists: item.track.artists!.map((artist) => {
+              return {
+                external_urls: artist.external_urls,
+                name: artist.name,
+              };
+            }),
+            external_urls: item.track.external_urls,
+            name: item.track.name,
+            album: {
+              name: item.track.album.name,
+              external_urls: item.track.album.external_urls,
+            },
+            images: item.track.album.images!.map((image) => {
+              return {
+                height: image.height,
+                width: image.width,
+                url: image.url,
+              };
+            }),
+          },
+          played_at: item.played_at,
+        };
+      }),
+    };
+  });
   const data = {
     current_playing,
     top_tracks,
     top_artists,
+    recently_played,
   };
   return data;
 }

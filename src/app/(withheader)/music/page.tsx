@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { getMusicInfo } from "../../server/music";
+import { bricolage } from "~/libs";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Music",
@@ -7,47 +9,112 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const { current_playing, top_artists, top_tracks } = await getMusicInfo();
+  const { top_artists, top_tracks, recently_played } = await getMusicInfo();
   return (
     <main>
-      <h1>Music</h1>
-      <h2>Currently listening to</h2>
-      <div>
-        {current_playing?.is_playing ? (
-          <div>
-            <h3>{current_playing.item.name}</h3>
-            <p>{current_playing.artists[0].name}</p>
-          </div>
-        ) : (
-          <p>Not currently listening to anything</p>
-        )}
-      </div>
-
-      <h2>Top Artists</h2>
-      <ul>
-        {top_artists.items.slice(0, 5).map((artist, i) => (
-          <div key={i}>
-            <li>{artist.name}</li>
-            <img
-              className="w-20 h-20 rounded-full"
-              src={artist.images[0].url}
-              alt={artist.name}
-            />
-          </div>
+      <h1
+        className={
+          bricolage.className +
+          " text-2xl md:text-4xl leading-snug md:leading-tight"
+        }
+      >
+        Recently Played
+      </h1>
+      <ul className="my-5 flex flex-col gap-4">
+        {recently_played.items.slice(0, 10).map((track, i) => (
+          <li key={i} className="flex items-center space-x-2">
+            <Link href={track.track.external_urls.spotify}>
+              <img
+                className="w-20 h-20"
+                src={track.track.images![0].url}
+                alt={track.track.name}
+              />
+            </Link>
+            <div className="flex flex-col justify-between">
+              <h3>{track.track.name}</h3>
+              <div className="flex flex-col">
+                <Link
+                  className="text-xs text-[#cecece]"
+                  href={track.track.external_urls.spotify}
+                >
+                  {track.track.artists[0].name}
+                </Link>
+                <Link
+                  className="text-xs text-[#cecece]"
+                  href={track.track.album.external_urls.spotify}
+                >
+                  {track.track.album.name}
+                </Link>
+              </div>
+            </div>
+          </li>
         ))}
       </ul>
-      <h2>Top Tracks</h2>
-      <ul>
+      <h1
+        className={
+          bricolage.className +
+          " text-2xl md:text-4xl leading-snug md:leading-tight"
+        }
+      >
+        Top Tracks
+      </h1>
+      <ul className="my-5 flex flex-col gap-4">
         {top_tracks.items.slice(0, 10).map((track, i) => (
-          <li key={i}>
-            <img
-              className="w-20 h-20"
-              src={track.images[0].url}
-              alt={track.name}
-            />
-            <span>
-              {track.name} by {track.artists[0].name}˝
-            </span>
+          <li key={i} className="flex items-center space-x-2">
+            <Link href={track.external_urls.spotify}>
+              <img
+                className="w-20 h-20"
+                src={track.images[0].url}
+                alt={track.name}
+              />
+            </Link>
+            <div className="flex flex-col justify-between">
+              <h3>{track.name}</h3>
+              <div className="flex flex-col">
+                <Link
+                  className="text-xs text-[#cecece]"
+                  href={track.external_urls.spotify}
+                >
+                  {track.artists[0].name}
+                </Link>
+                <Link
+                  className="text-xs text-[#cecece]"
+                  href={track.album.external_urls.spotify}
+                >
+                  {track.album.name}
+                </Link>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <h1
+        className={
+          bricolage.className +
+          " text-2xl md:text-4xl leading-snug md:leading-tight"
+        }
+      >
+        Top Artists
+      </h1>
+      <ul className="my-5 flex flex-col gap-4">
+        {top_artists.items.slice(0, 5).map((artist, i) => (
+          <li key={i} className="flex items-center space-x-2">
+            <Link href={artist.external_urls.spotify}>
+              <img
+                className="w-20 h-20"
+                src={artist.images[0].url}
+                alt={artist.name}
+              />
+            </Link>
+            <div className="flex flex-col justify-between">
+              <h3>{artist.name}</h3>
+              <div className="flex flex-col">
+                <p className="text-xs text-[#cecece]">
+                  {artist.followers} followers
+                </p>
+              </div>
+            </div>
           </li>
         ))}
       </ul>
