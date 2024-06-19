@@ -1,7 +1,7 @@
+"use server";
+
 import { spotifyConfig } from "~/config";
 import { SpotifyTrack, Top_Artists, Top_Tracks } from "~/types/music";
-
-export const dynamic = "force-dynamic"; // defaults to auto
 
 const client_id = spotifyConfig.SPOTIFY_CLIENT_ID;
 const client_secret = spotifyConfig.SPOTIFY_CLIENT_SECRET;
@@ -30,7 +30,7 @@ const getAccessToken = async () => {
   return response.json();
 };
 
-export async function GET(request: Request) {
+export async function getMusicInfo() {
   const { access_token } = await getAccessToken();
   const current_playing = await fetch(NOW_PLAYING_ENDPOINT, {
     headers: {
@@ -135,9 +135,5 @@ export async function GET(request: Request) {
     top_tracks,
     top_artists,
   };
-  return new Response(JSON.stringify(data, null, 2), {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  return data;
 }

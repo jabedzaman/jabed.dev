@@ -3,24 +3,14 @@ export const dynamic = "force-dynamic"; // defaults to auto
 import * as React from "react";
 import Link from "next/link";
 import { AnimatedBars } from "~/components";
-import { MusicResponse } from "~/types/music";
+import { getMusicInfo } from "~/app/server/music";
 
 export async function Spotify() {
-  const current_playing_data = await fetch(
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000/api/spotify"
-      : process.env.VERCEL_URL + "/api/spotify",
-    {
-      cache: "no-cache",
-      next: {
-        revalidate: 1,
-      },
-    }
-  ).then(async (res) => ((await res.json()) as MusicResponse).current_playing);
-  if (!current_playing_data.is_playing) return null;
+  const { current_playing } = await getMusicInfo();
+  if (!current_playing.is_playing) return null;
   return (
     <div className="flex flex-row-reverse items-center sm:flex-row mb-3 space-x-0 sm:space-x-2 w-full">
-      {current_playing_data?.is_playing ? (
+      {current_playing?.is_playing ? (
         <AnimatedBars />
       ) : (
         <svg className="h-4 w-4 ml-auto mt-[-2px]" viewBox="0 0 168 168">
@@ -34,27 +24,27 @@ export async function Spotify() {
         <span className="capsize text-gray-300 max-w-max truncate mr-2">
           Currently listening to
         </span>
-        {current_playing_data?.item.name && (
+        {current_playing?.item.name && (
           <Link
             className="capsize text-gray-200 font-medium  max-w-max truncate"
-            href={current_playing_data.item.external_urls.spotify}
+            href={current_playing.item.external_urls.spotify}
             target="_blank"
             rel="noopener noreferrer"
           >
-            {current_playing_data.item.name}
+            {current_playing.item.name}
           </Link>
         )}
         <span className="capsize mx-2 text-gray-300 hidden sm:block">
           {" - "}
         </span>
         <p className="capsize text-gray-300 max-w-max truncate">
-          {current_playing_data?.artists ? (
+          {current_playing?.artists ? (
             <Link
-              href={current_playing_data.artists[0].external_urls.spotify}
+              href={current_playing.artists[0].external_urls.spotify}
               target="_blank"
               rel="noopener noreferrer"
             >
-              {current_playing_data.artists[0].name}
+              {current_playing.artists[0].name}
             </Link>
           ) : (
             "Spotify"
