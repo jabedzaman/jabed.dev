@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Articles } from "~/components/home";
 
 export const metadata: Metadata = {
-  title: "Posts",
+  title: "posts",
   description: "Articles, guides, tips about various tech",
 };
 

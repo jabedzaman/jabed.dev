@@ -13,7 +13,7 @@ type Links = {
 const links: Links[] = [
   { label: "posts", href: "/posts" },
   { label: "work", href: "/work" },
-  { label: "stack", href: "/stack" },
+  { label: "guestbook", href: "/guestbook" },
 ];
 
 export const Header: React.FC = React.memo(() => {

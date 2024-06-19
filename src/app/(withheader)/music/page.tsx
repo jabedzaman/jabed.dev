@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getMusicInfo } from "../../server/music";
 import { bricolage } from "~/libs";
 import Link from "next/link";
+import { convertNumberToReadableString } from "~/libs/utils";
 
 export const metadata: Metadata = {
   title: "Music",
@@ -111,7 +112,7 @@ export default async function Page() {
               <h3>{artist.name}</h3>
               <div className="flex flex-col">
                 <p className="text-xs text-[#cecece]">
-                  {artist.followers} followers
+                  {convertNumberToReadableString(artist.followers)} followers
                 </p>
               </div>
             </div>

@@ -9,3 +9,5 @@ export const Handler: React.FC = React.memo(() => {
   const path = usePathname();
   return path !== "/" ? <Back /> : <span>Hey there👋</span>;
 });
+
+Handler.displayName = "Handler";

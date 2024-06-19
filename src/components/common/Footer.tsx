@@ -5,7 +5,7 @@ import { Spotify } from "./Spotify";
 
 export const Footer: React.FC = React.memo(() => {
   return (
-    <>
+    <div className="my-10">
       <Spotify />
       <footer className="flex justify-between items-center my-10">
         <p className="text-xs">
@@ -21,7 +21,7 @@ export const Footer: React.FC = React.memo(() => {
         </p>
         <WindowDimensions />
       </footer>
-    </>
+    </div>
   );
 });
 
