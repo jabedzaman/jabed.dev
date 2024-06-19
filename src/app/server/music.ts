@@ -7,8 +7,6 @@ import {
   Top_Tracks,
   recent_tracks_res,
 } from "~/types/music";
-import path from "path";
-import fs from "fs";
 
 const client_id = spotifyConfig.SPOTIFY_CLIENT_ID;
 const client_secret = spotifyConfig.SPOTIFY_CLIENT_SECRET;

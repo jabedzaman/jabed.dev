@@ -5,7 +5,7 @@ import Link from "next/link";
 import { convertNumberToReadableString } from "~/libs/utils";
 
 export const metadata: Metadata = {
-  title: "Music",
+  title: "music",
   description: "What I'm currently listening to, top artists and tracks",
 };
 
