@@ -1,125 +1,26 @@
+export const dynamic = "force-dynamic"; // defaults to auto
+
 import * as React from "react";
 import Link from "next/link";
 import { AnimatedBars } from "~/components";
-import { spotifyConfig } from "~/config";
-
-const client_id = spotifyConfig.SPOTIFY_CLIENT_ID;
-const client_secret = spotifyConfig.SPOTIFY_CLIENT_SECRET;
-const refresh_token = spotifyConfig.SPOTIFY_REFRESH_TOKEN;
-
-type SpotifyTrack = {
-  timestamp: number;
-  context: null | any;
-  progress_ms: number;
-  item: {
-    album: {
-      album_type: string;
-      artists: {
-        external_urls: {
-          spotify: string;
-        };
-        href: string;
-        id: string;
-        name: string;
-        type: string;
-        uri: string;
-      }[];
-      available_markets: string[];
-      external_urls: {
-        spotify: string;
-      };
-      href: string;
-      id: string;
-      images: {
-        height: number;
-        url: string;
-        width: number;
-      }[];
-      name: string;
-      release_date: string;
-      release_date_precision: string;
-      total_tracks: number;
-      type: string;
-      uri: string;
-    };
-    artists: {
-      external_urls: {
-        spotify: string;
-      };
-      href: string;
-      id: string;
-      name: string;
-      type: string;
-      uri: string;
-    }[];
-    available_markets: string[];
-    disc_number: number;
-    duration_ms: number;
-    explicit: boolean;
-    external_ids: {
-      isrc: string;
-    };
-    external_urls: {
-      spotify: string;
-    };
-    href: string;
-    id: string;
-    is_local: boolean;
-    name: string;
-    popularity: number;
-    preview_url: string | null;
-    track_number: number;
-    type: string;
-    uri: string;
-  };
-  currently_playing_type: string;
-  actions: {
-    disallows: {
-      resuming: boolean;
-      toggling_repeat_context: boolean;
-      toggling_repeat_track: boolean;
-      toggling_shuffle: boolean;
-    };
-  };
-  is_playing: boolean;
-};
-
-const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
-const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-playing`;
-const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
-
-const getAccessToken = async () => {
-  const params = new URLSearchParams();
-  params.append("grant_type", "refresh_token");
-  params.append("refresh_token", refresh_token);
-
-  const response = await fetch(TOKEN_ENDPOINT, {
-    method: "POST",
-    headers: {
-      Authorization: `Basic ${basic}`,
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: params.toString(),
-  });
-
-  return response.json();
-};
+import { MusicResponse } from "~/types/music";
 
 export async function Spotify() {
-  const { access_token } = await getAccessToken();
-  const response = await fetch(NOW_PLAYING_ENDPOINT, {
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
-    next: {
-      revalidate: 1,
-    },
-  });
-  const data = (await response.json()) as SpotifyTrack;
-  if (!data.is_playing) return null;
+  const current_playing_data = await fetch(
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000/api/spotify"
+      : process.env.VERCEL_URL + "/api/spotify",
+    {
+      cache: "no-cache",
+      next: {
+        revalidate: 1,
+      },
+    }
+  ).then(async (res) => ((await res.json()) as MusicResponse).current_playing);
+  if (!current_playing_data.is_playing) return null;
   return (
     <div className="flex flex-row-reverse items-center sm:flex-row mb-3 space-x-0 sm:space-x-2 w-full">
-      {data?.is_playing ? (
+      {current_playing_data?.is_playing ? (
         <AnimatedBars />
       ) : (
         <svg className="h-4 w-4 ml-auto mt-[-2px]" viewBox="0 0 168 168">
@@ -133,27 +34,27 @@ export async function Spotify() {
         <span className="capsize text-gray-300 max-w-max truncate mr-2">
           Currently listening to
         </span>
-        {data?.item.name && (
+        {current_playing_data?.item.name && (
           <Link
             className="capsize text-gray-200 font-medium  max-w-max truncate"
-            href={data.item.external_urls.spotify}
+            href={current_playing_data.item.external_urls.spotify}
             target="_blank"
             rel="noopener noreferrer"
           >
-            {data.item.name}
+            {current_playing_data.item.name}
           </Link>
         )}
         <span className="capsize mx-2 text-gray-300 hidden sm:block">
           {" - "}
         </span>
         <p className="capsize text-gray-300 max-w-max truncate">
-          {data?.item.artists ? (
+          {current_playing_data?.artists ? (
             <Link
-              href={data.item.artists[0].external_urls.spotify}
+              href={current_playing_data.artists[0].external_urls.spotify}
               target="_blank"
               rel="noopener noreferrer"
             >
-              {data.item.artists[0].name}
+              {current_playing_data.artists[0].name}
             </Link>
           ) : (
             "Spotify"
