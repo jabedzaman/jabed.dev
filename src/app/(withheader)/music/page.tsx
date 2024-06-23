@@ -1,8 +1,11 @@
+export const dynamic = "force-dynamic";
+
 import type { Metadata } from "next";
 import { getMusicInfo } from "../../server/music";
 import { bricolage } from "~/libs";
 import Link from "next/link";
 import { convertNumberToReadableString } from "~/libs/utils";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "music",
@@ -25,10 +28,12 @@ export default async function Page() {
         {recently_played.items.slice(0, 10).map((track, i) => (
           <li key={i} className="flex items-center space-x-2">
             <Link href={track.track.external_urls.spotify}>
-              <img
+              <Image
                 className="w-20 h-20"
                 src={track.track.images![0].url}
                 alt={track.track.name}
+                width={80}
+                height={80}
               />
             </Link>
             <div className="flex flex-col justify-between">
@@ -63,10 +68,12 @@ export default async function Page() {
         {top_tracks.items.slice(0, 10).map((track, i) => (
           <li key={i} className="flex items-center space-x-2">
             <Link href={track.external_urls.spotify}>
-              <img
+              <Image
                 className="w-20 h-20"
                 src={track.images[0].url}
                 alt={track.name}
+                width={80}
+                height={80}
               />
             </Link>
             <div className="flex flex-col justify-between">
@@ -102,10 +109,12 @@ export default async function Page() {
         {top_artists.items.slice(0, 5).map((artist, i) => (
           <li key={i} className="flex items-center space-x-2">
             <Link href={artist.external_urls.spotify}>
-              <img
+              <Image
                 className="w-20 h-20"
                 src={artist.images[0].url}
                 alt={artist.name}
+                width={80}
+                height={80}
               />
             </Link>
             <div className="flex flex-col justify-between">

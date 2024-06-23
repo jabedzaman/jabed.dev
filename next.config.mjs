@@ -32,7 +32,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "cdn.dribbble.com",
+        hostname: "i.scdn.co",
       },
       {
         protocol: "https",

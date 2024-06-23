@@ -4,7 +4,7 @@ import { bricolage } from "~/libs";
 
 export const metadata: Metadata = {
   title: "stack",
-  description: "My Tech Stack",
+  description: "my go-to technologies",
 };
 
 export default function Page() {
