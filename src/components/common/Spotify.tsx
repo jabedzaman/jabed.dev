@@ -1,4 +1,5 @@
 export const dynamic = "force-dynamic"; // defaults to auto
+export const revalidate = 5; // defaults to false
 
 import * as React from "react";
 import Link from "next/link";

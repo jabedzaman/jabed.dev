@@ -1,4 +1,5 @@
 export const dynamic = "force-dynamic";
+export const revalidate = 120; // defaults to false
 
 import type { Metadata } from "next";
 import { getMusicInfo } from "../../server/music";
