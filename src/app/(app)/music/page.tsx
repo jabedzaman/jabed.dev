@@ -1,8 +1,4 @@
-export const dynamic = "force-dynamic";
-export const revalidate = 120; // defaults to false
-
 import type { Metadata } from "next";
-import { getMusicInfo } from "../../server/music";
 import { bricolage } from "~/libs";
 import Link from "next/link";
 import { convertNumberToReadableString } from "~/libs/utils";
@@ -14,7 +10,19 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const { top_artists, top_tracks, recently_played } = await getMusicInfo();
+  const { top_artists, top_tracks, recently_played } = await fetch(
+    `${
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : process.env.VERCEL_URL
+    }/api/music`,
+    {
+      cache: "no-cache",
+      next: {
+        revalidate: 1,
+      },
+    }
+  ).then((res) => res.json());
   return (
     <main>
       <h1
@@ -26,7 +34,7 @@ export default async function Page() {
         Recently Played
       </h1>
       <ul className="my-5 flex flex-col gap-4">
-        {recently_played.items.slice(0, 10).map((track, i) => (
+        {recently_played.items.slice(0, 10).map((track: any, i: number) => (
           <li key={i} className="flex items-center space-x-2">
             <Link href={track.track.external_urls.spotify}>
               <Image
@@ -66,7 +74,7 @@ export default async function Page() {
         Top Tracks
       </h1>
       <ul className="my-5 flex flex-col gap-4">
-        {top_tracks.items.slice(0, 10).map((track, i) => (
+        {top_tracks.items.slice(0, 10).map((track: any, i: number) => (
           <li key={i} className="flex items-center space-x-2">
             <Link href={track.external_urls.spotify}>
               <Image
@@ -107,7 +115,7 @@ export default async function Page() {
         Top Artists
       </h1>
       <ul className="my-5 flex flex-col gap-4">
-        {top_artists.items.slice(0, 5).map((artist, i) => (
+        {top_artists.items.slice(0, 5).map((artist: any, i: number) => (
           <li key={i} className="flex items-center space-x-2">
             <Link href={artist.external_urls.spotify}>
               <Image

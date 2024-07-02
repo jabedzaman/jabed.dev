@@ -1,4 +1,4 @@
-"use server";
+export const dynamic = "force-dynamic"; // defaults to auto
 
 import { spotifyConfig } from "~/config";
 import {
@@ -7,6 +7,7 @@ import {
   Top_Tracks,
   recent_tracks_res,
 } from "~/types/music";
+import { NextResponse } from "next/server";
 
 const client_id = spotifyConfig.SPOTIFY_CLIENT_ID;
 const client_secret = spotifyConfig.SPOTIFY_CLIENT_SECRET;
@@ -36,7 +37,7 @@ const getAccessToken = async () => {
   return response.json();
 };
 
-export async function getMusicInfo() {
+async function getMusicInfo() {
   const { access_token } = await getAccessToken();
   const current_playing = await fetch(NOW_PLAYING_ENDPOINT, {
     headers: {
@@ -188,4 +189,9 @@ export async function getMusicInfo() {
     recently_played,
   };
   return data;
+}
+
+export async function GET(request: Request) {
+  const data = await getMusicInfo();
+  return NextResponse.json(data);
 }

@@ -1,2 +1,2 @@
-export * from "./Lenis";
-export * from "./NProgress";
+export * from "./lenis.provider";
+export * from "./nprogress.provider";

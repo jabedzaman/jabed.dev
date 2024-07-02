@@ -22,7 +22,13 @@ const Project: React.FC<ProjectProps> = React.memo(
       <div>
         <div className="flex flex-row justify-between items-center my-4">
           <div className="max-w-2xl flex flex-row items-center gap-2">
-            <h2 className={`${sora.className}`}>{displayName}</h2>
+            {preview ? (
+              <Link href={preview}>
+                <h2 className={`${sora.className} link`}>{displayName}</h2>
+              </Link>
+            ) : (
+              <h2 className={`${sora.className}`}>{displayName}</h2>
+            )}
             {!repo.isPrivate && (
               <div className="flex items-center gap-2">
                 <Link

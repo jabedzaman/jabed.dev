@@ -29,25 +29,15 @@ export const Hero: React.FC = React.memo(() => {
           too.
         </p>
         <p>
+          Assisted over 2 startups in their initial phases by building and
+          scaling their technical infrastructure and product development
+        </p>
+        <p>
           Leave a message in the{" "}
           <Link href={"/guestbook"} className="link">
             guestbook
           </Link>{" "}
           for me, maybe a suggestion, question or just some humor.
-        </p>
-        <p>
-          Currently{" "}
-          <Link href={"/work"} className="link">
-            working
-          </Link>{" "}
-          as an SDE Intern at{" "}
-          <Link
-            href={"https://play.google.com/store/apps/details?id=com.dipeat"}
-            target="_blank"
-            className="link"
-          >
-            dipEAT Foods Pvt. Ltd.
-          </Link>{" "}
         </p>
       </div>
     </section>

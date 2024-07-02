@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@octokit/rest": "^21.0.0",
+    "@phosphor-icons/react": "^2.1.7",
     "@studio-freight/react-lenis": "^0.0.47",
     "envalid": "^8.0.0",
     "firebase": "^10.12.2",

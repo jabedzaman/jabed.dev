@@ -2,18 +2,40 @@ import * as React from "react";
 import { Time } from "./Time";
 import { LastVisit } from "./LastVisit";
 import Link from "next/link";
-import { sora } from "~/libs";
-import { Handler } from "./Handler";
+import {
+  BookOpen,
+  Wrench,
+  Pen,
+  User,
+  Handshake,
+} from "@phosphor-icons/react/dist/ssr";
 
 type Links = {
   label: string;
   href: string;
+  icon: React.ReactNode;
 };
 
 const links: Links[] = [
-  { label: "posts", href: "/posts" },
-  { label: "work", href: "/work" },
-  { label: "guestbook", href: "/guestbook" },
+  {
+    label: "about",
+    href: "/",
+    icon: <User className="w-5 h-5" />,
+  },
+  {
+    label: "posts",
+    href: "/posts",
+
+    icon: <BookOpen className="w-5 h-5" />,
+  },
+  {
+    label: "projects",
+    href: "/projects",
+
+    icon: <Wrench className="w-5 h-5" />,
+  },
+  { label: "work", href: "/work", icon: <Handshake className="w-5 h-5" /> },
+  { label: "guestbook", href: "/guestbook", icon: <Pen className="w-5 h-5" /> },
 ];
 
 export const Header: React.FC = React.memo(() => {
@@ -24,7 +46,7 @@ export const Header: React.FC = React.memo(() => {
         {process.env.NODE_ENV !== "development" && <LastVisit />}
       </div>
       <div className="flex justify-between items-center my-4">
-        <Handler />
+        <Link href="/">Hey there👋</Link>
         <nav className="flex justify-center items-center gap-2">
           {links.map((link) => (
             <Link
@@ -32,7 +54,7 @@ export const Header: React.FC = React.memo(() => {
               href={link.href}
               className="text-sm text-[#616161] hover:text-[#abaaaa]"
             >
-              <span className={sora.className}>{link.label}</span>
+              {link.icon}
             </Link>
           ))}
         </nav>

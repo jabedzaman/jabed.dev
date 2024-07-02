@@ -1,13 +1,21 @@
-export const dynamic = "force-dynamic"; // defaults to auto
-export const revalidate = 5; // defaults to false
-
 import * as React from "react";
 import Link from "next/link";
 import { AnimatedBars } from "~/components";
-import { getMusicInfo } from "~/app/server/music";
 
 export async function Spotify() {
-  const { current_playing } = await getMusicInfo();
+  const { current_playing } = await fetch(
+    `${
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : process.env.VERCEL_URL
+    }/api/music`,
+    {
+      cache: "no-cache",
+      next: {
+        revalidate: 1,
+      },
+    }
+  ).then((res) => res.json());
   if (!current_playing.is_playing) return null;
   return (
     <div className="flex flex-row-reverse items-center sm:flex-row mb-3 space-x-0 sm:space-x-2 w-full">

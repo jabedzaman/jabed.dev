@@ -5,17 +5,19 @@ export const works: Work[] = [
     role: "Software Developer Engineer (SDE)",
     type: "Internship",
     start: { year: 2023, month: "December" },
-    isCurrent: true,
+    isCurrent: false,
+    end: { year: 2024, month: "June" },
     company: {
       name: "dipEAT Foods Pvt. Ltd.",
       url: "https://play.google.com/store/apps/details?id=com.dipeat",
       location: "Remote",
     },
     description:
-      "Building an android app to pre order food from local restaurants with dine-in and take-away options. Helping the company to scale and reach more customers by setting up a scalable architecture.",
+      "Built an android app to pre order food from local restaurants with dine-in and take-away options. Helping the company to scale and reach more customers by setting up a scalable architecture.",
     points: [
-      "Revamping the legacy django backend to a modern Node.js backend improving the performance by 30%.",
-      "Building the customer and restaurant app from scratch using React Native giving a seamless experience to the users.",
+      "Revamped the existsing django backend to an much more efficient nodejs backend using the nestjs framwork increasing performace and security by more than 50%.",
+      "Developed the ios and android app with the newly built nodejs backend.",
+      "Created feature where restraunts can collab with each other to give customers a shared menu.",
       "Implementing Google Maps API to show the restaurants, distance, and ETA to the user.",
       "Wrote CI/CD pipelines to automate the deployment process and deploy to azure web services",
     ],
