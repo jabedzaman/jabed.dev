@@ -13,11 +13,7 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const { top_artists, top_tracks, recently_played } = await fetch(
-    `${
-      process.env.NODE_ENV === "development"
-        ? "http://127.0.0.1:3000"
-        : process.env.VERCEL_URL
-    }/api/music`,
+    "https://jabed.dev/api/music",
     {
       next: {
         revalidate: 1,

@@ -5,18 +5,11 @@ import Link from "next/link";
 import { AnimatedBars } from "~/components";
 
 export async function Spotify() {
-  const { current_playing } = await fetch(
-    `${
-      process.env.NODE_ENV === "development"
-        ? "http://127.0.0.1:3000"
-        : process.env.VERCEL_URL
-    }/api/music`,
-    {
-      next: {
-        revalidate: 1,
-      },
-    }
-  ).then((res) => res.json());
+  const { current_playing } = await fetch("https://jabed.dev/api/music", {
+    next: {
+      revalidate: 1,
+    },
+  }).then((res) => res.json());
   if (!current_playing.is_playing) return null;
   return (
     <div className="flex flex-row-reverse items-center sm:flex-row mb-3 space-x-0 sm:space-x-2 w-full">
