@@ -1,5 +1,4 @@
-export const dynamic = "force-dynamic"; // defaults to auto
-
+import axios from "axios";
 import { spotifyConfig } from "~/config";
 import {
   SpotifyTrack,
@@ -39,40 +38,66 @@ const getAccessToken = async () => {
 
 async function getMusicInfo() {
   const { access_token } = await getAccessToken();
-  const current_playing = await fetch(NOW_PLAYING_ENDPOINT, {
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
-    next: {
-      revalidate: 1,
-    },
-  }).then(async (res) => {
-    const data = (await res.json()) as SpotifyTrack;
-    return {
-      item: {
-        name: data.item.name,
-        album: {
-          name: data.item.album.name,
-          images: data.item.album.images,
-        },
-        external_urls: data.item.external_urls,
-        images: data.item.album.images.map((image) => {
-          return {
-            height: image.height,
-            width: image.width,
-            url: image.url,
-          };
-        }),
+  console.log(access_token);
+  const { data: current_data } = await axios.get<SpotifyTrack | null>(
+    NOW_PLAYING_ENDPOINT,
+    {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
       },
-      artists: data.item.artists.map((artist) => {
+    }
+  );
+  console.log(`current_data`, current_data);
+  if (!current_data) {
+    return {
+      current_playing: {
+        item: {
+          name: "",
+          album: {
+            name: "",
+            images: [],
+          },
+          external_urls: "",
+          images: [],
+        },
+        artists: [],
+        is_playing: false,
+      },
+      top_tracks: {
+        items: [],
+      },
+      top_artists: {
+        items: [],
+      },
+      recently_played: {
+        items: [],
+      },
+    };
+  }
+  const current_playing = {
+    item: {
+      name: current_data.item.name,
+      album: {
+        name: current_data.item.album.name,
+        images: current_data.item.album.images,
+      },
+      external_urls: current_data.item.external_urls,
+      images: current_data.item.album.images.map((image) => {
         return {
-          name: artist.name,
-          external_urls: artist.external_urls,
+          height: image.height,
+          width: image.width,
+          url: image.url,
         };
       }),
-      is_playing: data.is_playing,
-    };
-  });
+    },
+    artists: current_data.item.artists.map((artist) => {
+      return {
+        name: artist.name,
+        external_urls: artist.external_urls,
+      };
+    }),
+    is_playing: current_data.is_playing,
+  };
   const top_tracks = await fetch(TOP_TRACKS_ENDPOINT, {
     headers: {
       Authorization: `Bearer ${access_token}`,

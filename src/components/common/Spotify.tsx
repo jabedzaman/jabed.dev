@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"; // defaults to auto
+
 import * as React from "react";
 import Link from "next/link";
 import { AnimatedBars } from "~/components";
@@ -6,11 +8,10 @@ export async function Spotify() {
   const { current_playing } = await fetch(
     `${
       process.env.NODE_ENV === "development"
-        ? "http://localhost:3000"
+        ? "http://127.0.0.1:3000"
         : process.env.VERCEL_URL
     }/api/music`,
     {
-      cache: "no-cache",
       next: {
         revalidate: 1,
       },

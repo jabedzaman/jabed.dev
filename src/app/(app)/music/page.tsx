@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"; // defaults to auto
+
 import type { Metadata } from "next";
 import { bricolage } from "~/libs";
 import Link from "next/link";
@@ -13,11 +15,10 @@ export default async function Page() {
   const { top_artists, top_tracks, recently_played } = await fetch(
     `${
       process.env.NODE_ENV === "development"
-        ? "http://localhost:3000"
+        ? "http://127.0.0.1:3000"
         : process.env.VERCEL_URL
     }/api/music`,
     {
-      cache: "no-cache",
       next: {
         revalidate: 1,
       },
