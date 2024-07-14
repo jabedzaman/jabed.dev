@@ -5,7 +5,7 @@ import Link from "next/link";
 import { AnimatedBars } from "~/components";
 
 export async function Spotify() {
-  const { current_playing } = await fetch("https://jabed.dev/api/music", {
+  const current_playing = await fetch("https://jabed.dev/api/music", {
     next: {
       revalidate: 1,
     },
