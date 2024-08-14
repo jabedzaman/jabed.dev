@@ -4,7 +4,7 @@ import { Octokit } from "@octokit/rest";
 import { LuGitFork, LuStar } from "react-icons/lu";
 import { IoIosArrowRoundUp } from "react-icons/io";
 
-import { bricolage, sora } from "~/libs";
+import { bricolage, sora } from "~/shared/fonts";
 import { projects as ProjectData, ProjectProps } from "~/data/projects";
 import { githubConfig } from "~/config";
 

@@ -1,5 +1,5 @@
 import RSS from "rss";
-import { postMetaData } from "~/libs/utils/mdxUtils";
+import { postMetaData } from "~/shared/utils/mdxUtils";
 
 const feed = new RSS({
   title: "Jabed Zaman - Blog",

@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { postMetaData } from "~/libs/utils/mdxUtils";
+import { postMetaData } from "~/shared/utils/mdxUtils";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const links = [

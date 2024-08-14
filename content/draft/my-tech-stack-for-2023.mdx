@@ -1,16 +1,13 @@
 ---
 title: My Tech Stack For 2023
-slug : my-tech-stack-for-2023
-date: 2023-04-30
+date: 2022-12-25
 summary: My tech stack for 2023 that I will be using for my projects.
-tags: 2023, tech, stack
+keywords: 2023, tech, stack
 ---
 
-Its 2023 and there are a lot of technologies to select from when building your side project which can make you feel overwhelmed. Choosing a wrong tech may make you endup rewriting your project from scratch. With the right tech stack, we can conquer anything the digital world throws our way.
+Its 2023 soon and there are a lot of technologies to select from when building your side project which can make you feel overwhelmed. Choosing a wrong tech may make you endup rewriting your project from scratch. With the right tech stack, we can conquer anything the digital world throws our way.
 
 "Ain't nobody got time for slow-loading websites," am I right? With [Next.js](https://nextjs.org/), we can create blazing-fast, SEO-friendly applications in no time. The new app directory, [@next/fonts](https://nextjs.org/docs/basic-features/font-optimization), image optimization, and [metdata api](https://nextjs.org/docs/api-reference/next/head) are some of the new features that make Next.js so great.
-
-> **Warning:** Appdir in Next 13 is an experimental feature and may cause issues.
 
 In the era of serverless and edge computing, [Next.js](https://nextjs.org/) is the best choice for frontend development. It supports serverless functions, edge caching, and a lot more. You no longer need to worry about setting up a server for the backend. You can just write your backend code in the app/api directory and it will be deployed as a serverless/edge function.
 
@@ -24,11 +21,7 @@ export default function handler(req, res) {
 }
 ```
 
-This function will be deployed as an edge function and will be executed at the edge. This means that the function will be executed at the nearest location to the user. This will reduce the latency and improve the performance of our app.
-
-<Callout emoji="🚒">
-  And yes Typescript is must. I don't think I need to explain why.
-</Callout>
+This function will be deployed as an edge function and will be executed at the edge. This means that the function will be executed at the nearest location to the user. This will reduce the latency and improve the performance of our app. And yes Typescript is must. I don't think I need to explain why.
 
 And when it comes to frontend styling, TailwindCSS is the way to go. "Who has time to write custom CSS? Ain't nobody got time for that!" With TailwindCSS, we can create beautiful, responsive designs with pre-built components and easy-to-use class names.
 
@@ -63,8 +56,9 @@ So which??
 Its very easy to deploy our app to vercel.
 
 ```bash
-npx vercel login
-npx vercel
+pnpm i -g vercel # or whatever package manager you use
+vercel login
+vercel
 ```
 
 And that's it. Our app is live.

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { FaGoogle } from "react-icons/fa";
-import { bricolage } from "~/libs";
+import { bricolage } from "~/shared/fonts";
 
 export const Input: React.FC = React.memo(() => {
   const isAuthed = false;

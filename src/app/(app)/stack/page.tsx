@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { bricolage } from "~/libs";
+import { bricolage } from "~/shared/fonts";
 
 export const metadata: Metadata = {
   title: "stack",

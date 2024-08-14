@@ -1,5 +1,5 @@
 import * as React from "react";
-import { sora } from "~/libs";
+import { sora } from "~/shared/fonts";
 
 type Props = {
   content: React.ReactElement<any, string | React.JSXElementConstructor<any>>;

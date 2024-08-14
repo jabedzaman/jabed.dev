@@ -5,7 +5,7 @@ import {
   Top_Artists,
   Top_Tracks,
   recent_tracks_res,
-} from "~/types/music";
+} from "~/shared/types/music";
 import { NextResponse } from "next/server";
 
 const client_id = spotifyConfig.SPOTIFY_CLIENT_ID;

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import * as React from "react";
 import { works } from "~/data/work";
-import { bricolage, sora } from "~/libs";
+import { bricolage, sora } from "~/shared/fonts";
 
 export const WorkList: React.FC = React.memo(() => {
   return (

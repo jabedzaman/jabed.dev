@@ -1,6 +1,6 @@
-import { bricolage, sora } from "~/libs";
+import { bricolage, sora } from "~/shared/fonts";
 import moment from "moment";
-import { getMdxContent, postMetaData, postPaths } from "~/libs/utils";
+import { getMdxContent, postMetaData, postPaths } from "~/shared/utils";
 import { Content } from "~/components/posts";
 import { notFound } from "next/navigation";
 

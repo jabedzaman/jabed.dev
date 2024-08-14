@@ -1,8 +1,8 @@
 import Link from "next/link";
 import * as React from "react";
-import { bricolage, sora } from "~/libs";
-import { postMetaData } from "~/libs/utils";
-import { Article } from "~/types/article";
+import { bricolage, sora } from "~/shared/fonts";
+import { postMetaData } from "~/shared/utils";
+import { Article } from "~/shared/types/article";
 import moment from "moment";
 
 const ArticleItem: React.FC<Article> = React.memo(({ date, slug, title }) => {

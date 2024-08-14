@@ -1,5 +1,5 @@
 export { metadata } from "~/config";
-import { LenisProvider, NProgressProvider } from "~/providers";
+import { LenisProvider, NProgressProvider } from "~/shared/providers";
 import "./globals.css";
 
 export default function RootLayout({

@@ -1,7 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { SiArchlinux } from "react-icons/si";
-import { bricolage } from "~/libs";
+import { bricolage } from "~/shared/fonts";
 
 export const Hero: React.FC = React.memo(() => {
   return (
@@ -22,11 +22,7 @@ export const Hero: React.FC = React.memo(() => {
           <Link href={"https://rubiks.cloud"} target="_blank" className="link">
             rubiks
           </Link>{" "}
-          (a secure cloud suite to store & backup your files). Sometimes I click{" "}
-          <Link href={"/gallery"} className="link">
-            pictures
-          </Link>{" "}
-          too.
+          (a secure cloud suite to store & backup your files).
         </p>
         <p>
           Assisted over 2 startups in their initial phases by building and

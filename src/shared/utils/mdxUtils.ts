@@ -6,7 +6,7 @@ import rehypePrettyCode, {
 } from "rehype-pretty-code";
 import type { Pluggable } from "unified";
 import matter from "gray-matter";
-import { Article } from "~/types/article";
+import { Article } from "~/shared/types/article";
 
 export const postsDir = path.join(process.cwd(), "content/posts");
 
