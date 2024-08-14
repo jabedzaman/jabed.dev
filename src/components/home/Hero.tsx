@@ -1,5 +1,5 @@
-import * as React from "react";
 import Link from "next/link";
+import * as React from "react";
 import { SiArchlinux } from "react-icons/si";
 import { bricolage } from "~/shared/fonts";
 
@@ -25,15 +25,27 @@ export const Hero: React.FC = React.memo(() => {
           (a secure cloud suite to store & backup your files).
         </p>
         <p>
-          Assisted over 2 startups in their initial phases by building and
-          scaling their technical infrastructure and product development
+          Assisted over 2{" "}
+          <Link href={"/work"} className="link">
+            startups
+          </Link>{" "}
+          in their initial phases by building and scaling their technical
+          infrastructure and product development
         </p>
         <p>
           Leave a message in the{" "}
           <Link href={"/guestbook"} className="link">
             guestbook
           </Link>{" "}
-          for me, maybe a suggestion, question or just some humor.
+          for me, maybe a suggestion, question or just some humor. You can also
+          get my resume{" "}
+          <Link
+            href={"https://cdn.jabed.dev/resume.pdf"}
+            className="link"
+            target="_blank"
+          >
+            here.
+          </Link>{" "}
         </p>
       </div>
     </section>
