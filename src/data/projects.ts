@@ -39,31 +39,10 @@ export const projects: ProjectProps[] = [
       "docker",
       "kubernetes",
       "turborepo",
+      "go lang",
+      "typescript",
     ],
     status: "active",
-  },
-  {
-    displayName: "vesper",
-    description:
-      "Set up your database in seconds, and let vesper handle the rest\nCause your primary focus should be on building your app, not managing database!! Can be easily self hosted with a single install script. Using `@kubernetes/client-node` the database is managed in a kubernetes cluster and user can easily interact with the database using the react dashboard.",
-    link: "https://vesper.rubiks.cloud/",
-    preview: "https://vesper.rubiks.cloud/",
-    repo: {
-      owner: "vespeross",
-      name: "vesper",
-      isPrivate: true,
-    },
-    techStack: [
-      "react",
-      "@redux/toolkit",
-      "rtk-query",
-      "shadcn-ui",
-      "nestjs",
-      "nodejs",
-      "postgresql",
-      "kubernetes",
-    ],
-    status: "on-going",
   },
   {
     displayName: "ransom",
@@ -86,7 +65,7 @@ export const projects: ProjectProps[] = [
       "nodejs",
       "postgresql",
       "turborepo",
-      "vercel"
+      "vercel",
     ],
     status: "on-going",
   },
