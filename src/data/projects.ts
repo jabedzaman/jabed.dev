@@ -44,6 +44,27 @@ export const projects: ProjectProps[] = [
       "go lang",
       "typescript",
     ],
+    status: "on-going",
+  },
+  {
+    displayName: "devstats",
+    description:
+      "All your development statistics in one place. devstats is a tool that helps you track your development progress and provides you with personalized statistics. It is designed to help you stay motivated and focused on your goals. Having trust issues with privacy? No worries, devstats is open-source and you can host it on your own server.",
+    link: "https://vesper.rest/u/jabedzaman",
+    repo: {
+      owner: "jabedzaman",
+      name: "devstats",
+      isPrivate: false,
+    },
+    preview: "https://vesper.rest/u/jabedzaman",
+    techStack: [
+      "react",
+      "nextjs",
+      "shadcn-ui",
+      "prisma",
+      "postgresql",
+      "typescript",
+    ],
     status: "active",
   },
   {
@@ -88,6 +109,6 @@ export const projects: ProjectProps[] = [
       "turborepo",
       "vercel",
     ],
-    status: "on-going",
+    status: "active",
   },
 ];
