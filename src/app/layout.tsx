@@ -1,6 +1,12 @@
-export { metadata } from "~/config";
-import { LenisProvider, NProgressProvider } from "~/shared/providers";
+import { ViewTransitions } from "next-view-transitions";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
+export { metadata } from "@/config";
+
+const sora = Montserrat({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+});
 
 export default function RootLayout({
   children,
@@ -8,12 +14,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="bg-[#0d0d0d] text-[#e7e7e7]">
-        <NProgressProvider>
-          <LenisProvider>{children}</LenisProvider>
-        </NProgressProvider>
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang="en" className={`${sora.className} [scrollbar-gutter:stable]`}>
+        <body className="antialiased tracking-tight">{children}</body>
+      </html>
+    </ViewTransitions>
   );
 }

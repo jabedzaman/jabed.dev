@@ -1,10 +1,10 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "📸",
+  title: "gallery",
 };
 
-export default function PhotosLayout({
+export default function GalleryLayout({
   children,
 }: {
   children: React.ReactNode;

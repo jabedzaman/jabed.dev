@@ -1,16 +1,11 @@
 import * as React from "react";
-import { Footer, Header } from "~/components";
 
-export default function PhotosLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <section className="max-w-2xl mx-auto px-2 my-10">
-      <Header />
-      {children}
-      <Footer />
-    </section>
+    <main className="min-h-screen flex flex-col justify-between pt-0 md:pt-8 p-8">
+      <section className="max-w-[60ch] mx-auto w-full space-y-6">
+        {children}
+      </section>
+    </main>
   );
 }
