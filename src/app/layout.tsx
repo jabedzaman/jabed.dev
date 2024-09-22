@@ -3,7 +3,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 export { metadata } from "@/config";
 
-export const monte = Montserrat({
+const monte = Montserrat({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
   subsets: ["latin"],
 });

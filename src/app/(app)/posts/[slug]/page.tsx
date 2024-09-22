@@ -4,11 +4,9 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Content } from "./content";
 
-export const getStaticParams = async () => {
+export const generateStaticParams = async () => {
   return postMetaData.map((post) => ({
-    params: {
-      slug: post.slug,
-    },
+    slug: post.slug,
   }));
 };
 
