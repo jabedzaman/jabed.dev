@@ -35,7 +35,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const tags = frontmatter.keywords.split(",");
   return (
     <main className="my-10">
-      <h1 className="md:text-4xl text-2xl">{frontmatter.title}</h1>
+      <h1 className="text-2xl">{frontmatter.title}</h1>
       <span className="text-xs text-[#666666]">
         {moment(frontmatter.date).format("MMMM D, YYYY")} (
         {moment(frontmatter.date).fromNow()})

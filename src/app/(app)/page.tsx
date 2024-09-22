@@ -24,7 +24,12 @@ export default function Home() {
           <Link href="/posts" className="text-blue-500 hover:text-blue-700">
             my blog posts
           </Link>
-          .
+          . In addition to that, I keep{" "}
+          <Link href="/music" className="text-blue-500 hover:text-blue-700">
+            listening
+          </Link>{" "}
+          to random af music. Moreover lately, I got an crazy fondness towards
+          self-hosting everything.
         </p>
         <p>
           I have assisted more than 2 startups in their inital phase by building
