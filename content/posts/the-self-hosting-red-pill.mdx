@@ -1,0 +1,37 @@
+---
+title: The Self Hosting Red Pill
+summary: How I self-host my own services
+date: 2024-09-23
+keywords: self-hosting, docker, nginx, letsencrypt, cloudflare,bitwarden, pihole, vps
+---
+
+I always have been trying to cut down my expenses. I was squeezing every last drop out of those “limited” services. Slowly I turned to be professional tier-hoarder (I got this term from reddit 👍). Need a free tier? I’d find it. Need to bend a system? I’d bend it.
+
+But lately, one day one of my freind motivated me to get a vps and host my own services. At first **I hesitated**. I didnt wanted to spend money on something that I can get for free. It kept poking at me like a flirty nudge from that girl, whom I got a crush on and could never confess, that I couldn’t ignore.
+
+SO IN THE END!! YEAH I GOT A VPS!! A 24$/month vps on linode with 4gb ram and 2 vcpu. And I got so addicted to it that I upgraded it to 48$/month with 8gb ram and 4 vcpu. 
+
+I self hosted all the possible service that I would need. 
+
+- **Bitwarden** for password management
+- **Pihole** for adblocking
+- **Mailcow** for email
+- **Logto** for oidc authentication
+- **Posthog** for analytics
+
+All this handled smoothly by docker and nginx reverse proxy. I also have letsencrypt for ssl.
+
+I love this setup. I have full control over my data. I can do whatever I want. I can host whatever I want. I can bend the system however. 
+
+I even started using `vs-code-server` to code directly on the vps via ssh on vscode. This kept my local mac free from all the clutter of the dev environment. (even writing this blog from the vscode server running on the vps 😁)
+
+
+### Should you also follow the path?
+
+No!! Dont blindly follow me... The decision to self host should completely depend on your use case. You dont need do all this unless all the work gets done with the free tier itself. BUT IF YOU WANT TO LOOK COOL!! GO AHEAD!! 😎
+
+---
+
+I just hope I dont over engineer this setup
+
+
