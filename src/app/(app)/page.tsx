@@ -25,7 +25,7 @@ export default function Home() {
             my github
           </Link>
           . Also sometimes I yap over{" "}
-          <Link href="/blogs" className="text-blue-500 hover:text-blue-700">
+          <Link href="/posts" className="text-blue-500 hover:text-blue-700">
             my blog posts
           </Link>
           .

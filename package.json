@@ -11,14 +11,20 @@
   "dependencies": {
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "gray-matter": "^4.0.3",
     "lucide-react": "^0.445.0",
+    "moment": "^2.30.1",
     "next": "14.2.13",
+    "next-mdx-remote": "^5.0.0",
     "next-view-transitions": "^0.3.1",
     "react": "^18",
     "react-dom": "^18",
-    "tailwindcss-animate": "^1.0.7"
+    "rehype-pretty-code": "^0.14.0",
+    "tailwindcss-animate": "^1.0.7",
+    "unified": "^11.0.5"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.15",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

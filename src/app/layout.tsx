@@ -3,7 +3,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 export { metadata } from "@/config";
 
-const sora = Montserrat({
+export const monte = Montserrat({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
   subsets: ["latin"],
 });
@@ -15,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html lang="en" className={`${sora.className} [scrollbar-gutter:stable]`}>
+      <html
+        lang="en"
+        className={`${monte.className} [scrollbar-gutter:stable]`}
+      >
         <body className="antialiased tracking-tight">{children}</body>
       </html>
     </ViewTransitions>
