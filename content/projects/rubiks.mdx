@@ -7,4 +7,54 @@ url: https://rubiks.cloud
 image: https://rubiks.cloud/og-image.png
 ---
 
-rubiks is a privacy focused cloud storage solution that allows you to backup your files and access them from anywhere. It is designed to be simple and easy to use, while also providing the security and privacy that you need to keep your data safe. With rubiks, you can store your files securely in the cloud, access them from any device, and share them with others. rubiks is the perfect solution for individuals and businesses who want to keep their data safe and secure.
+A privacy focused cloud storage solution that allows you to backup your files and access them from anywhere. Designed to be simple and easy to use, while also providing the security and privacy that you need to keep your data safe.
+
+Built on top of a scalable and reliable microservices architecture, rubiks is designed to be fast and efficient, while also providing the flexibility and scalability that you need to grow your storage needs. Each service is designed to be independent and scalable, allowing it to easily scale up or down as needed.
+
+## Technologies
+
+- **Frontend**: Next.js, @reduxjs/toolkit, Tailwind CSS, ShadcnUI, TypeScript
+- **Backend**: NestJS, PostgreSQL, MongoDB, RabbitMQ, Prisma
+- **Infrastructure**: AWS S3, AWS SNS, Docker, Docker Compose
+- **Monitoring**: PostHog
+
+## Architecture
+
+In a while I got introduced to microservice based architecture and I was fascinated by the idea of building a system that is scalable, reliable and easy to maintain. 
+
+With the craze of this new architecture, I decided to build a cloud storage solution that is privacy focused and easy to use AND MAINLY, I wanted to build it using microservices.
+
+I started with the frontend, I chose Next.js because of its server side rendering capabilities and its ease of use. I used Tailwind CSS for styling and ShadcnUI for the components. I also used TypeScript for type safety. For state management, I used @reduxjs/toolkit (I KNOW, I KNOW, REDUX SUCKS, I just dont want to justify my choice here).
+
+For the backend, I chose NestJS because of its out of the box support for microservices and its ease of use. 
+
+I designed the system to have 5 microservices:
+
+1. **Auth Service**: Handles user authentication and authorization.
+2. **File Service**: Handles file uploads, downloads and storage.
+3. **Notification Service**: Handles notifications for file uploads, downloads and deletions.
+4. **Billing Service**: Handles billing and payments.
+5.  **Dashboard Service**: Handles the frontend and the user interface.
+
+Now, I decided to use PostgreSQL for the auth service due to its ACID compliance and MongoDB for the file service due to its flexibility and scalability. I used RabbitMQ for the communication between the services and Prisma for the ORM.
+
+---
+
+
+## Assuring No Peeking Is Allowed!
+
+Now MAINLY what is the assurity that the data is secure and private? I mean, I am not a security expert, but I have done my research and I have implemented the best practices to ensure that the data is secure and private.
+
+1. **End to End Encryption**: All data is encrypted before it is stored in the database and decrypted when it is retrieved. This ensures that the data is secure and private. I used AES encryption for this purpose.
+2. **Access Control**: I have implemented role based access control to ensure that only authorized users have access to the data. This ensures that the data is secure and private.
+3. **Not Logging User Data**: Key for each object in the S3 bucket is stored in the files metadata database. Now this key is the ID of the file and is used to retrieve the file from the S3 bucket. This key is no way related to the file name or the owner of the file. This ensures that the data is secure and private.
+
+## Someone Tried to Sneak In! What Happens When Breaches Knock?
+
+Now, I am not saying that my system is 100% secure, but I have implemented the best practices to ensure that the data is secure and private. I have also implemented monitoring and logging to detect and respond to any breaches.
+
+But what happens when a breach occurs? See, all the data is encrypted using AES encryption and the key is stored in the metadata database. Now, if a breach occurs, the attacker will not be able to access the data without the key. This ensures that the data is secure and private.
+
+## Future Plans
+
+I have big plans for rubiks. I want to add more features and improve the user experience. I want to add support for more file types and improve the performance of the system. I also want to add support for more languages and improve the accessibility of the system. Also improve the security of the system along with support to view the files in the browser itself. For which I am planning to implement a custom viewers, streaming the files, etc.

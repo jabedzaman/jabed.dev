@@ -13,8 +13,7 @@ export type Project = {
   date: string;
   keywords: string[];
   url: string;
-  image: string;
-  github?: string;
+  image?: string;
 };
 
 export type SpotifyTrack = {

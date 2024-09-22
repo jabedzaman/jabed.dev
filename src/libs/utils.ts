@@ -39,9 +39,8 @@ export const projectMetaData: Project[] = projectPaths.map((projectPath) => {
     summary: data.summary,
     keywords: data.keywords.split(","),
     slug: projectPath.replace(/\.mdx?$/, ""),
-    image: data.image,
+    image: data?.image,
     url: data.url,
-    github: data.github,
   };
 });
 
