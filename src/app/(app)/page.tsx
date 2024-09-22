@@ -35,6 +35,32 @@ export default function Home() {
           I have assisted more than 2 startups in their inital phase by building
           and scaling their technical infrastructure and product development
         </p>
+        <p>
+          Feel free to stalk me at{" "}
+          <Link
+            href="https://github.com/jabedzaman"
+            className="text-blue-500 hover:text-blue-700"
+            target="_blank"
+          >
+            github
+          </Link>
+          ,{" "}
+          <Link
+            href="https://x.com/jbdzmn"
+            className="text-blue-500 hover:text-blue-700"
+            target="_blank"
+          >
+            x (formerly twitter)
+          </Link>{" "}
+          or{" "}
+          <Link
+            href="https://linkedin.com/in/jabedzaman"
+            className="text-blue-500 hover:text-blue-700"
+            target="_blank"
+          >
+            linkedin
+          </Link>
+        </p>
       </div>
     </div>
   );
