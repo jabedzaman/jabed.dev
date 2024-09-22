@@ -57,7 +57,7 @@ $ pnpm i @nestjs/microservices amqplib amqp-connection-manager
 
 Firstly in `main.ts` file, or wherever you bootstrap the application, create a microservice instance and connect to the RabbitMQ server.
 
-```typescript title="main.ts"
+```typescript
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 // other imports
 
@@ -83,7 +83,7 @@ function bootstrap() {
 
 Now in the module where you want to use the RabbitMQ, import the `ClientsModule` and create a client proxy. Lets hope you are gonna do it on the `AuthModule`.
 
-```typescript title="auth.module.ts"
+```typescript
 import { ClientsModule, Transport } from '@nestjs/microservices';
 // other imports
 
@@ -111,7 +111,7 @@ export class AuthModule {}
 
 Now we can use the client proxy in the service to send a message to the queue.
 
-```typescript title="auth.service.ts"
+```typescript
 import { Injectable } from '@nestjs/common';
 import { ClientProxy, ClientProxyFactory } from '@nestjs/microservices';
 // other imports
@@ -137,7 +137,7 @@ export class AuthService {
 
 Same as we did for the Auth service, we need to create a microservice instance and connect to the RabbitMQ server in the Notification service.
 
-```typescript title="main.ts"
+```typescript
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 // other imports
 
@@ -162,7 +162,7 @@ function bootstrap() {
 
 In the Notification module, import the `ClientsModule` and create a client proxy.
 
-```typescript title="notification.module.ts"
+```typescript
 import { ClientsModule, Transport } from '@nestjs/microservices';
 // other imports
 
@@ -191,7 +191,7 @@ export class NotificationModule {}
 
 Now we can use the client proxy in the service to consume the message from the queue.
 
-```typescript title="notification.controller.ts"
+```typescript
 import { Controller } from '@nestjs/common';
 import { EventPattern } from '@nestjs/microservices';
 // other imports

@@ -1,12 +1,12 @@
-import { getPostMdx, postMetaData } from "@/libs/utils";
+import { getProjectMdx, projectMetaData } from "@/libs/utils";
 import moment from "moment";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Content } from "./content";
 
 export const generateStaticParams = async () => {
-  return postMetaData.map((post) => ({
-    slug: post.slug,
+  return projectMetaData.map((project) => ({
+    slug: project.slug,
   }));
 };
 
@@ -15,23 +15,25 @@ export const generateMetadata = ({
 }: {
   params: { slug: string };
 }): Metadata => {
-  const post = postMetaData.find((post) => post.slug === params.slug);
-  if (!post) {
+  const project = projectMetaData.find(
+    (project) => project.slug === params.slug
+  );
+  if (!project) {
     return notFound();
   }
   return {
-    title: post.title,
-    description: post.summary,
-    keywords: post.keywords,
+    title: project.title,
+    description: project.summary,
+    keywords: project.keywords,
   };
 };
 
 export default async function Page({ params }: { params: { slug: string } }) {
-  const post = postMetaData.find((post) => post.slug === params.slug);
-  if (!post) {
+  const project = projectMetaData.find((project) => project.slug === params.slug);
+  if (!project) {
     return notFound();
   }
-  const { content, frontmatter } = await getPostMdx(params.slug);
+  const { content, frontmatter } = await getProjectMdx(params.slug);
   const tags = frontmatter.keywords.split(",");
   return (
     <main className="my-10">
