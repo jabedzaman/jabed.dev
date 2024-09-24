@@ -2,7 +2,7 @@ import { convertNumberToReadableString, getMusicInfo } from "@/libs/service";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
 
-export const revalidate = 86400; // 24 hours
+export const dynamic = "force-dynamic"
 
 export default async function Page() {
   const { top_artists, top_tracks } = await getMusicInfo();
