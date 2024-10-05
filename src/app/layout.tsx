@@ -1,10 +1,10 @@
 import { ViewTransitions } from "next-view-transitions";
-import { Montserrat } from "next/font/google";
+import { Nunito } from "next/font/google";
 import "./globals.css";
 export { metadata } from "@/config";
 
-const monte = Montserrat({
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
+const nunito = Nunito({
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
   subsets: ["latin"],
 });
 
@@ -17,7 +17,7 @@ export default function RootLayout({
     <ViewTransitions>
       <html
         lang="en"
-        className={`${monte.className} [scrollbar-gutter:stable]`}
+        className={`${nunito.className} [scrollbar-gutter:stable]`}
       >
         <body className="antialiased tracking-tight">{children}</body>
       </html>

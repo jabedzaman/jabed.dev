@@ -40,7 +40,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         {moment(frontmatter.date).format("MMMM D, YYYY")} (
         {moment(frontmatter.date).fromNow()})
       </span>
-      <div className="flex flex-row flex-wrap gap-2 my-2">
+      <div className="flex flex-row flex-wrap gap-1 my-2">
         {tags.map((tech, index) => (
           <span
             key={index}
