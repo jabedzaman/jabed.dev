@@ -32,7 +32,7 @@ export default function Home() {
           self-hosting everything.
         </p>
         <p>
-          I have assisted more than 2 startups in their inital phase by building
+          I have assisted more than 4 startups in their inital phase by building
           and scaling their technical infrastructure and product development
         </p>
         <p>
