@@ -39,7 +39,7 @@ const faqs: { question: string; answer: string }[] = [
       "long story, I was one of the 🏳️‍🌈 arch guy but lately I moved to OSX",
   },
   {
-    question: "An about your favorite programming language?",
+    question: "And about your favorite programming language?",
     answer: "No doubt, TypeScript.",
   },
 ];

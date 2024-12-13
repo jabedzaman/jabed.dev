@@ -17,6 +17,19 @@ export default function Home() {
           , a privacy focused personalized cloud storage platform.
         </div>
         <div>
+          At present, I am working as a full stack developer at{" "}
+          <Link
+            href="https://www.dlatechnologies.com/"
+            className="text-blue-500 hover:text-blue-700"
+            target="_blank"
+          >
+            DLA Technologies
+          </Link>
+          . Also, I have assisted more than 4 startups in their inital phase by
+          building and scaling their technical infrastructure and product
+          development.
+        </div>
+        <div>
           I keep building{" "}
           <Link href="/projects" className="text-blue-500 hover:text-blue-700">
             crazy stuffs
@@ -30,20 +43,11 @@ export default function Home() {
             listening
           </Link>{" "}
           to random af music. Moreover lately, I got an crazy fondness towards
-          self-hosting everything.
-        </div>
-        <div>
-          At present, I am working as a full stack developer at{" "}
-          <Link
-            href="https://www.dlatechnologies.com/"
-            className="text-blue-500 hover:text-blue-700"
-            target="_blank"
-          >
-            DLA Technologies
-          </Link>
-          . Also, I have assisted more than 4 startups in their inital phase by
-          building and scaling their technical infrastructure and product
-          development
+          self-hosting everything along with keeping my{" "}
+          <Link href="/uses" className="text-blue-500 hover:text-blue-700">
+            setup
+          </Link>{" "}
+          as minimal as possible.
         </div>
         <div className="my-4">
           <h3>My Recent Articles:</h3>
