@@ -32,8 +32,17 @@ export default function Home() {
           self-hosting everything.
         </p>
         <p>
-          I have assisted more than 4 startups in their inital phase by building
-          and scaling their technical infrastructure and product development
+          At present, I am working as a full stack developer at{" "}
+          <Link
+            href="https://www.dlatechnologies.com/"
+            className="text-blue-500 hover:text-blue-700"
+            target="_blank"
+          >
+            DLA Technologies
+          </Link>
+          . I have assisted more than 4 startups in their inital phase by
+          building and scaling their technical infrastructure and product
+          development
         </p>
         <p>
           Feel free to stalk me at{" "}

@@ -1,0 +1,188 @@
+---
+title: Automating self-hosted deployments
+summary: Automating self-hosted deployments with GitHub Actions, GHCR, Docker, Docker Compose
+date: 2024-12-13
+keywords: self-hosted, deployment, automation, github actions, ghcr, docker, docker-compose
+---
+
+There are a lot of deployment tools available in the market. But when it comes to self-hosted deployments, it becomes a bit tricky.
+Tools like [coolify](https://www.coolify.io/) & [dokploy](https://dokploy.com/) exists but themsevles eat up a lot of resources and are complex to setup.
+These tools are great but they turn out to be an overkill for me :)
+
+The main key points I wanted to achieve were:
+
+- **Automated deployments**: automate the deployment process as much as possible.
+- **Resource-efficient**: Use as little resources as possible.
+- **Self-hosted**: host the all deployment tools on my own server.
+- **Simple**: keep the setup simple and easy to maintain, manage, and scale.
+
+### Architecture
+
+The architecture I came up with is as follows:
+
+```bash
+-> Build Docker image
+-> Push to GHCR
+-> Pull image on server
+-> Run Image with Docker Compose
+-> Use Nginx Proxy Manager to proxy requests to the container
+-> Done!
+```
+
+### Automating the deployment
+
+I used GitHub Actions to automate the deployment process. Here is the workflow I used:
+
+```yaml
+name: Build and Push Docker Image to GHCR
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}:latest .
+          docker push ghcr.io/${{ github.repository }}:latest
+```
+
+This workflow builds the Docker image and pushes it to GHCR on every push to the `main` branch and tags the image as `latest`.
+
+Now, on the server, the initial setup is to install Docker and Docker Compose. Once that is done. Create a stack to run `Nginx Proxy Manager`.
+Next we will add all our apps in this stack. Also make sure to login to GHCR on the server to pull the images. To login you can use the [personal tokens](https://github.com/settings/tokens/new)
+to authenticate with GHCR.
+
+```bash
+echo $GHCR_TOKEN | docker login ghcr.io -u $GHCR_USERNAME --password-stdin
+```
+
+Now create a `docker-compose.yaml` file to run the apps. Here is an example:
+
+```yaml
+name: "apps"
+
+services:
+  npm:
+    image: "jc21/nginx-proxy-manager:latest"
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+
+  app:
+    image: ghcr.io/jabedzaman/jabed.dev:latest
+    restart: unless-stopped
+    env_file:
+      - app.env
+```
+
+The culture I follow is to organize the environment variables in a `<service>.env` file. This makes it easier to manage and maintain the environment variables.
+In this way its easy to add identity secrets for the each service.
+
+Next go the proxy manager and add a new proxy host. Add the domain name and the port where the service is running. The host
+will be the name of the service along with the desired port of yours.
+
+Now whenever you push to the main branch, the GitHub Actions workflow will build the Docker image and push it to GHCR.
+But this needs to be pulled on the server and run with Docker Compose. To automate this, I created a simple script that pulls the image and runs it with Docker Compose.
+
+```bash
+#!/bin/bash
+
+# Define color codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+RESET='\033[0m'
+
+# Path to the docker-compose file
+COMPOSE_FILE="docker-compose.yaml"
+
+# Check if docker-compose file exists
+if [[ ! -f "$COMPOSE_FILE" ]]; then
+  echo -e "${RED}docker-compose.yaml not found in the current directory.${RESET}"
+  exit 1
+fi
+
+# Extract service names using yq and trim quotes
+SERVICES=$(yq '.services | keys | .[]' "$COMPOSE_FILE" 2>/dev/null | tr -d '"')
+
+# Check if yq executed successfully
+if [[ $? -ne 0 || -z "$SERVICES" ]]; then
+  echo -e "${RED}Failed to parse docker-compose.yaml. Ensure the file is valid and yq is properly installed.${RESET}"
+  exit 1
+fi
+
+# Display the services with numbers
+echo -e "${CYAN}Available services:${RESET}"
+i=1
+declare -A SERVICE_MAP
+for SERVICE in $SERVICES; do
+  echo -e "${GREEN}$i) $SERVICE${RESET}"
+  SERVICE_MAP[$i]=$SERVICE
+  ((i++))
+done
+
+# Prompt user for a choice
+echo -e "${BLUE}"
+read -p "Enter the number corresponding to the service you want to run: " CHOICE
+echo -e "${RESET}"
+
+# Validate the user input
+if [[ -z "${SERVICE_MAP[$CHOICE]}" ]]; then
+  echo -e "${RED}Invalid choice. Exiting.${RESET}"
+  exit 1
+fi
+
+SELECTED_SERVICE=${SERVICE_MAP[$CHOICE]}
+echo -e "${CYAN}You selected: ${GREEN}$SELECTED_SERVICE${RESET}"
+
+# Pull the image for the selected service
+echo -e "${BLUE}Pulling image for $SELECTED_SERVICE...${RESET}"
+docker compose pull "$SELECTED_SERVICE"
+
+# Bring up the selected service
+echo -e "${BLUE}Starting $SELECTED_SERVICE...${RESET}"
+docker compose up -d "$SELECTED_SERVICE"
+
+echo -e "${GREEN}Service $SELECTED_SERVICE is up and running.${RESET}"
+```
+
+Now you need to have `yq` installed on your server to run this script. Also, make sure to make the script executable by running `chmod +x deploy.sh`.
+You can also customize it to your needs
+
+> Tip: Set the docker compose path in the script to the path where your `docker-compose.yaml` file is located and move the script to the `/usr/local/bin` directory to run it from anywhere.
+
+Now, whenever you want to deploy a new service, just add it to the `docker-compose.yaml` file and run the script. It will pull the image and run it with Docker Compose.
+And to update the service, just push the changes to the main branch and the GitHub Actions workflow will build the new image and push it to GHCR and you then only need to run the script to update the service.
+
+### Further improvements
+
+In the future, I plan to add move to a `k8s` setup. But for now, this setup is working great for me. It's simple, easy to maintain, and resource-efficient.
+
+You can also use `github webhooks` to run the script whenever a new image is pushed to GHCR. This will automate the deployment process even further.
+For this, you can use a simple REST API server that listens for the webhook and runs the script maybe using exec or something similar. And if you keep
+the server in the stack (which would be a good idea), you can use `ssh2` to run the script on the server.
