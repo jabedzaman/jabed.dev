@@ -47,7 +47,7 @@ export default function Home() {
         </div>
         <div className="my-4">
           <h3>My Recent Articles:</h3>
-          <div className="my-2">
+          <div className="my-1">
             <ul>
               {postMetaData
                 .sort(
@@ -112,7 +112,7 @@ export default function Home() {
         </div>
         <div className="my-2">
           Help me fund my server costs and coffee addiction:
-          <ul>
+          <ul className="my-1">
             <li>
               <span>SOL: </span>
               <Link
