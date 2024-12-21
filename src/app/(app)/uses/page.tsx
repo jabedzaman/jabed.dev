@@ -48,6 +48,15 @@ export default function Page() {
         </ul>
       </div>
       <div className="w-full border-t" />
+      <div className="space-y-2">
+        <h2>Homelab:</h2>
+        <ul className="space-y-2">
+          {homelab.map((item) => (
+            <li key={item}>• {item}</li>
+          ))}
+        </ul>
+      </div>
+      <div className="w-full border-t" />
       <p>
         Most of the software development tools are installed on my vps. I prefer
         to keep my local machine clean and minimal. When needed, I use to ssh to
@@ -113,4 +122,11 @@ const software: { title: string; description: string; link: string }[] = [
     description: "for chatting with friends & professional work",
     link: "https://discord.com/",
   },
+];
+
+const homelab: string[] = [
+  "Ubuntu Server 24.04 LTS",
+  "4 Core Ampere Arm CPU",
+  "24GB RAM",
+  "200GB NVMe SSD",
 ];
