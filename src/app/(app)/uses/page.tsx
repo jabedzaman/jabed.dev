@@ -74,14 +74,24 @@ const hardware: { title: string; description: string; link: string }[] = [
     link: "https://www.apple.com/shop/buy-mac/macbook-air/13-inch-midnight-apple-m2-chip-with-8-core-cpu-and-8-core-gpu-16gb-memory-256gb",
   },
   {
-    title: "Galaxy S23",
+    title: "iPhone 16 128GB",
     description: "primary phone",
+    link: "https://www.apple.com/shop/buy-iphone/iphone-16-128gb",
+  },
+  {
+    title: "Galaxy S23",
+    description: "secondary phone",
     link: "https://www.samsung.com/in/smartphones/galaxy-s23/",
   },
   {
     title: "Acer SA222Q 21.5-inch Full HD IPS Monitor",
     description: "works as a secondary monitor",
     link: "https://store.acer.com/en-in/acer-sa222q-led-backlight-lcd-monitor-with-54-61-cm-21-5-full-hd-ips-ultra-slim-7-2mm-thick-zero-frame-display-250-nits-100hz-refresh-1-ms-vrb-white-um-ws2si-e01",
+  },
+  {
+    title: "Airpods 2nd Gen",
+    description: "I use this for music and calls",
+    link: "https://www.apple.com/shop/product/MQJY3HN/AirPods-2nd-generation",
   },
   {
     title: "Samsung 980 Pro 512GB NVMe M.2 SSD",
@@ -97,9 +107,9 @@ const hardware: { title: string; description: string; link: string }[] = [
 
 const software: { title: string; description: string; link: string }[] = [
   {
-    title: "Zed",
-    description: "yes!! I am done with VSCode",
-    link: "https://zed.dev/",
+    title: "vscode",
+    description: "the extension support is amazing",
+    link: "https://code.visualstudio.com/",
   },
   {
     title: "Xcode",
@@ -108,7 +118,7 @@ const software: { title: string; description: string; link: string }[] = [
   },
   {
     title: "Brave Browser",
-    description: "the only browser I use",
+    description: "the privacy it offers, made me stick to it",
     link: "https://brave.com/",
   },
   {

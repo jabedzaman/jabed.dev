@@ -37,8 +37,8 @@ const getAccessToken = async () => {
     },
     body: params.toString(),
   });
-
-  return response.json();
+  const data = await response.json();
+  return data;
 };
 
 async function getMusicInfo() {

@@ -1,23 +1,35 @@
 import { postMetaData } from "@/libs/utils";
 import { Link } from "next-view-transitions";
 
+// const experiences: {
+//   position: string; company: string; startDate: Date; endDate: Date | null;
+//   description: string; link: string;
+// }[] = [
+//     {
+//       position: "Full Stack Developer",
+//       company: "DLA Technologies",
+//       startDate: new Date("2024-12-01"),
+//       description: "Mantaining multiple SAAS products and building new features.",
+//       link: "https://www.dlatechnologies.com/",
+//       endDate: null,
+//     },
+//     {
+//       position: "Full Stack Developer",
+//       company: "Dipeat Foods Pvt. Ltd.",
+//       startDate: new Date("2023-01-01"),
+//       endDate: new Date("2024-12-01"),
+//       description: "Revamped the backend and mobile app, increasing the performance and scalability by more than 70%.",
+//       link: "https://www.dipeat.com/",
+//     },
+//   ];
+
 export default function Home() {
   return (
     <div>
       <div className="text-gray-800 space-y-4 leading-snug break-words">
         <div>
           I&apos;m a self taught full stack developer, CS student and OSS
-          enthusiast. I am currently building{" "}
-          <Link
-            href="https://rubiks.cloud"
-            className="text-blue-500 hover:text-blue-700"
-          >
-            rubiks.cloud
-          </Link>
-          , a privacy focused personalized cloud storage platform.
-        </div>
-        <div>
-          At present, I am working as a full stack developer at{" "}
+          enthusiast, currently working as a full stack developer at{" "}
           <Link
             href="https://www.dlatechnologies.com/"
             className="text-blue-500 hover:text-blue-700"
@@ -25,7 +37,7 @@ export default function Home() {
           >
             DLA Technologies
           </Link>
-          . Also, I have assisted more than 4 startups in their inital phase by
+          . I have assisted more than 4 start-ups in their initial phase by
           building and scaling their technical infrastructure and product
           development.
         </div>
@@ -42,7 +54,7 @@ export default function Home() {
           <Link href="/music" className="text-blue-500 hover:text-blue-700">
             listening
           </Link>{" "}
-          to random af music. Moreover lately, I got an crazy fondness towards
+          to random music. Moreover lately, I got an crazy fondness towards
           self-hosting everything along with keeping my{" "}
           <Link href="/uses" className="text-blue-500 hover:text-blue-700">
             setup
