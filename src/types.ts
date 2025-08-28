@@ -307,3 +307,32 @@ export interface Cursors {
   after: string;
   before: string;
 }
+
+export interface IProject {
+  name: string;
+  description: string;
+  link: string;
+  thumbnail: string;
+  id: string;
+}
+
+export interface IWorkExperience {
+  company: string;
+  title: string;
+  start: string;
+  end: string;
+  link: string;
+  id: string;
+}
+
+export interface IBlogPost {
+  title: string;
+  description: string;
+  link: string;
+  uid: string;
+}
+
+export interface ISocialLink {
+  label: string;
+  link: string;
+}

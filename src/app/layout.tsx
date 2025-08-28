@@ -1,17 +1,11 @@
-import { ViewTransitions } from "next-view-transitions";
-// import { Nunito } from "next/font/google";
-import { Bricolage_Grotesque } from "next/font/google";
+import { Urbanist } from "next/font/google";
 import "./globals.css";
-export { metadata } from "@/config";
+import { Providers } from "./providers";
+export { metadata } from "~/config";
 
-// const nunito = Nunito({
-//   weight: ["200", "300", "400", "500", "600", "700", "800"],
-//   subsets: ["latin"],
-// });
-
-const bricolage_grotesque = Bricolage_Grotesque({
-  weight: ["300", "500", "600", "700"],
+const urbanist = Urbanist({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export default function RootLayout({
@@ -20,13 +14,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ViewTransitions>
-      <html
-        lang="en"
-        className={`${bricolage_grotesque.className} [scrollbar-gutter:stable]`}
+    <html lang="en" suppressHydrationWarning className="scroll-smooth">
+      <body
+        className={`${urbanist.className} bg-[#fff] tracking-tight text-[#1e1e1e] antialiased dark:bg-[#111111] dark:text-[#f5f5f5]`}
       >
-        <body className="antialiased tracking-tight">{children}</body>
-      </html>
-    </ViewTransitions>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
   );
 }

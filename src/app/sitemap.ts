@@ -1,4 +1,4 @@
-import { postMetaData, projectMetaData } from "@/libs/utils";
+import { postMetaData, projectMetaData } from "~/libs/post-utils";
 
 export default async function sitemap() {
   const articles = postMetaData.map((p) => ({

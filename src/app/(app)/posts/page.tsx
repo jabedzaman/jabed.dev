@@ -1,6 +1,6 @@
-import { postMetaData } from "@/libs/utils";
+import { postMetaData } from "~/libs/post-utils";
 import moment from "moment";
-import { Link } from "next-view-transitions";
+import Link from "next/link";
 
 export default function Page() {
   return (

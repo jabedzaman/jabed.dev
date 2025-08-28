@@ -1,15 +1,15 @@
-import { Link } from "next-view-transitions";
 import * as React from "react";
+import { Header } from "./_components/header";
+import { Footer } from "./_components/footer";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="min-h-screen flex flex-col justify-between pt-0 md:pt-6 p-6">
-      <section className="max-w-[60ch] mx-auto w-full space-y-6 mt-10">
-        <Link href={"/"} className="font-medium py-5">
-          Jabed Zaman
-        </Link>
+    <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-inter-tight)]">
+      <div className="relative mx-auto w-full max-w-screen-sm flex-1 px-4 pt-20">
+        <Header />
         {children}
-      </section>
-    </main>
+        <Footer />
+      </div>
+    </div>
   );
 }

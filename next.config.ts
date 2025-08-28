@@ -1,7 +1,10 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
+
+const nextConfig: NextConfig = {
+  pageExtensions: ["ts", "tsx", "mdx"],
+  experimental: { mdxRs: true },
   output: "standalone",
-  pageExtensions: ["tsx", "ts", "js", "mjs", "mdx"],
   redirects: async () => {
     return [
       {
@@ -43,4 +46,9 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+const withMDX = createMDX({
+  extension: /\.(md|mdx)$/,
+});
+
+// Merge MDX config with Next.js config
+export default withMDX(nextConfig);

@@ -1,6 +1,6 @@
-import { Top_Artists, Top_Tracks, recent_tracks_res } from "@/types";
-import { Link } from "next-view-transitions";
+import { Top_Artists, Top_Tracks, recent_tracks_res } from "~/types";
 import Image from "next/image";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
