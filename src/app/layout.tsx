@@ -1,17 +1,17 @@
-import { Urbanist } from "next/font/google";
-import "./globals.css";
-import { Providers } from "./providers";
-export { metadata } from "~/config";
+import { Urbanist } from 'next/font/google'
+import './globals.css'
+import { Providers } from './providers'
+export { metadata } from '~/config'
 
 const urbanist = Urbanist({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+})
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
@@ -21,5 +21,5 @@ export default function RootLayout({
         <Providers>{children}</Providers>
       </body>
     </html>
-  );
+  )
 }

@@ -1,8 +1,8 @@
-"use client";
+'use client'
 
-import Image from "next/image";
-import Link from "next/link";
-import { TextEffect } from "~/components/ui/text-effect";
+import Image from 'next/image'
+import Link from 'next/link'
+import { TextEffect } from '~/components/ui/text-effect'
 
 export function Header() {
   return (
@@ -32,5 +32,5 @@ export function Header() {
         </div>
       </div>
     </header>
-  );
+  )
 }

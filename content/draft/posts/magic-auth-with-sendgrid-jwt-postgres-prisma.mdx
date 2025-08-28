@@ -110,25 +110,25 @@ Create a `tsconfig.json` file and add the following code.
 Create a `tsup.config.ts` file and add the following code.
 
 ```ts
-import { defineConfig } from "tsup";
-import "dotenv/config";
+import { defineConfig } from 'tsup'
+import 'dotenv/config'
 
-const isDev = process.env.NODE_ENV === "development" ? true : false;
+const isDev = process.env.NODE_ENV === 'development' ? true : false
 
-isDev && console.log("🚧  Running in development mode");
+isDev && console.log('🚧  Running in development mode')
 
 export default defineConfig({
   clean: !isDev,
   dts: !isDev,
-  entry: ["src/index.ts"],
-  format: ["esm"],
+  entry: ['src/index.ts'],
+  format: ['esm'],
   minify: !isDev,
   metafile: !isDev,
   sourcemap: true,
-  target: "esnext",
-  outDir: "dist",
-  onSuccess: isDev ? "node dist/index.mjs" : undefined,
-});
+  target: 'esnext',
+  outDir: 'dist',
+  onSuccess: isDev ? 'node dist/index.mjs' : undefined,
+})
 ```
 
 Edit your `package.json` file and add the following scripts.
@@ -146,7 +146,7 @@ Edit your `package.json` file and add the following scripts.
 Create a `src/index.ts` file and add the following code.
 
 ```ts
-console.log("Hello World");
+console.log('Hello World')
 ```
 
 Now run the following command to start the server.
@@ -154,7 +154,6 @@ Now run the following command to start the server.
 ```bash
 npm run dev
 ```
-
 
 ### Setting up Prisma
 
@@ -210,16 +209,16 @@ npx prisma generate && npx prisma db push
 Now create a new file `src/config/prisma.ts` and add the following code.
 
 ```ts
-import { PrismaClient } from "@prisma/client";
-import { isDev } from "../utils";
+import { PrismaClient } from '@prisma/client'
+import { isDev } from '../utils'
 
 const prisma = new PrismaClient(
   isDev
-    ? { log: ["query", "info", "warn"] } // log all queries
-    : undefined // log nothing in production
-);
+    ? { log: ['query', 'info', 'warn'] } // log all queries
+    : undefined, // log nothing in production
+)
 
-export default prisma;
+export default prisma
 ```
 
 This will create a prisma client instance which we will use to interact with our database.
@@ -227,40 +226,40 @@ This will create a prisma client instance which we will use to interact with our
 Now time to create helpers to generate tokens and verify them. Create a new file `src/utils/jwt.ts` and add the following code.
 
 ```ts
-import jwt from "jsonwebtoken";
-import "dotenv/config";
+import jwt from 'jsonwebtoken'
+import 'dotenv/config'
 
-const JWT_SECRET = process.env.JWT_SECRET;
-const JWT_EXPIRES_IN = "1d";
+const JWT_SECRET = process.env.JWT_SECRET
+const JWT_EXPIRES_IN = '1d'
 
 export const generateToken = (payload: any) => {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
-};
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN })
+}
 
 export const verifyToken = (token: string) => {
-  return jwt.verify(token, JWT_SECRET);
-};
+  return jwt.verify(token, JWT_SECRET)
+}
 ```
 
 Time to create a service which will send the mail with the token verfication link. Create a new file `src/services/sendMail.ts` and add the following code.
 
 ```ts
-import sgMail from "@sendgrid/mail";
-import "dotenv/config";
+import sgMail from '@sendgrid/mail'
+import 'dotenv/config'
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 export const sendMail = async (to: string, token: string) => {
   const msg = {
     to,
-    from: "<YOUR_EMAIL>",
-    subject: "Verify your email",
+    from: '<YOUR_EMAIL>',
+    subject: 'Verify your email',
     html: `<a href="http://localhost:3000/verify?token=${token}">Click here to verify your email</a>`,
-  };
-  await sgMail.send(msg);
+  }
+  await sgMail.send(msg)
 
-  return;
-};
+  return
+}
 ```
 
 Now time to create the Controller for our API. Create a new file `src/controllers/createUser.ts` and add the following code.
@@ -300,54 +299,54 @@ export const createUser = async (req: Request, res: Response) => {
 Now we alredy have sent the mail. Time to verify the token. Create a new file `src/controllers/verifyUser.ts` and add the following code.
 
 ```ts
-import { Request, Response } from "express";
-import { verifyToken } from "../utils/jwt";
-import prisma from "../config/prisma";
+import { Request, Response } from 'express'
+import { verifyToken } from '../utils/jwt'
+import prisma from '../config/prisma'
 
 const verificationToken = async (req: Request, res: Response) => {
-  const { token } = req.query;
+  const { token } = req.query
   try {
-    const { email } = verifyToken(token as string) as any;
+    const { email } = verifyToken(token as string) as any
     const user = await prisma.user.findUnique({
       where: { email },
-    });
+    })
     if (user) {
       await prisma.user.update({
         where: { email },
         data: { verified: true },
-      });
-      return res.status(200).json({ message: "User verified" });
+      })
+      return res.status(200).json({ message: 'User verified' })
     } else {
-      return res.status(400).json({ error: "User not found" });
+      return res.status(400).json({ error: 'User not found' })
     }
   } catch (err) {
-    console.log(err);
-    return res.status(500).json({ error: "Something went wrong" });
+    console.log(err)
+    return res.status(500).json({ error: 'Something went wrong' })
   }
-};
+}
 
-export default verificationToken;
+export default verificationToken
 ```
 
 Now lets sum up everything... Edit your `src/index.ts` file and add the following code.
 
 ```ts
-import express from "express";
-import cors from "cors";
-import createUser from "./controllers/createUser";
-import verificationToken from "./controllers/verifyUser";
+import express from 'express'
+import cors from 'cors'
+import createUser from './controllers/createUser'
+import verificationToken from './controllers/verifyUser'
 
-const app = express();
+const app = express()
 
-app.use(express.json());
-app.use(cors());
+app.use(express.json())
+app.use(cors())
 
-app.post("/create", createUser);
-app.get("/verify", verificationToken);
+app.post('/create', createUser)
+app.get('/verify', verificationToken)
 
 app.listen(3000, () => {
-  console.log("🚀 Server started on http://localhost:3000");
-});
+  console.log('🚀 Server started on http://localhost:3000')
+})
 ```
 
 Now run the following command to start the server.
@@ -387,6 +386,8 @@ Now click on the link and you should get a response like this.
 ```
 
 THATS IT!!! You have successfully created a magic auth system.
+
 <Callout emoji="📚">
-You can find the source code for this project on <a href="https://github.com/jabedzaman/magicauth/">My Github</a>
+  You can find the source code for this project on{' '}
+  <a href="https://github.com/jabedzaman/magicauth/">My Github</a>
 </Callout>

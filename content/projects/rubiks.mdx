@@ -20,13 +20,13 @@ Built on top of a scalable and reliable microservices architecture, rubiks is de
 
 ## Architecture
 
-In a while I got introduced to microservice based architecture and I was fascinated by the idea of building a system that is scalable, reliable and easy to maintain. 
+In a while I got introduced to microservice based architecture and I was fascinated by the idea of building a system that is scalable, reliable and easy to maintain.
 
 With the craze of this new architecture, I decided to build a cloud storage solution that is privacy focused and easy to use AND MAINLY, I wanted to build it using microservices.
 
 I started with the frontend, I chose Next.js because of its server side rendering capabilities and its ease of use. I used Tailwind CSS for styling and ShadcnUI for the components. I also used TypeScript for type safety. For state management, I used @reduxjs/toolkit (I KNOW, I KNOW, REDUX SUCKS, I just dont want to justify my choice here).
 
-For the backend, I chose NestJS because of its out of the box support for microservices and its ease of use. 
+For the backend, I chose NestJS because of its out of the box support for microservices and its ease of use.
 
 I designed the system to have 5 microservices:
 
@@ -34,12 +34,11 @@ I designed the system to have 5 microservices:
 2. **File Service**: Handles file uploads, downloads and storage.
 3. **Notification Service**: Handles notifications for file uploads, downloads and deletions.
 4. **Billing Service**: Handles billing and payments.
-5.  **Dashboard Service**: Handles the frontend and the user interface.
+5. **Dashboard Service**: Handles the frontend and the user interface.
 
 Now, I decided to use PostgreSQL for the auth service due to its ACID compliance and MongoDB for the file service due to its flexibility and scalability. I used RabbitMQ for the communication between the services and Prisma for the ORM.
 
 ---
-
 
 ## Assuring No Peeking Is Allowed!
 

@@ -7,14 +7,13 @@ keywords: macos, linux, windows, kvm, distrobox, wine, docker, distrobox, virtua
 
 Picture this: Your computer, the ultimate Casanova of machines, has a secret talent - it can flirt effortlessly with not one, not two, but three different operating systems at the same time. It's like a sizzling love triangle between macOS, Linux, and Windows, and your computer is the charming matchmaker. Why, you ask? Because who wouldn't want to be the Don Juan of the digital world, wooing every OS with KVM, DistroBox, and Wine?
 
-In this guide, we'll learn how to run macOS, Linux distributions, and Windows together on a single machine with KVM, DistroBox, and Wine. 
+In this guide, we'll learn how to run macOS, Linux distributions, and Windows together on a single machine with KVM, DistroBox, and Wine.
 
 ## What is KVM?
 
-KVM is a virtualization technology that allows you to run multiple operating systems on a single machine. It's a great way to test out new software without having to install it on your computer. Basically, KVM is a hypervisor that allows you to run multiple operating systems on a single machine. It's a great way to test out new software without having to install it on your computer. The best part is that it's free and open source! 
+KVM is a virtualization technology that allows you to run multiple operating systems on a single machine. It's a great way to test out new software without having to install it on your computer. Basically, KVM is a hypervisor that allows you to run multiple operating systems on a single machine. It's a great way to test out new software without having to install it on your computer. The best part is that it's free and open source!
 
-> KVM and VMware are both virtualization technologies, but they are not the same. KVM is an open-source virtualization technology that is built into the Linux kernel. VMware is a proprietary virtualization technology that is built on top of the Linux kernel. 
-
+> KVM and VMware are both virtualization technologies, but they are not the same. KVM is an open-source virtualization technology that is built into the Linux kernel. VMware is a proprietary virtualization technology that is built on top of the Linux kernel.
 
 **DistroBox** is an open source project that allows you to run multiple Linux distributions on a single machine. It is a tool for providing containerised runtimes of several different Linux distributions. It's a great way to test out new software without having to install it on your computer. The distrobox environment is based on an OCI image. This image is used to create a container that seamlessly integrates with the rest of the operating system by providing access to the user's home directory, the Wayland and X11 sockets, networking, removable devices (like USB sticks), systemd journal, SSH agent, D-Bus, ulimits, /dev and the udev database, etc...
 
@@ -31,6 +30,7 @@ Okay you already have Linux installed, so you are good to go. But lets see what 
 ```bash
 curl -s https://raw.githubusercontent.com/89luca89/distrobox/main/install | sudo sh -s -- --next
 ```
+
 Now for this you might need to have docker installed. If you don't have it, install it with the following command:
 
 ```bash
@@ -55,7 +55,7 @@ AHHHHHHAHH!!!! You are now in a container running your favorite distro. You can 
 
 ### macOS
 
-Okay, so you want to run macOS on your Linux host. Well, you can do that with [macOS-Simple-KVM](https://github.com/foxlet/macOS-Simple-KVM) project. It is a tool that allows you to easily create a macOS virtual machine on Linux. It uses QEMU and KVM to run the virtual machine. It also includes a script that allows you to easily install macOS on the virtual machine. 
+Okay, so you want to run macOS on your Linux host. Well, you can do that with [macOS-Simple-KVM](https://github.com/foxlet/macOS-Simple-KVM) project. It is a tool that allows you to easily create a macOS virtual machine on Linux. It uses QEMU and KVM to run the virtual machine. It also includes a script that allows you to easily install macOS on the virtual machine.
 
 To install macOS-Simple-KVM, firstly install the dependencies:
 
@@ -99,7 +99,7 @@ You can refer to the [official documentation](https://github.com/foxlet/macOS-Si
 
 ### Windows
 
-The final one... especially what the linux gamers lust for!!! Windows. You can run Windows on your Linux host with [Wine](https://www.winehq.org/). 
+The final one... especially what the linux gamers lust for!!! Windows. You can run Windows on your Linux host with [Wine](https://www.winehq.org/).
 Its extremely easy to install. Just run the following command:
 
 ```bash

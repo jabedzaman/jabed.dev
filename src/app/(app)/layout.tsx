@@ -1,6 +1,6 @@
-import * as React from "react";
-import { Header } from "./_components/header";
-import { Footer } from "./_components/footer";
+import * as React from 'react'
+import { Header } from './_components/header'
+import { Footer } from './_components/footer'
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -11,5 +11,5 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <Footer />
       </div>
     </div>
-  );
+  )
 }

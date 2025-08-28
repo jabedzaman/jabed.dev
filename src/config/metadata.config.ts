@@ -1,24 +1,24 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: {
-    default: "jabed",
-    template: "%s • jabed",
+    default: 'jabed',
+    template: '%s • jabed',
   },
   description:
-    "Indie hacker, full-stack developer, crafting web and mobile apps.",
-  category: "Personal Site",
+    'Indie hacker, full-stack developer, crafting web and mobile apps.',
+  category: 'Personal Site',
   openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://jabed.dev",
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://jabed.dev',
   },
   twitter: {
-    card: "summary_large_image",
+    card: 'summary_large_image',
   },
   alternates: {
     types: {
-      "application/rss+xml": "https://jabed.dev/rss.xml",
+      'application/rss+xml': 'https://jabed.dev/rss.xml',
     },
   },
-};
+}

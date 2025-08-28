@@ -78,15 +78,15 @@ echo $GHCR_TOKEN | docker login ghcr.io -u $GHCR_USERNAME --password-stdin
 Now create a `docker-compose.yaml` file to run the apps. Here is an example:
 
 ```yaml
-name: "apps"
+name: 'apps'
 
 services:
   npm:
-    image: "jc21/nginx-proxy-manager:latest"
+    image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
+      - '80:80'
+      - '443:443'
     volumes:
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt

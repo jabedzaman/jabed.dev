@@ -14,10 +14,10 @@ In the era of serverless and edge computing, [Next.js](https://nextjs.org/) is t
 Edge functions are the future... I am gonna prefer them as it resolves the issues of cold starts and latency. To create an edge function, we just need to create a file in the app/api directory and export a function.
 
 ```ts
-export const runtime = "edge";
+export const runtime = 'edge'
 
 export default function handler(req, res) {
-  res.status(200).json({ name: "John Doe" });
+  res.status(200).json({ name: 'John Doe' })
 }
 ```
 
@@ -45,7 +45,7 @@ Now we have a frontend, a database, and a way to connect them. But how do we dep
 
 AWS would gonna be my choice for deploying my app.
 
-JK!!! Once you get into the aws loop, you can't get out of it. 
+JK!!! Once you get into the aws loop, you can't get out of it.
 (Jeff gonna sue me for this)
 
 So which??

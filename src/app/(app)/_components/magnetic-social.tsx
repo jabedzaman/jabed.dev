@@ -1,11 +1,11 @@
-import { Magnetic } from "~/components/ui/magnetic";
+import { Magnetic } from '~/components/ui/magnetic'
 
 export function MagneticSocialLink({
   children,
   link,
 }: {
-  children: React.ReactNode;
-  link: string;
+  children: React.ReactNode
+  link: string
 }) {
   return (
     <Magnetic springOptions={{ bounce: 0 }} intensity={0.3}>
@@ -31,5 +31,5 @@ export function MagneticSocialLink({
         </svg>
       </a>
     </Magnetic>
-  );
+  )
 }

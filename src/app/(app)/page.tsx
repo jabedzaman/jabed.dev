@@ -1,13 +1,13 @@
-"use client";
-import { motion } from "motion/react";
-import { EMAIL, SOCIAL_LINKS, WORK_EXPERIENCE } from "~/data";
-import { MagneticSocialLink } from "./_components/magnetic-social";
-import { Spotlight } from "~/components/ui/spotlight";
-import { AnimatedBackground } from "~/components/ui/animated-background";
-import Link from "next/link";
-import { IBlogPost } from "~/types";
-import * as React from "react";
-import { getBlogPosts } from "./actions";
+'use client'
+import { motion } from 'motion/react'
+import { EMAIL, SOCIAL_LINKS, WORK_EXPERIENCE } from '~/data'
+import { MagneticSocialLink } from './_components/magnetic-social'
+import { Spotlight } from '~/components/ui/spotlight'
+import { AnimatedBackground } from '~/components/ui/animated-background'
+import Link from 'next/link'
+import { IBlogPost } from '~/types'
+import * as React from 'react'
+import { getBlogPosts } from './actions'
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -17,22 +17,22 @@ const VARIANTS_CONTAINER = {
       staggerChildren: 0.15,
     },
   },
-};
+}
 
 const VARIANTS_SECTION = {
-  hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
-  visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-};
+  hidden: { opacity: 0, y: 20, filter: 'blur(8px)' },
+  visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
+}
 
 const TRANSITION_SECTION = {
   duration: 0.3,
-};
+}
 
 export default function Page() {
-  const [BLOG_POSTS, setBlogPosts] = React.useState<Array<IBlogPost>>([]);
+  const [BLOG_POSTS, setBlogPosts] = React.useState<Array<IBlogPost>>([])
   React.useEffect(() => {
-    getBlogPosts().then((posts) => setBlogPosts(posts));
-  }, []);
+    getBlogPosts().then((posts) => setBlogPosts(posts))
+  }, [])
   return (
     <motion.main
       className="space-y-12"
@@ -47,30 +47,30 @@ export default function Page() {
         <div className="flex-1">
           <p className="text-zinc-700 dark:text-zinc-300">
             Hello!!!! I&apos;m a self taught full stack developer, CS student
-            and OSS enthusiast, currently working as a full stack developer at{" "}
+            and OSS enthusiast, currently working as a full stack developer at{' '}
             <Link
               href="https://www.skillrev.com"
-              className="dark:hover:text-zinc-100 hover:text-zinc-900"
+              className="hover:text-zinc-900 dark:hover:text-zinc-100"
               target="_blank"
             >
               SkillRev
             </Link>
             . I have assisted more than 6 start-ups in their initial phase by
             building and scaling their technical infrastructure and product
-            development. Also sometimes I yap over{" "}
+            development. Also sometimes I yap over{' '}
             <Link
               href="/posts"
-              className="dark:hover:text-zinc-100 hover:text-zinc-900"
+              className="hover:text-zinc-900 dark:hover:text-zinc-100"
             >
               my blog posts
             </Link>
-            . In addition to that, I keep{" "}
+            . In addition to that, I keep{' '}
             <Link
               href="/music"
-              className="dark:hover:text-zinc-100 hover:text-zinc-900"
+              className="hover:text-zinc-900 dark:hover:text-zinc-100"
             >
               listening
-            </Link>{" "}
+            </Link>{' '}
             to random music
           </p>
         </div>
@@ -153,7 +153,7 @@ export default function Page() {
             enableHover
             className="h-full w-full rounded-xs dark:bg-zinc-900/80"
             transition={{
-              type: "spring",
+              type: 'spring',
               bounce: 0,
               duration: 0.2,
             }}
@@ -180,7 +180,7 @@ export default function Page() {
         <div className="mt-4">
           <Link
             href="/posts"
-            className="dark:hover:text-zinc-100 hover:text-zinc-900"
+            className="hover:text-zinc-900 dark:hover:text-zinc-100"
           >
             View all posts &rarr;
           </Link>
@@ -192,10 +192,10 @@ export default function Page() {
         transition={TRANSITION_SECTION}
       >
         <div>
-          My PGP key:{" "}
+          My PGP key:{' '}
           <Link
             href="https://keys.openpgp.org/vks/v1/by-fingerprint/5A1E5B4C1587E151FEF4BBAFE85E4BE5AF9BC51D"
-            className="dark:hover:text-zinc-100 hover:text-zinc-900"
+            className="hover:text-zinc-900 dark:hover:text-zinc-100"
             target="_blank"
           >
             5A1E5B4C1587E151FEF4BBAFE85E4BE5AF9BC51D
@@ -208,7 +208,7 @@ export default function Page() {
               <span>SOL: </span>
               <Link
                 href="https://explorer.solana.com/address/2pKYHpCuvyQUooYvkCrMPXrc9DSEK7M3VXgJRFcTaKxz"
-                className="dark:hover:text-zinc-100 hover:text-zinc-900"
+                className="hover:text-zinc-900 dark:hover:text-zinc-100"
                 target="_blank"
               >
                 2pKYHpCuvyQUooYvkCrMPXrc9DSEK7M3VXgJRFcTaKxz
@@ -224,7 +224,7 @@ export default function Page() {
       >
         <h3 className="mb-5 text-lg font-medium">Connect</h3>
         <p className="mb-5 text-zinc-600 dark:text-zinc-400">
-          Feel free to contact me at{" "}
+          Feel free to contact me at{' '}
           <a className="underline dark:text-zinc-300" href={`mailto:${EMAIL}`}>
             {EMAIL}
           </a>
@@ -238,5 +238,5 @@ export default function Page() {
         </div>
       </motion.section>
     </motion.main>
-  );
+  )
 }

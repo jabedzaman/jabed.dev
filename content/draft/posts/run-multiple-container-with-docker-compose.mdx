@@ -1,6 +1,6 @@
 ---
 title: Running multiple containers with Docker Compose
-slug : run-multiple-container-with-docker-compose
+slug: run-multiple-container-with-docker-compose
 summary: Getting started with Docker Compose and learn about differences between Docker and Docker Compose
 date: 2023-05-21
 tags: docker, docker-compose, containers, orchestration, microservices, devops
@@ -17,10 +17,10 @@ Lets take a example to understand the basics of Docker Compose. We will create a
 ## Getting Started
 
 Create a new directory and give it a name of your choice. For this demo I will name it `docker-compose-demo`
-    ```bash
+`bash
     mkdir docker-compose-demo
     cd docker-compose-demo
-    ```
+    `
 Now create a new file named `docker-compose.yml` . This is the file where we will define our application's services. It serves a similar purpose as `Dockerfile` but for multiple containers and acts as a config file for Docker Compose.
 
 At the top of the file, we specify the version of Docker Compose we are using. For this demo we will use version 3.9. You can find the latest version [here](https://docs.docker.com/compose/compose-file/compose-versioning/)
@@ -28,12 +28,13 @@ At the top of the file, we specify the version of Docker Compose we are using. F
     ```yaml
     version: "3.9"
     ```
+
 Lets create a basic express server to serve our web application. In the terminal hit `npm init -y` to create a new node project. Then install express and pg using `npm install express pg`. Create a new file named `index.js` and add the following code to it.
 
     ```javascript
     const express = require('express')
     const pg = require('pg')
-    
+
     const app = express()
     const port = 3000
 
@@ -90,6 +91,7 @@ Dont forget to add `.dockerignore` file to ignore `node_modules` folder.
     ```bash
     node_modules
     ```
+
 Coming back to our `docker-compose.yml` , we need to define our services. In the example we will create two services namely db and app. Add the following code to out yaml file to define two containers.
 
     ```yaml
@@ -135,6 +137,7 @@ Also Imagine if the container goes down then we will lose all the data. So we ne
     volumes:
           - ./data:/var/lib/postgresql/data
     ```
+
 Now we are done. Our `docker-compose.yml` file should look like this.
 
     ```yaml
@@ -174,7 +177,7 @@ Now lets start the application in detached mode. In the terminal run the followi
 
 Now we are done!!!
 
-  ![docker-compose-up](https://cdn.jabed.dev/docker-compose-up.png)
+![docker-compose-up](https://cdn.jabed.dev/docker-compose-up.png)
 
 To stop the application, run the following command.
 
@@ -182,6 +185,4 @@ To stop the application, run the following command.
     docker-compose down
     ```
 
-
-Hopefuly you have understood the basics of Docker Compose with the help of this demo. 
-
+Hopefuly you have understood the basics of Docker Compose with the help of this demo.

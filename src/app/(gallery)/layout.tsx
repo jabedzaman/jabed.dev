@@ -1,13 +1,13 @@
-import { Metadata } from "next";
+import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: "gallery",
-};
+  title: 'gallery',
+}
 
 export default function GalleryLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  return <section>{children}</section>;
+  return <section>{children}</section>
 }

@@ -62,18 +62,18 @@ Now we need to modify the `package.json` file to add the `start` script.
 Now we are going to set up the server. We are going to use express as our server.
 
 ```js
-import express from "express";
+import express from 'express'
 
-const app = express();
-const port = 3000;
+const app = express()
+const port = 3000
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+  console.log(`Example app listening at http://localhost:${port}`)
+})
 ```
 
 ### Creating a basic REST API 📡
@@ -81,9 +81,9 @@ app.listen(port, () => {
 For this example, we are going to create a basic REST API which returns us with a random number. We are going to use this API to test our caching system.
 
 ```js
-app.get("/random", (req, res) => {
-  res.send({ number: Math.floor(Math.random() * 100) });
-});
+app.get('/random', (req, res) => {
+  res.send({ number: Math.floor(Math.random() * 100) })
+})
 ```
 
 ### Setting up Redis 🧠
@@ -91,9 +91,9 @@ app.get("/random", (req, res) => {
 Now we are going to set up Redis. We are going to use the default configuration for Redis. You can change it according to your needs.
 
 ```js
-import redis from "redis";
+import redis from 'redis'
 
-const client = redis.createClient();
+const client = redis.createClient()
 ```
 
 ### Caching the response 📦
@@ -101,19 +101,19 @@ const client = redis.createClient();
 Now we are going to cache the response of our API. We are going to use the `EX` option to set the expiration time of the cache. We are going to set it to 10 seconds.
 
 ```js
-app.get("/random", (req, res) => {
-  client.get("randomNumber", (err, data) => {
-    if (err) throw err;
+app.get('/random', (req, res) => {
+  client.get('randomNumber', (err, data) => {
+    if (err) throw err
 
     if (data !== null) {
-      res.send({ number: data });
+      res.send({ number: data })
     } else {
-      const randomNumber = Math.floor(Math.random() * 100);
-      client.setex("randomNumber", 10, randomNumber);
-      res.send({ number: randomNumber });
+      const randomNumber = Math.floor(Math.random() * 100)
+      client.setex('randomNumber', 10, randomNumber)
+      res.send({ number: randomNumber })
     }
-  });
-});
+  })
+})
 ```
 
 ### Testing the caching system 🧪

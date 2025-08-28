@@ -58,11 +58,11 @@ $ pnpm i @nestjs/microservices amqplib amqp-connection-manager
 Firstly in `main.ts` file, or wherever you bootstrap the application, create a microservice instance and connect to the RabbitMQ server.
 
 ```typescript
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices'
 // other imports
 
 function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule)
   // other configurations
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.RMQ,
@@ -73,18 +73,17 @@ function bootstrap() {
         durable: false,
       },
     },
-  });
+  })
 
-  await app.startAllMicroservicesAsync();
-  await app.listen(3000);
+  await app.startAllMicroservicesAsync()
+  await app.listen(3000)
 }
 ```
-
 
 Now in the module where you want to use the RabbitMQ, import the `ClientsModule` and create a client proxy. Lets hope you are gonna do it on the `AuthModule`.
 
 ```typescript
-import { ClientsModule, Transport } from '@nestjs/microservices';
+import { ClientsModule, Transport } from '@nestjs/microservices'
 // other imports
 
 @Module({
@@ -112,21 +111,22 @@ export class AuthModule {}
 Now we can use the client proxy in the service to send a message to the queue.
 
 ```typescript
-import { Injectable } from '@nestjs/common';
-import { ClientProxy, ClientProxyFactory } from '@nestjs/microservices';
+import { Injectable } from '@nestjs/common'
+import { ClientProxy, ClientProxyFactory } from '@nestjs/microservices'
 // other imports
 
 @Injectable()
 export class AuthService {
   constructor(
-    @Inject('NOTIFICATION_SERVICE') private readonly client: ClientProxy
+    @Inject('NOTIFICATION_SERVICE') private readonly client: ClientProxy,
   ) {
-    this.client.connect();
+    this.client.connect()
   }
 
-    public login : (payload: UserLoginDto) => Promise<UserLoginResponseDto> = async (payload) => {
-    // login logic
-    this.client.emit('user_logged_in', user.email);
+  public login: (payload: UserLoginDto) => Promise<UserLoginResponseDto> =
+    async (payload) => {
+      // login logic
+      this.client.emit('user_logged_in', user.email)
     }
 }
 ```
@@ -138,11 +138,11 @@ export class AuthService {
 Same as we did for the Auth service, we need to create a microservice instance and connect to the RabbitMQ server in the Notification service.
 
 ```typescript
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices'
 // other imports
 
 function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule)
   // other configurations
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.RMQ,
@@ -153,17 +153,17 @@ function bootstrap() {
         durable: false,
       },
     },
-  });
+  })
 
-  await app.startAllMicroservicesAsync();
-  await app.listen(3001);
+  await app.startAllMicroservicesAsync()
+  await app.listen(3001)
 }
 ```
 
 In the Notification module, import the `ClientsModule` and create a client proxy.
 
 ```typescript
-import { ClientsModule, Transport } from '@nestjs/microservices';
+import { ClientsModule, Transport } from '@nestjs/microservices'
 // other imports
 
 @Module({
@@ -185,31 +185,29 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
   controllers: [NotificationController],
   providers: [NotificationService],
 })
-
 export class NotificationModule {}
 ```
 
 Now we can use the client proxy in the service to consume the message from the queue.
 
 ```typescript
-import { Controller } from '@nestjs/common';
-import { EventPattern } from '@nestjs/microservices';
+import { Controller } from '@nestjs/common'
+import { EventPattern } from '@nestjs/microservices'
 // other imports
 
 @Controller()
 export class NotificationController {
   constructor(private readonly notificationService: NotificationService) {}
 
-// other methods
+  // other methods
 
   @EventPattern('user_logged_in')
   async handleUserLoggedIn(email: string) {
-    this.notificationService.sendNotification(email);
+    this.notificationService.sendNotification(email)
   }
 }
 ```
 
 Now in your notification service, you can implement the `sendNotification` method to send a notification to the user using nodemailer or whatever you prefer.
-
 
 That's it! You have successfully built a microservice application using RabbitMQ and NestJS. You can now run the application and test the services.

@@ -17,16 +17,16 @@ group of devs who build everything from scratch. (prob, someday I will start eve
 The traditional way of managing users is to have a database table for users, and store their email, password, and other details. But this is not secure. You should never store passwords in plain text. You should always hash them before storing them in the database. And when a user logs in, you should hash the password they entered and compare it with the hashed password in the database.
 
 ```js
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt')
 
-const password = 'password123';
-const hashedPassword = bcrypt.hashSync(password, 10);
+const password = 'password123'
+const hashedPassword = bcrypt.hashSync(password, 10)
 
-console.log(hashedPassword); // $2b$10$3QJ6
+console.log(hashedPassword) // $2b$10$3QJ6
 
-const isMatch = bcrypt.compareSync(password, hashedPassword);
+const isMatch = bcrypt.compareSync(password, hashedPassword)
 
-console.log(isMatch); // true
+console.log(isMatch) // true
 ```
 
 Okay, lets see this was very basic. But what about the security of the passwords? You should always use a strong hashing algorithm like bcrypt. And you should also use a unique salt for each password. This makes it harder for attackers to crack the passwords.
@@ -35,7 +35,7 @@ But still inspite of all these, a password based authentication is a pain in the
 
 ## Going Passwordless
 
-This is the new era of dev, we have lots of solution like oauth, openid, etc. They provide a centralized auth for our users. Also there are things like totp, mfa, hardware keys, etc. These prevents the mess of having passwords. Cmon we all bad at remembering passwords 🤷 
+This is the new era of dev, we have lots of solution like oauth, openid, etc. They provide a centralized auth for our users. Also there are things like totp, mfa, hardware keys, etc. These prevents the mess of having passwords. Cmon we all bad at remembering passwords 🤷
 
 Having such methods setup makes things way more secure.
 
@@ -46,26 +46,25 @@ When you have a form for sending the user login otp to mail, hackers can keep tr
 To prevent this you can add a random fake promise to avoid this vulnerability
 
 ```ts
- const user = await this.prismaService.user.findUnique({
-      where: { email, deleted_at: null },
-    });
-    if (!user) {
-      /**
-       * fake a time-consuming operation, and send a success message
-       * to the user after the operation is done, this is just to
-       * simulate a real-world scenario where the user is not told
-       * if the email exists or not.
-       */
-      const randomTime = Math.floor(Math.random() * 5000);
-      await new Promise((resolve) => setTimeout(resolve, randomTime));
-      return { email: email, mail: 'sent' };
-    }
+const user = await this.prismaService.user.findUnique({
+  where: { email, deleted_at: null },
+})
+if (!user) {
+  /**
+   * fake a time-consuming operation, and send a success message
+   * to the user after the operation is done, this is just to
+   * simulate a real-world scenario where the user is not told
+   * if the email exists or not.
+   */
+  const randomTime = Math.floor(Math.random() * 5000)
+  await new Promise((resolve) => setTimeout(resolve, randomTime))
+  return { email: email, mail: 'sent' }
+}
 ```
 
 Also, if you are implementing the traditional way, you can have two more columns in your user table, `last_password_failed_at` and `password_failed_count`. This will help you to track the failed login attempts and you can block the user after a certain number of failed attempts.
 
 Make your users try setting up an authenticator app such as Google Authenticator, Authy, etc. This will add an extra layer of security to your application. And also prevents unncessary transactions cost for sending otps and even user can avoid the hassle of waiting for otps/cleaning the inbox.
-
 
 ### Conclusion
 
