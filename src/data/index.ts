@@ -15,7 +15,7 @@ export const WORK_EXPERIENCE: IWorkExperience[] = [
     company: 'DLA Technologies',
     title: 'full stack developer',
     start: 'Dec 2024',
-    end: 'Jul 2025',
+    end: 'Present',
     link: 'https://www.dlatechnologies.com',
     id: 'work-3',
   },

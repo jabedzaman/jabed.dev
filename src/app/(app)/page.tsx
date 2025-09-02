@@ -13,9 +13,7 @@ const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
+    transition: { staggerChildren: 0.15 },
   },
 }
 
@@ -24,9 +22,7 @@ const VARIANTS_SECTION = {
   visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
 }
 
-const TRANSITION_SECTION = {
-  duration: 0.3,
-}
+const TRANSITION_SECTION = { duration: 0.3 }
 
 export default function Page() {
   const [BLOG_POSTS, setBlogPosts] = React.useState<Array<IBlogPost>>([])
@@ -49,11 +45,11 @@ export default function Page() {
             Hello!!!! I&apos;m a self taught full stack developer, CS student
             and OSS enthusiast, currently working as a full stack developer at{' '}
             <Link
-              href="https://www.skillrev.com"
+              href="https://www.dlatechnologies.com/"
               className="hover:text-zinc-900 dark:hover:text-zinc-100"
               target="_blank"
             >
-              SkillRev
+              DLA Technologies
             </Link>
             . I have assisted more than 6 start-ups in their initial phase by
             building and scaling their technical infrastructure and product
