@@ -8,7 +8,7 @@ export const WORK_EXPERIENCE: IWorkExperience[] = [
     title: 'full stack developer',
     start: 'Aug 2025',
     end: 'Present',
-    link: 'https://skillrev.com',
+    link: 'https://skillrev.dev',
     id: 'work-4',
   },
   {
