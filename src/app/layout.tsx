@@ -1,11 +1,10 @@
-import { Urbanist } from 'next/font/google'
+import localFont from 'next/font/local'
 import './globals.css'
 import { Providers } from './providers'
 export { metadata } from '~/config'
 
-const urbanist = Urbanist({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+const satoshi = localFont({
+  src: './fonts/Satoshi-Variable.ttf',
 })
 
 export default function RootLayout({
@@ -16,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body
-        className={`${urbanist.className} bg-[#fff] tracking-tight text-[#1e1e1e] antialiased dark:bg-[#111111] dark:text-[#f5f5f5]`}
+        className={`${satoshi.className} bg-[#fff] tracking-tight text-[#1e1e1e] antialiased dark:bg-[#111111] dark:text-[#f5f5f5]`}
       >
         <Providers>{children}</Providers>
       </body>

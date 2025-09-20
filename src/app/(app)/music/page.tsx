@@ -181,7 +181,7 @@ export default async function Page() {
             <div className="flex flex-col justify-between">
               <h3>{artist.name}</h3>
               <div className="flex flex-col">
-                <p className="text-xs text-[#181818]">
+                <p className="text-xs text-[#181818] dark:text-[#b3b3b3]">
                   {convertNumberToReadableString(artist.followers)} followers
                 </p>
               </div>
@@ -211,7 +211,7 @@ export default async function Page() {
               </h3>
               <div className="flex flex-col">
                 <Link
-                  className="text-xs text-[#181818]"
+                  className="text-xs text-[#181818] dark:text-[#b3b3b3]"
                   href={track.external_urls.spotify}
                 >
                   {track.artists[0].name.length > 20
@@ -219,7 +219,7 @@ export default async function Page() {
                     : track.artists[0].name}
                 </Link>
                 <Link
-                  className="text-xs text-[#181818]"
+                  className="text-xs text-[#181818] dark:text-[#b3b3b3]"
                   href={track.album.external_urls.spotify}
                 >
                   {track.album.name.length > 20
