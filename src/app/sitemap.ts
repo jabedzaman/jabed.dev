@@ -1,14 +1,14 @@
-import { postMetaData, projectMetaData } from '~/libs/post-utils'
+import { getPosts } from '~/libs/post-utils'
 
 export default async function sitemap() {
-  const articles = postMetaData.map((p) => ({
+  const articles = getPosts().map((p) => ({
     url: `https://jabed.dev/posts/${p.slug}`,
-    lastModified: p.date,
+    lastModified: p.metadata.date,
   }))
 
-  const projects = projectMetaData.map((p) => ({
+  const projects = getPosts().map((p) => ({
     url: `https://jabed.dev/projects/${p.slug}`,
-    lastModified: p.date,
+    lastModified: p.metadata.date,
   }))
 
   const routes = [

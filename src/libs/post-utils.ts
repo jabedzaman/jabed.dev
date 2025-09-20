@@ -1,103 +1,81 @@
-import { Article, Project } from '~/types'
-import * as fs from 'fs'
-import matter from 'gray-matter'
-import { compileMDX } from 'next-mdx-remote/rsc'
-import * as path from 'path'
-import rehypePrettyCode, {
-  type Options as RehypePrettyCodeOptions,
-} from 'rehype-pretty-code'
-import type { Pluggable } from 'unified'
+import fs from 'fs'
+import path from 'path'
 
-export const postsDir = path.join(process.cwd(), 'content/posts')
-export const projectsDir = path.join(process.cwd(), 'content/projects')
+export type Metadata = {
+  title: string
+  summary: string
+  date: string
+  keywords: string
+}
 
-export const postPaths = fs
-  .readdirSync(postsDir)
-  .filter((path) => /\.mdx?$/.test(path))
-export const projectPaths = fs
-  .readdirSync(projectsDir)
-  .filter((path) => /\.mdx?$/.test(path))
+export type FrontmatterParseResult = {
+  metadata: Metadata
+  content: string
+}
 
-export const postMetaData: Article[] = postPaths.map((postPath) => {
-  const source = fs.readFileSync(path.join(postsDir, postPath), 'utf8')
-  const { data } = matter(source)
-  return {
-    title: data.title,
-    date: data.date,
-    summary: data.summary,
-    keywords: data.keywords.split(','),
-    slug: postPath.replace(/\.mdx?$/, ''),
+export type MDXFileData = FrontmatterParseResult & {
+  slug: string
+}
+
+export function getPosts(): MDXFileData[] {
+  return getMDXData(path.join(process.cwd(), 'content', 'posts'))
+}
+
+export function getPostBySlug(slug: string): MDXFileData | null {
+  return getPosts().find((post) => post.slug === slug) ?? null
+}
+
+function parseFrontmatter(fileContent: string): FrontmatterParseResult {
+  const frontmatterRegex = /---\s*([\s\S]*?)\s*---/
+  const match = frontmatterRegex.exec(fileContent)
+
+  if (!match) {
+    throw new Error('No frontmatter found')
   }
-})
 
-export const projectMetaData: Project[] = projectPaths.map((projectPath) => {
-  const source = fs.readFileSync(path.join(projectsDir, projectPath), 'utf8')
-  const { data } = matter(source)
-  return {
-    title: data.title,
-    date: data.date,
-    summary: data.summary,
-    keywords: data.keywords.split(','),
-    slug: projectPath.replace(/\.mdx?$/, ''),
-    image: data?.image,
-    url: data.url,
+  const frontmatter = match[1]
+
+  if (!frontmatter) {
+    throw new Error('No frontmatter found')
   }
-})
 
-const prettyCodeOptions: RehypePrettyCodeOptions = {
-  theme: 'catppuccin-latte',
-  grid: true,
-  filterMetaString: (string) => string.replace(/filename="[^"]*"/, ''),
-  onVisitLine(node: { children: string | any[] }) {
-    if (node.children.length === 0) {
-      node.children = [{ type: 'text', value: ' ' }]
+  const content = fileContent.replace(frontmatterRegex, '').trim()
+  const frontmatterLines = frontmatter.trim().split('\n')
+  const metadata: Partial<Metadata> = {}
+
+  frontmatterLines.forEach((line) => {
+    const [key, ...values] = line.split(': ')
+    let value = values.join(': ').trim()
+    value = value.replace(/^['"](.*)['"]$/, '$1') // Remove quotes
+    if (key && value) {
+      metadata[key.trim() as keyof Metadata] = value
     }
-  },
+  })
+
+  return { metadata: metadata as Metadata, content }
 }
 
-export async function getPostMdx(slug: string) {
-  const source = fs.readFileSync(path.join(postsDir, `${slug}.mdx`), 'utf8')
-  const mdx = await compileMDX<{
-    title: string
-    date: string
-    summary: string
-    keywords: string
-  }>({
-    source,
-    options: {
-      parseFrontmatter: true,
-      mdxOptions: {
-        rehypePlugins: [
-          [rehypePrettyCode, prettyCodeOptions],
-          //@ts-ignore
-        ] as unknown as Pluggable<any[]>[],
-      },
-    },
-  })
-  return mdx
+function getMDXFiles(dir: string): string[] {
+  return fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx')
 }
 
-export async function getProjectMdx(slug: string) {
-  const source = fs.readFileSync(path.join(projectsDir, `${slug}.mdx`), 'utf8')
-  const mdx = await compileMDX<{
-    title: string
-    date: string
-    summary: string
-    keywords: string
-    image: string
-    url: string
-    github: string
-  }>({
-    source,
-    options: {
-      parseFrontmatter: true,
-      mdxOptions: {
-        rehypePlugins: [
-          [rehypePrettyCode, prettyCodeOptions],
-          //@ts-ignore
-        ] as unknown as Pluggable<any[]>[],
-      },
-    },
+function readMDXFile(filePath: string): FrontmatterParseResult {
+  const rawContent = fs.readFileSync(filePath, 'utf-8')
+
+  return parseFrontmatter(rawContent)
+}
+
+function getMDXData(dir: string): MDXFileData[] {
+  const mdxFiles = getMDXFiles(dir)
+
+  return mdxFiles.map((file) => {
+    const { metadata, content } = readMDXFile(path.join(dir, file))
+    const slug = path.basename(file, path.extname(file))
+
+    return {
+      metadata,
+      slug,
+      content,
+    }
   })
-  return mdx
 }

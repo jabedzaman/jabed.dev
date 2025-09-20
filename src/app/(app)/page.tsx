@@ -3,7 +3,7 @@ import { AnimatedBackground } from '~/components/ui/animated-background'
 import { AnimatedContainer } from '~/components/ui/animated-container'
 import { Spotlight } from '~/components/ui/spotlight'
 import { EMAIL, SOCIAL_LINKS, WORK_EXPERIENCE } from '~/data'
-import { postMetaData } from '~/libs/post-utils'
+import { getPosts } from '~/libs/post-utils'
 import { MagneticSocialLink } from './_components/magnetic-social'
 
 export default function Page() {
@@ -80,10 +80,11 @@ export default function Page() {
                   duration: 0.2,
                 }}
               >
-                {postMetaData
+                {getPosts()
                   .sort((a, b) => {
                     return (
-                      new Date(b.date).getTime() - new Date(a.date).getTime()
+                      new Date(b.metadata.date).getTime() -
+                      new Date(a.metadata.date).getTime()
                     )
                   })
                   .slice(0, 3)
@@ -96,10 +97,10 @@ export default function Page() {
                     >
                       <div className="flex flex-col space-y-1">
                         <h4 className="font-normal dark:text-zinc-100">
-                          {post.title}
+                          {post.metadata.title}
                         </h4>
                         <p className="text-zinc-500 dark:text-zinc-400">
-                          {post.summary}
+                          {post.metadata.summary}
                         </p>
                       </div>
                     </Link>
