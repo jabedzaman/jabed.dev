@@ -5,9 +5,9 @@ export const metadata: Metadata = { title: 'Uses' }
 
 export default function Page() {
   return (
-    <div className="space-y-4 leading-snug break-words text-gray-800">
+    <div className="space-y-4 leading-snug break-words text-zinc-700 dark:text-zinc-300">
       <h1 className="text-lg font-semibold">My Minimal Setup</h1>
-      <div className="w-full border-t" />
+      <div className="w-full border-t-[0.5px] border-zinc-200 dark:border-zinc-700" />
       <div className="space-y-2">
         <h2>Hardware:</h2>
         <ul className="space-y-2">
@@ -27,7 +27,7 @@ export default function Page() {
           ))}
         </ul>
       </div>
-      <div className="w-full border-t" />
+      <div className="w-full border-t-[0.5px] border-zinc-200 dark:border-zinc-700" />
       <div className="space-y-2">
         <h2>Software:</h2>
         <ul className="space-y-2">
@@ -47,7 +47,7 @@ export default function Page() {
           ))}
         </ul>
       </div>
-      <div className="w-full border-t" />
+      <div className="w-full border-t-[0.5px] border-zinc-200 dark:border-zinc-700" />
       <div className="space-y-2">
         <h2>Homelab:</h2>
         <ul className="space-y-2">
@@ -56,7 +56,7 @@ export default function Page() {
           ))}
         </ul>
       </div>
-      <div className="w-full border-t" />
+      <div className="w-full border-t-[0.5px] border-zinc-200 dark:border-zinc-700" />
       <p>
         Most of the software development tools are installed on my vps. I prefer
         to keep my local machine clean and minimal. When needed, I use to ssh to
@@ -117,26 +117,26 @@ const software: { title: string; description: string; link: string }[] = [
     link: 'https://developer.apple.com/xcode/',
   },
   {
-    title: 'Brave Browser',
-    description: 'the privacy it offers, made me stick to it',
-    link: 'https://brave.com/',
+    title: '𝚋̶𝚛̶𝚊̶𝚟̶𝚎̶ chrome',
+    description: 'yea privacy was great, but it became bloated',
+    link: 'https://www.google.com/chrome/',
   },
   {
-    title: 'Spotify',
+    title: 'spotify',
     description:
       "I can't live without music, FYI my 2024 wrapped came out with 100k+ minutes",
     link: 'https://www.spotify.com/',
   },
   {
-    title: 'Discord',
-    description: 'for chatting with friends & professional work',
+    title: 'discord',
+    description: 'for communicating with clients and other developers',
     link: 'https://discord.com/',
   },
 ]
 
 const homelab: string[] = [
-  'Ubuntu Server 24.04 LTS',
-  '4 Core Ampere Arm CPU',
-  '24GB RAM',
-  '200GB NVMe SSD',
+  'Debian 13 Root Server',
+  '6vCPU Cores',
+  '8GB RAM',
+  '256GB SSD',
 ]
