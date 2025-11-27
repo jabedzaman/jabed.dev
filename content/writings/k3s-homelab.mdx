@@ -1,0 +1,71 @@
+---
+title: k3s HomeLab Ops
+date: 2025-11-28
+summary: My k3s HomeLab Operations and Management Strategies
+keywords: k3s, traefik, metallb, longhorn, sealed-secrets, helm, helmfile, ansible, k9s, homelab, kubernetes
+---
+
+Its the night before my semester end exams, and out of nowhere I get the urge to completely overhaul my homelab. It's been a cluttered mess of various services and configurations, no documentation, and a lack of standardization for a while now, and I feel it's time to bring some cohesion.
+
+My previous setup was a straight forward docker-compose based deployment, with traefik managing my ingress. And it worked super well without any issues.
+
+However, a sudden urge out of nowhere made me want to switch to a unwanted complexity of kubernetes. I have been wanting to try out [k3s](https://k3s.io/) for a while now, and this seemed like its the time to do it. Fianlly ditching the whale and moving with the cool kids.
+
+![k3s homelab](https://cdn.jabed.dev/k3s-homelab.png)
+
+## The Plan
+
+The plan is to set up a k3s cluster with most possible best practices, and make it super easy to replicate
+
+- Going with a single master node setup for now, with [k3s](https://k3s.io/) as the choice of kubernetes distribution.
+- For ingress, sticking with [traefik](https://traefik.io/traefik/) since its the default for k3s and I have prior experience with it.
+- Must avoid entangling with multiple `A` records on [cloudflare](https://www.cloudflare.com/), so need wild card DNS setup.
+- Also my machine has a private IP, so need a load balancer that can work with private IPs. Going with [MetalLB](https://metallb.universe.tf/) for this.
+- Can't play around with storage, [Longhorn](https://longhorn.io/) seems like a good choice for distributed block storage and proper backups with s3 compatibility.
+- Need to avoid putting sensitive data in plain text yaml files, so going with [sealed-secrets](https://github.com/bitnami-labs/sealed-secrets) for this.
+- Finally, need a proper way to manage all these yaml files, so going with [Helm](https://helm.sh/) for templating and managing the deployments. Along with this, using [Helmfile](https://github.com/roboll/helmfile) for managing the releases.
+- For the node itself, setting ssh, firewall, and other basic hardening steps needs much effort. [Ansible](https://www.ansible.com/) seems like a good choice for automating this.
+- No doubt, [k9s](https://k9scli.io/) will be my go-to tool for monitoring and managing the pods and deployments.
+
+---
+
+All this needs to be documented properly, so that I can replicate this setup in future without much hassle. To ensure this, putting all at my [ops](https://github.com/jabedzaman/ops) repository
+
+### Cloudflare Wildcard DNS
+
+Setting up a wildcard DNS entry in Cloudflare is super easy. Now the free plan supports wildcard DNS entries only upto a single level subdomain. For me I will create two entries:
+
+- `jabed.dev` -> A record pointing to my cluster IP
+- `*.jabed.dev` -> A record pointing to my cluster IP
+
+For issuing automatic SSL certificates with DNS challenge, need to create an API token with DNS edit permissions for the domain, which will be later added to the traefik helm chart values via sealed-secrets.
+
+### Bringing it all together
+
+Firstly, adding the [ansible-playbooks](https://github.com/jabedzaman/ops/tree/main/ansible) to automate the setup process. This will include tasks for setting up ssh, firewall, installing k3s, helm, helmfile, kubeseal, and other necessary tools. Also added the [script](https://raw.githubusercontent.com/jabedzaman/ops/main/ansible/setup.sh) to quickly bootstrap the ansible setup on a fresh machine.
+
+Next, now have a proper k3s cluster setup with all the necessary components.
+
+Moving ahead, injecting the sealed secrets. All the templates are in `/k8s/manifests/secrets/templates` directory. Editing these templates and applying `kubeseal` to generate the sealed secrets, which are stored in `/k8s/manifests/secrets/sealed-secrets` directory.
+
+Sailing ahead, applying all the helm charts using helmfile and for the other manifests, using `kubectl apply -f` to deploy them to the cluster.
+
+Finally, crossing fingers and hoping everything works as expected, opens up k9s and checking the status of the pods and services.
+
+And voila, everything is up and running smoothly. Feeling accomplished and satisfied with the new setup.
+
+---
+
+For the services what I plan to deploy on this overkill setup:
+
+- **minio**: Need for my side projects which never work out like my plans.
+- **atlas**: Same as above, but for databases.
+- **redis**: Also needed for some side projects.
+- **n8n**: A new passion for me, and I plan to document it properly later somewhere.
+- **logto**: I love having a single sign-on solution for all my services, and [keycloak](https://www.keycloak.org/) UI sucks...
+- **qbittorrent**: hehe, we know it well.
+- a few side projects that I am working on & this current blog itself.
+
+### Should you do this?
+
+NO! Yes, its an overkill for a homelab setup, and adds unnecessary complexity. But if you want to be one of the cool guys out there who explain his homelab setup to his date, then go ahead.

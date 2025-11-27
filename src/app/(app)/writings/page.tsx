@@ -14,7 +14,6 @@ export default function Page() {
   return (
     <main className="space-y-6">
       <div>
-        {/* fraunces font */}
         <h1 className="text-2xl">Writings</h1>
         <h2 className="text-sm text-[#666666]">
           I journal my thoughts and share my knowledge through these writings.
@@ -35,10 +34,10 @@ export default function Page() {
                 passHref
               >
                 <h2>{writing.metadata.title}</h2>
+                <span className="text-xs text-[#666666]">
+                  {moment(writing.metadata.date).format("MMMM D, YYYY")}
+                </span>
               </Link>
-              <span className="text-xs text-[#666666]">
-                {moment(writing.metadata.date).format("MMMM D, YYYY")}
-              </span>
             </div>
           ))}
       </div>

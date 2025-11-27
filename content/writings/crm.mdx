@@ -1,5 +1,5 @@
 ---
-title: Managing users for your SaaS
+title: SaaS User Management
 summary: A talk about managing users for your SaaS
 date: 2024-08-15
 keywords: authentication, authorization, users, saas, security
@@ -17,16 +17,16 @@ group of devs who build everything from scratch. (prob, someday I will start eve
 The traditional way of managing users is to have a database table for users, and store their email, password, and other details. But this is not secure. You should never store passwords in plain text. You should always hash them before storing them in the database. And when a user logs in, you should hash the password they entered and compare it with the hashed password in the database.
 
 ```js
-const bcrypt = require('bcrypt')
+const bcrypt = require("bcrypt");
 
-const password = 'password123'
-const hashedPassword = bcrypt.hashSync(password, 10)
+const password = "password123";
+const hashedPassword = bcrypt.hashSync(password, 10);
 
-console.log(hashedPassword) // $2b$10$3QJ6
+console.log(hashedPassword); // $2b$10$3QJ6
 
-const isMatch = bcrypt.compareSync(password, hashedPassword)
+const isMatch = bcrypt.compareSync(password, hashedPassword);
 
-console.log(isMatch) // true
+console.log(isMatch); // true
 ```
 
 Okay, lets see this was very basic. But what about the security of the passwords? You should always use a strong hashing algorithm like bcrypt. And you should also use a unique salt for each password. This makes it harder for attackers to crack the passwords.
@@ -35,7 +35,7 @@ But still inspite of all these, a password based authentication is a pain in the
 
 ## Going Passwordless
 
-This is the new era of dev, we have lots of solution like oauth, openid, etc. They provide a centralized auth for our users. Also there are things like totp, mfa, hardware keys, etc. These prevents the mess of having passwords. Cmon we all bad at remembering passwords 🤷
+This is the new era of dev, we have lots of solution like oauth, openid, etc. They provide a centralized auth for our users. Also there are things like totp, mfa, hardware keys, etc. These prevents the mess of having passwords. Cmon we all bad at remembering passwords
 
 Having such methods setup makes things way more secure.
 
@@ -48,7 +48,7 @@ To prevent this you can add a random fake promise to avoid this vulnerability
 ```ts
 const user = await this.prismaService.user.findUnique({
   where: { email, deleted_at: null },
-})
+});
 if (!user) {
   /**
    * fake a time-consuming operation, and send a success message
@@ -56,9 +56,9 @@ if (!user) {
    * simulate a real-world scenario where the user is not told
    * if the email exists or not.
    */
-  const randomTime = Math.floor(Math.random() * 5000)
-  await new Promise((resolve) => setTimeout(resolve, randomTime))
-  return { email: email, mail: 'sent' }
+  const randomTime = Math.floor(Math.random() * 5000);
+  await new Promise((resolve) => setTimeout(resolve, randomTime));
+  return { email: email, mail: "sent" };
 }
 ```
 

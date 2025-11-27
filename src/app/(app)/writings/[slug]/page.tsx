@@ -43,13 +43,13 @@ export default async function Page({
         {moment(writing.metadata.date).format("MMMM D, YYYY")} (
         {moment(writing.metadata.date).fromNow()})
       </span>
-      <div className="my-2 flex flex-row flex-wrap gap-1">
+      <div className="my-2 flex flex-row flex-wrap gap-[0.5] max-w-xl">
         {tags.map((tech, index) => (
           <span
             key={index}
-            className="ext-[#666666] cursor-pointer rounded-md px-1 py-0.5 text-xs duration-200 ease-in-out hover:text-[#8a8a8a] md:px-2 md:py-1"
+            className="text-[#666666] cursor-pointer rounded-md px-[0.5px] py-[0.2px] text-[10px] duration-200 ease-in-out hover:text-[#8a8a8a] md:px-2 md:py-1"
           >
-            # {tech}
+            #{tech}
           </span>
         ))}
       </div>
