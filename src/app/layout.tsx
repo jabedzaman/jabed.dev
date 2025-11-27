@@ -1,24 +1,29 @@
-import localFont from 'next/font/local'
-import './globals.css'
-import { Providers } from './providers'
-export { metadata } from '~/config'
+export { metadata } from "~/config";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
 
-const satoshi = localFont({
-  src: './fonts/Satoshi-Variable.ttf',
-})
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="scroll-smooth">
+    <html lang="en">
       <body
-        className={`${satoshi.className} bg-[#fff] tracking-tight text-[#1e1e1e] antialiased dark:bg-[#111111] dark:text-[#f5f5f5]`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers>{children}</Providers>
+        {children}
       </body>
     </html>
-  )
+  );
 }

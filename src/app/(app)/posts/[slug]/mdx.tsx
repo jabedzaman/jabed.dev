@@ -1,14 +1,14 @@
-import { MDXRemote } from 'next-mdx-remote/rsc'
-import Link from 'next/link'
-import { Children, createElement, isValidElement } from 'react'
-import { codeToHtml } from 'shiki'
+import { MDXRemote } from "next-mdx-remote/rsc";
+import Link from "next/link";
+import { Children, createElement, isValidElement } from "react";
+import { codeToHtml } from "shiki";
 
 function Table({ data }: { data: { headers: string[]; rows: string[][] } }) {
   let headers = data.headers.map((header, index) => (
     <th key={index} className="p-2 text-left">
       {header}
     </th>
-  ))
+  ));
   let rows = data.rows.map((row, index) => (
     <tr key={index}>
       {row.map((cell, cellIndex) => (
@@ -17,7 +17,7 @@ function Table({ data }: { data: { headers: string[]; rows: string[][] } }) {
         </td>
       ))}
     </tr>
-  ))
+  ));
 
   return (
     <table className="w-full border-collapse">
@@ -26,30 +26,41 @@ function Table({ data }: { data: { headers: string[]; rows: string[][] } }) {
       </thead>
       <tbody>{rows}</tbody>
     </table>
-  )
+  );
 }
 
 function CustomLink({
   href,
   ...props
 }: React.ComponentProps<typeof Link> & { href: string }) {
-  if (href.startsWith('/')) {
+  if (href.startsWith("/")) {
     return (
       <Link href={href} {...props}>
         {props.children}
       </Link>
-    )
+    );
   }
 
-  if (href.startsWith('#')) {
-    return <a {...props} />
+  if (href.startsWith("#")) {
+    return <a {...props} />;
   }
 
-  return <a href={href} target="_blank" rel="noopener noreferrer" {...props} />
+  return <a href={href} target="_blank" rel="noopener noreferrer" {...props} />;
 }
 
 function CustomImage(props: React.ImgHTMLAttributes<HTMLImageElement>) {
-  return <img alt={props.alt} className="rounded-lg" {...props} />
+  return (
+    <>
+      <img
+        alt={props.alt}
+        className="rounded-lg max-h-96 mx-auto object-cover"
+        {...props}
+      />
+      <span className="text-sm flex justify-center text-center text-gray-500">
+        fig: {props.alt}
+      </span>
+    </>
+  );
 }
 
 async function Pre({
@@ -58,33 +69,33 @@ async function Pre({
 }: React.HtmlHTMLAttributes<HTMLPreElement>) {
   // Extract className from the children code tag
   const codeElement = Children.toArray(children).find(
-    (child) => isValidElement(child) && child.type === 'code',
-  ) as React.ReactElement<HTMLPreElement> | undefined
+    (child) => isValidElement(child) && child.type === "code"
+  ) as React.ReactElement<HTMLPreElement> | undefined;
 
-  const className = codeElement?.props?.className ?? ''
+  const className = codeElement?.props?.className ?? "";
   const isCodeBlock =
-    typeof className === 'string' && className.startsWith('language-')
+    typeof className === "string" && className.startsWith("language-");
 
   if (isCodeBlock) {
-    const lang = className.split(' ')[0]?.split('-')[1] ?? ''
+    const lang = className.split(" ")[0]?.split("-")[1] ?? "";
 
     if (!lang) {
-      return <code {...props}>{children}</code>
+      return <code {...props}>{children}</code>;
     }
 
     const html = await codeToHtml(String(codeElement?.props.children), {
       lang,
       themes: {
-        dark: 'vesper',
-        light: 'vesper',
+        dark: "one-light",
+        light: "one-light",
       },
-    })
+    });
 
-    return <div dangerouslySetInnerHTML={{ __html: html }} />
+    return <div dangerouslySetInnerHTML={{ __html: html }} />;
   }
 
   // If not, return the component as is
-  return <pre {...props}>{children}</pre>
+  return <pre {...props}>{children}</pre>;
 }
 
 function slugify(str: string) {
@@ -92,30 +103,30 @@ function slugify(str: string) {
     .toString()
     .toLowerCase()
     .trim() // Remove whitespace from both ends of a string
-    .replace(/\s+/g, '-') // Replace spaces with -
-    .replace(/&/g, '-and-') // Replace & with 'and'
-    .replace(/[^\w\-]+/g, '') // Remove all non-word characters except for -
-    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+    .replace(/\s+/g, "-") // Replace spaces with -
+    .replace(/&/g, "-and-") // Replace & with 'and'
+    .replace(/[^\w\-]+/g, "") // Remove all non-word characters except for -
+    .replace(/\-\-+/g, "-"); // Replace multiple - with single -
 }
 
 function createHeading(level: number) {
   const HeadingComponent = ({ children }: { children: React.ReactNode }) => {
-    const childrenString = Children.toArray(children).join('')
-    const slug = slugify(childrenString)
+    const childrenString = Children.toArray(children).join("");
+    const slug = slugify(childrenString);
     return createElement(`h${level}`, { id: slug }, [
       createElement(
-        'a',
+        "a",
         {
           href: `#${slug}`,
           key: `link-${slug}`,
-          className: 'anchor',
+          className: "anchor",
         },
-        children,
+        children
       ),
-    ])
-  }
-  HeadingComponent.displayName = `Heading${level}`
-  return HeadingComponent
+    ]);
+  };
+  HeadingComponent.displayName = `Heading${level}`;
+  return HeadingComponent;
 }
 
 const components = {
@@ -129,7 +140,7 @@ const components = {
   h6: createHeading(6),
   pre: Pre,
   Table,
-}
+};
 
 export function MDX(props: any) {
   return (
@@ -137,5 +148,5 @@ export function MDX(props: any) {
       {...props}
       components={{ ...components, ...(props.components ?? {}) }}
     />
-  )
+  );
 }
