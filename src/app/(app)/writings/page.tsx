@@ -1,6 +1,13 @@
 import moment from "moment";
+import { Metadata } from "next";
 import Link from "next/link";
 import { getWritings } from "~/libs/utils";
+
+export const metadata: Metadata = {
+  title: "writings",
+  description:
+    "journals and articles by jabed zaman on programming, web development, and more.",
+};
 
 export default function Page() {
   const writings = getWritings();
