@@ -9,6 +9,7 @@
     "lint": "biome check",
     "format": "biome format --write"
   },
+  "packageManager": "pnpm@10.23.0",
   "dependencies": {
     "moment": "^2.30.1",
     "next": "16.0.5",
