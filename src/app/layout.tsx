@@ -15,7 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} antialiased`}>{children}</body>
+      <body
+        className={`${poppins.className} antialiased mx-auto w-full max-w-7xl flex-1 px-4 py-10`}
+      >
+        {children}
+      </body>
     </html>
   );
 }

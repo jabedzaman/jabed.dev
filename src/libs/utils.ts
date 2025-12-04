@@ -6,6 +6,7 @@ export type Metadata = {
   summary: string;
   date: string;
   keywords: string;
+  featured: string;
 };
 
 export type FrontmatterParseResult = {
