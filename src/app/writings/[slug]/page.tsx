@@ -35,25 +35,21 @@ export default async function Page({
   if (!writing) {
     return notFound();
   }
-  const tags = writing.metadata.keywords.split(",").map((tag) => tag.trim());
   return (
-    <main>
-      <h1 className="text-3xl">{writing.metadata.title}</h1>
-      <span className="text-xs text-[#666666]">
-        {moment(writing.metadata.date).format("MMMM D, YYYY")} (
-        {moment(writing.metadata.date).fromNow()})
-      </span>
-      <div className="my-2 flex flex-row flex-wrap gap-[0.5] max-w-xl">
-        {tags.map((tech, index) => (
-          <span
-            key={index}
-            className="text-[#666666] cursor-pointer rounded-md px-[0.5px] py-[0.2px] text-[10px] duration-200 ease-in-out hover:text-[#8a8a8a] md:px-2 md:py-1"
-          >
-            #{tech}
+    <main className="font-serif">
+      <div className="border-b">
+        <div className="px-4 max-w-5xl mx-auto mb-10">
+          <div className="space-y-2">
+            <h1 className="text-4xl md:text-5xl">{writing.metadata.title}.</h1>
+            <p className="max-w-2xl">{writing.metadata.summary}</p>
+          </div>
+          <span className="text-xs text-[#666666]">
+            {moment(writing.metadata.date).format("MMMM D, YYYY")} (
+            {moment(writing.metadata.date).fromNow()})
           </span>
-        ))}
+        </div>
       </div>
-      <article className='"prose-img:w-full prose-img:rounded-lg prose-lg prose-a:underline prose-a:underline-offset-1 prose-blockquote:border-l-2 prose-blockquote:border-l-[#3d3d3d] prose-hr:border-[#3d3d3d] prose-hr:border-t prose-hr:border-dashed prose-hr:border-opacity-50 prose-pre:overflow-scroll my-2 text-[16px] md:my-5'>
+      <article className="mt-10 px-4 max-w-5xl mx-auto prose-img:w-full prose-img:rounded-lg prose-lg prose-a:underline prose-a:underline-offset-2 prose-a:decoration-1 prose-blockquote:border-l-2 prose-blockquote:border-l-[#3d3d3d] prose-hr:border-[#3d3d3d] prose-hr:border-t prose-hr:border-dashed prose-hr:border-opacity-50 prose-pre:overflow-scroll my-4 text-[16px] md:my-5">
         <MDX source={writing.content} />
       </article>
     </main>

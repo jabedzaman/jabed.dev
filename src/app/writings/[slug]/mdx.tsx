@@ -134,7 +134,7 @@ function CustomImage(props: React.ImgHTMLAttributes<HTMLImageElement>) {
     <>
       <img
         alt={props.alt}
-        className="rounded-lg max-h-96 mx-auto object-cover"
+        className="rounded-lg mx-auto object-cover"
         {...props}
       />
       <span className="text-sm flex justify-center text-center text-gray-500">

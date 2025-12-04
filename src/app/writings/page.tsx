@@ -25,13 +25,13 @@ export default function Page() {
   const writings = getWritings();
   return (
     <main className="space-y-10">
-      <div className="space-y-2">
+      <div className="space-y-2 px-4">
         <h1 className="text-4xl md:text-5xl font-serif">writing.</h1>
-        <p className="text-neutral-500 dark:text-neutral-400 max-w-2xl">
+        <p className="max-w-2xl">
           I journal my thoughts and share my knowledge through these writings.
         </p>
       </div>
-      <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         {writings
           .sort(
             (a, b) =>
@@ -45,7 +45,7 @@ export default function Page() {
               <Link
                 key={writing.slug}
                 href={`/writings/${writing.slug}`}
-                className={`group block p-4 border border-border ${
+                className={`group h-64 block p-4 border border-border -ml-px -mt-px hover:bg-neutral-50 dark:hover:bg-neutral-900/30 transition-colors ${
                   isLarge ? "md:col-span-2 lg:col-span-2" : "col-span-1"
                 }`}
               >
