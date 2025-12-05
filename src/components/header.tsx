@@ -2,6 +2,7 @@ import Link from "next/link";
 
 const entries = [
   { name: "writings", href: "/writings" },
+  { name: "crafts", href: "/crafts" },
   { name: "stack", href: "/stack" },
   { name: "music", href: "/music" },
 ];

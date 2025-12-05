@@ -1,0 +1,97 @@
+---
+title: second brain
+summary: bookmarks rag with semantic search
+homepage: https://2nd-brain.jabed.dev/
+keywords: pinecone, genai, langchain, vector database, semantic search, bookmarks, personal knowledge management
+tag: ai
+---
+
+keeping track of useful information found online can be challenging. At least for me, I often bookmark articles, tutorials, and resources with the intention of stealing ideas from them later, only to forget about them or struggle to find them when needed.
+
+There are already many bookmark managers available, but most of them rely on traditional keyword-based search, or the UI sucks, or super laborious to set up.
+
+Now, when we I build this myself, then why not?
+
+---
+
+Stuff I used:
+
+- [Pinecone](https://www.pinecone.io/) - the vector database to store embeddings, didn't bothered to consider other options
+- [GenAI](https://ai.studio.dev) - google is generously giving away free credits
+- [Next.js](https://nextjs.org/) - without explanation (for dashboard)
+- [Plasmo](https://www.plasmo.com/) - a extension will make bookmarking easier
+- [Better-Auth](https://better-auth.com/) - for authentication, super easy to set up
+- [ShadnUI](https://ui.shadcn.com/) - the go-to component library
+
+---
+
+### Thought Process
+
+The main idea is to create a system where I can easily add bookmarks, have their content processed into embeddings, and then be able to query those embeddings using natural language.
+
+Firstly, I got the basic authentication stuff, then created an API route to add bookmarks. When a bookmark is added, the system fetches the metadata and content of the page, generates embeddings using GenAI, and stores them in Pinecone.
+
+```typescript
+// Fetch metadata
+const result = await urlMetadata(url);
+const { title, description, charset, ogLocale: locale, favicon } = result;
+
+// Generate embedding
+const embeddingContent = await ai.models.embedContent({
+  model: "gemini-embedding-001",
+  contents: [`${result.title}\n${result.description}\n${result.url}`],
+});
+const embedding = embeddingContent.embeddings?.length
+  ? embeddingContent.embeddings[0].values
+  : [];
+
+// Upsert to Pinecone
+await index.upsert([
+  {
+    id: url,
+    values: embedding,
+    metadata: { title, description, url, favicon, userId: session.user.id },
+  },
+]);
+```
+
+Also, I didn't wanted to upsert duplicate bookmarks, so I checked if the URL already exists in Pinecone before adding a new one.
+
+Next, time to implement the search functionality. I added a basic search input in the dashboard. When a query is submitted, the system generates an embedding for the query and performs a similarity search in Pinecone to retrieve the most relevant bookmarks.
+
+```typescript
+// generate embedding for the bookmark using GenAI
+// dimension: 1536, metric: cosine
+const embeddingContentResponse = await ai.models.embedContent({
+  model: "gemini-embedding-001",
+  contents: [query],
+});
+const embedding = embeddingContentResponse.embeddings?.length
+  ? embeddingContentResponse.embeddings[0].values // Added .values property
+  : [];
+
+// search the embedding in Pinecone
+const index = pc.Index(
+  "bookmarks",
+  "https://<your-pinecone-endpoint>.pinecone.io"
+);
+const result = await index.query({
+  vector: embedding || [],
+  topK: 20, // number of results to return
+  includeMetadata: true,
+  filter: { userId: session.user.id },
+});
+```
+
+The results are then displayed in the dashboard, showing the title, description, and favicon of each bookmark.
+
+### Polishings
+
+There is no end to improvements, but I do added some polishings to make the experience better, and I plan to keep improving it over time.
+
+- All these entries gets logged to my atlas database so it's easy to check for duplicate entries before upserting to pinecone
+- Kept all these bookmarks private to the user, since we respect privacy
+
+---
+
+I am quite happy with how this turned out, but I plan to add stuff like bringing in your own LLM, search directly from the extension, and more.
