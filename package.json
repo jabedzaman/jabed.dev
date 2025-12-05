@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "biome check",
-    "format": "biome format --write",
-    "postinstall": "git submodule update --init --recursive && pnpm run -F @jabedzaman/spotify build"
+    "format": "biome format --write"
   },
   "packageManager": "pnpm@9.0.4",
   "dependencies": {
