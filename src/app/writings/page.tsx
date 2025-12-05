@@ -25,13 +25,13 @@ export default function Page() {
   const writings = getWritings();
   return (
     <main className="space-y-10">
-      <div className="space-y-2 px-4">
+      <div className="space-y-2">
         <h1 className="text-4xl md:text-5xl font-serif">writing.</h1>
         <p className="max-w-2xl">
           I journal my thoughts and share my knowledge through these writings.
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
         {writings
           .sort(
             (a, b) =>

@@ -38,7 +38,7 @@ export default async function Page({
   return (
     <main className="font-serif">
       <div className="border-b">
-        <div className="px-4 max-w-5xl mx-auto mb-10">
+        <div className="mb-10">
           <div className="space-y-2">
             <h1 className="text-4xl md:text-5xl">{writing.metadata.title}.</h1>
             <p className="max-w-2xl">{writing.metadata.summary}</p>
@@ -49,7 +49,7 @@ export default async function Page({
           </span>
         </div>
       </div>
-      <article className="mt-10 px-4 max-w-5xl mx-auto prose-img:w-full prose-img:rounded-lg prose-lg prose-a:underline prose-a:underline-offset-2 prose-a:decoration-1 prose-blockquote:border-l-2 prose-blockquote:border-l-[#3d3d3d] prose-hr:border-[#3d3d3d] prose-hr:border-t prose-hr:border-dashed prose-hr:border-opacity-50 prose-pre:overflow-scroll my-4 text-[16px] md:my-5">
+      <article className="mt-10 prose-img:w-full prose-img:rounded-lg prose-lg prose-a:underline prose-a:underline-offset-2 prose-a:decoration-1 prose-blockquote:border-l-2 prose-blockquote:border-l-[#3d3d3d] prose-hr:border-[#3d3d3d] prose-hr:border-t prose-hr:border-dashed prose-hr:border-opacity-50 prose-pre:overflow-scroll my-4 text-[16px] md:my-5">
         <MDX source={writing.content} />
       </article>
     </main>
