@@ -1,7 +1,7 @@
 import moment from "moment";
 import { Metadata } from "next";
 import Link from "next/link";
-import { getWritings } from "~/libs/utils";
+import { getWritings } from "~/lib/writings";
 
 export const metadata: Metadata = {
   title: "writings",

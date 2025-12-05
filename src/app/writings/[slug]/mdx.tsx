@@ -167,12 +167,17 @@ async function Pre({
     const html = await codeToHtml(String(codeElement?.props.children), {
       lang,
       themes: {
-        dark: "one-light",
-        light: "one-light",
+        dark: "vitesse-dark",
+        light: "vitesse-light",
       },
     });
 
-    return <div dangerouslySetInnerHTML={{ __html: html }} />;
+    return (
+      <div
+        dangerouslySetInnerHTML={{ __html: html }}
+        className="shiki-wrapper"
+      />
+    );
   }
 
   // If not, return the component as is

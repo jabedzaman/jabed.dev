@@ -1,4 +1,4 @@
-import { getWritings } from "~/libs/utils";
+import { getWritings } from "~/lib/writings";
 
 export default async function sitemap() {
   const writings = getWritings().map((w) => ({

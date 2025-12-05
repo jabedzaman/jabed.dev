@@ -1,4 +1,4 @@
-import { getWritingBySlug, getWritings } from "~/libs/utils";
+import { getWritingBySlug, getWritings } from "~/lib/writings";
 import moment from "moment";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";

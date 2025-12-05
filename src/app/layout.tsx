@@ -1,7 +1,9 @@
 export { metadata } from "~/config";
 import { Poppins } from "next/font/google";
+import { Footer } from "~/components/footer";
+import { Header } from "~/components/header";
 import "./globals.css";
-import Link from "next/link";
+import { Provider } from "./providers";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -15,19 +17,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.className} antialiased`}>
-        <div className="border-b">
-          <div className="max-w-7xl mx-auto py-10 px-4 border-x">
-            <Link href="/">jabed.dev</Link>
+        <Provider>
+          <Header />
+          <div className="max-w-7xl mx-auto py-24 border-x min-h-[80vh]">
+            {children}
           </div>
-        </div>
-        <div className="max-w-7xl mx-auto py-24 border-x">{children}</div>
-        <div className="border-t">
-          <div className="max-w-7xl mx-auto py-10 border-x text-sm text-center">
-            &copy; {new Date().getFullYear()} jabed zaman. all rights reserved.
-          </div>
-        </div>
+          <Footer />
+        </Provider>
       </body>
     </html>
   );

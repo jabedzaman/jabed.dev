@@ -1,4 +1,4 @@
-import { getWritings } from "~/libs/utils";
+import { getWritings } from "~/lib/writings";
 
 export async function GET(request: Request) {
   const writings = getWritings();
