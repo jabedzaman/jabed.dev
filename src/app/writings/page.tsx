@@ -51,7 +51,7 @@ export default function Page() {
               >
                 <div className="space-y-4 flex flex-col h-full">
                   <div className="flex flex-1 h-full items-start gap-2 text-xs">
-                    <span>Writing</span>
+                    <span>writing • {writing.metadata.tag}</span>
                   </div>
                   <div className="space-y-1">
                     <h2 className="text-xl md:text-2xl font-serif leading-tight text-neutral-900 dark:text-neutral-100">

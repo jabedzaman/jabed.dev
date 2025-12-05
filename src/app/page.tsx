@@ -1,19 +1,22 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <div>
-      <h1>hi! i am jabed</h1>
-      <div>
-        <Link href="/writings" className="underline underline-offset-2">
-          read writings
-        </Link>
+    <main className="font-serif">
+      <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 mt-10">
+        <Image
+          src="/avatar.png"
+          alt="Jabed Zaman"
+          width={150}
+          height={150}
+          className="rounded-full"
+        />
+        <div>
+          <h1 className="text-4xl md:text-5xl mb-2">Jabed Zaman</h1>
+          <h2 className="text-lg">software engineer, homelab freak</h2>
+        </div>
       </div>
-      <div>
-        <Link href="/stack" className="underline underline-offset-2">
-          view stack
-        </Link>
-      </div>
-    </div>
+    </main>
   );
 }
