@@ -282,7 +282,7 @@ export default function Page() {
     <main className="space-y-10">
       <div className="space-y-2">
         <h1 className="text-4xl md:text-5xl font-serif">stack.</h1>
-        <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl">
+        <p className="max-w-2xl">
           my gear, tools, and technologies i use to craft digital artifacts.
         </p>
       </div>

@@ -36,11 +36,13 @@ export default async function Page({
     return notFound();
   }
   return (
-    <main className="font-serif">
+    <main>
       <div className="border-b">
         <div className="mb-10">
           <div className="space-y-2">
-            <h1 className="text-4xl md:text-5xl">{writing.metadata.title}.</h1>
+            <h1 className="text-4xl md:text-5xl font-serif">
+              {writing.metadata.title}.
+            </h1>
             <p className="max-w-2xl">{writing.metadata.summary}</p>
           </div>
           <span className="text-xs text-[#666666]">
