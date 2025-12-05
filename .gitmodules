@@ -1,0 +1,3 @@
+[submodule "spotify"]
+	path = spotify
+	url = git@github.com:jabedzaman/spotify.git

@@ -4,7 +4,6 @@ const entries = [
   { name: "writings", href: "/writings" },
   { name: "crafts", href: "/crafts" },
   { name: "stack", href: "/stack" },
-  { name: "music", href: "/music" },
 ];
 
 export function Header() {

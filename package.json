@@ -7,11 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "biome check",
-    "format": "biome format --write"
+    "format": "biome format --write",
+    "postinstall": "git submodule update --init --recursive && pnpm run -F @jabedzaman/spotify build"
   },
   "packageManager": "pnpm@9.0.4",
   "dependencies": {
-    "@jabedzaman/spotify": "git+ssh://git@github.com/jabedzaman/spotify.git",
+    "@jabedzaman/spotify": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.555.0",
