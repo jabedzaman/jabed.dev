@@ -1,4 +1,6 @@
+import { DiscIcon, MailIcon, MonitorIcon } from "lucide-react";
 import { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -19,92 +21,28 @@ const artifacts: {
     description: "primary workstation machine",
     link: "https://www.apple.com/macbook-air-m2/",
     category: "hardware",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8">
-        <rect
-          x="2"
-          y="4"
-          width="20"
-          height="14"
-          rx="2"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        />
-        <path
-          d="M2 16h20M6 20h12"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
+    icon: <Image src="/icons/apple.svg" alt="Apple" width={32} height={32} />,
   },
   {
     name: "iPhone 16 128GB",
     description: "primary mobile device",
     link: "https://www.apple.com/iphone-16/",
     category: "hardware",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8">
-        <rect
-          x="6"
-          y="2"
-          width="12"
-          height="20"
-          rx="2"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        />
-        <path
-          d="M10 5h4"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        <circle cx="12" cy="18" r="0.5" fill="currentColor" />
-      </svg>
-    ),
+    icon: <Image src="/icons/apple.svg" alt="Apple" width={32} height={32} />,
   },
   {
     name: "AirPods Pro 2nd Gen",
     description: "wireless earbuds for music and calls",
     link: "https://www.apple.com/airpods-pro/",
     category: "hardware",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8">
-        <path
-          d="M9 3v7a3 3 0 01-3 3H5a2 2 0 00-2 2v5m12-17v7a3 3 0 003 3h1a2 2 0 012 2v5"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
+    icon: <Image src="/icons/apple.svg" alt="AirPods" width={32} height={32} />,
   },
   {
     name: 'Acer SA222Q 21.5" Monitor',
     description: "external monitor for extended screen space",
     link: "https://www.acer.com/",
     category: "hardware",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8">
-        <rect
-          x="2"
-          y="3"
-          width="20"
-          height="14"
-          rx="2"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        />
-        <path
-          d="M8 21h8m-4-4v4"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
+    icon: <Image src="/icons/acer.svg" alt="Acer" width={32} height={32} />,
   },
   {
     name: "Samsung 980 Pro 512GB SSD",
@@ -112,48 +50,7 @@ const artifacts: {
     link: "https://www.samsung.com/",
     category: "hardware",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8">
-        <rect
-          x="3"
-          y="6"
-          width="18"
-          height="12"
-          rx="2"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        />
-        <path
-          d="M7 10h10M7 14h6"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    name: "Orico SSD Enclosure",
-    description: "enclosure for external SSD",
-    link: "https://www.orico.cc/",
-    category: "hardware",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8">
-        <rect
-          x="4"
-          y="4"
-          width="16"
-          height="16"
-          rx="2"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        />
-        <path
-          d="M9 12h6"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
+      <Image src="/icons/samsung.svg" alt="Samsung" width={32} height={32} />
     ),
   },
   {
@@ -162,15 +59,12 @@ const artifacts: {
     link: "https://code.visualstudio.com/",
     category: "software",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8">
-        <path
-          d="M16 3l5 4v10l-5 4-11-7v-4l11-7z"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinejoin="round"
-        />
-        <path d="M5 10l11 7" stroke="currentColor" strokeWidth="1.5" />
-      </svg>
+      <Image
+        src="/icons/vscode.svg"
+        alt="Visual Studio Code"
+        width={32}
+        height={32}
+      />
     ),
   },
   {
@@ -178,17 +72,7 @@ const artifacts: {
     description: "web browser for development and browsing",
     link: "https://www.google.com/chrome/",
     category: "software",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8">
-        <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5" />
-        <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.5" />
-        <path
-          d="M12 3v6m0 6v6M3 12h6m6 0h6"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        />
-      </svg>
-    ),
+    icon: <Image src="/icons/chrome.svg" alt="Chrome" width={32} height={32} />,
   },
   {
     name: "Discord",
@@ -196,14 +80,7 @@ const artifacts: {
     link: "https://discord.com/",
     category: "software",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8">
-        <path
-          d="M8 12h.01M16 12h.01M21 5v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2z"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
+      <Image src="/icons/discord.svg" alt="Discord" width={32} height={32} />
     ),
   },
   {
@@ -212,9 +89,7 @@ const artifacts: {
     link: "https://nextjs.org/",
     category: "framework",
     icon: (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
-        <path d="M11.5 0a11.5 11.5 0 100 23 11.5 11.5 0 000-23zm5.3 18.1l-5.2-8.3v8.3h-1.8V4.9h1.7l5.3 8.4V4.9h1.8v13.2h-1.8z" />
-      </svg>
+      <Image src="/icons/nextjs.svg" alt="Next.js" width={32} height={32} />
     ),
   },
   {
@@ -223,24 +98,11 @@ const artifacts: {
     link: "https://spacemail.io/",
     category: "service",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8">
-        <rect
-          x="3"
-          y="5"
-          width="18"
-          height="14"
-          rx="2"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        />
-        <path
-          d="M3 7l9 6 9-6"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+      <MailIcon
+        width={32}
+        height={32}
+        className="text-neutral-700 dark:text-neutral-300"
+      />
     ),
   },
   {
@@ -248,17 +110,7 @@ const artifacts: {
     description: "issue tracking and project management",
     link: "https://linear.app/",
     category: "service",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8">
-        <path
-          d="M3 3l18 18M3 21l7-7m4-4l7-7"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        <circle cx="12" cy="12" r="2" fill="currentColor" />
-      </svg>
-    ),
+    icon: <Image src="/icons/linear.svg" alt="Linear" width={32} height={32} />,
   },
 ];
 
@@ -310,7 +162,7 @@ export default function Page() {
                       <h3 className="font-medium text-neutral-900 dark:text-neutral-100 mb-1 truncate">
                         {artifact.name}
                       </h3>
-                      <p className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2">
+                      <p className="text-xs text-neutral-600 dark:text-neutral-400 line-clamp-2">
                         {artifact.description}
                       </p>
                     </div>

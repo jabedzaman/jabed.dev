@@ -51,7 +51,7 @@ export default async function Page({
           </span>
         </div>
       </div>
-      <article className="mt-10 prose-img:w-full prose-img:rounded-lg prose-lg prose-a:underline prose-a:underline-offset-2 prose-a:decoration-1 prose-blockquote:border-l-2 prose-blockquote:border-l-[#3d3d3d] prose-hr:border-[#3d3d3d] prose-hr:border-t prose-hr:border-dashed prose-hr:border-opacity-50 prose-pre:overflow-scroll my-4 text-[16px] md:my-5">
+      <article className="mt-10 prose-img:w-full prose-img:rounded-lg prose-lg prose-blockquote:border-l-2 prose-blockquote:border-l-[#3d3d3d] prose-hr:border-[#3d3d3d] prose-hr:border-t prose-hr:border-dashed prose-hr:border-opacity-50 prose-pre:overflow-scroll my-4 text-[16px] md:my-5">
         <MDX source={writing.content} />
       </article>
     </main>
