@@ -3,6 +3,9 @@ import moment from "moment";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDX } from "./mdx";
+import { readingTime } from "reading-time-estimator";
+import { WritingsNavigation } from "~/components/writings-navigation";
+import { TableOfContents } from "~/components/on-this-page";
 
 export const generateStaticParams = async () => {
   return getWritings().map((writing) => ({ slug: writing.slug }));
@@ -35,6 +38,7 @@ export default async function Page({
   if (!writing) {
     return notFound();
   }
+  const writings = getWritings();
   return (
     <main>
       <div className="border-b">
@@ -45,15 +49,18 @@ export default async function Page({
             </h1>
             <p className="max-w-2xl">{writing.metadata.summary}</p>
           </div>
-          <span className="text-xs text-[#666666]">
-            {moment(writing.metadata.date).format("MMMM D, YYYY")} (
-            {moment(writing.metadata.date).fromNow()})
+          <span className="text-xs text-muted-foreground">
+            Published {moment(writing.metadata.date).format("MMMM D, YYYY")} •{" "}
+            {Math.ceil(readingTime(writing.content).minutes)} minute
+            {readingTime(writing.content).minutes > 1 ? "s" : ""} read
           </span>
         </div>
       </div>
       <article className="mt-10 prose-img:w-full prose-img:rounded-lg prose-lg prose-blockquote:border-l-2 prose-blockquote:border-l-[#3d3d3d] prose-hr:border-[#3d3d3d] prose-hr:border-t prose-hr:border-dashed prose-hr:border-opacity-50 prose-pre:overflow-scroll my-4 text-[16px] md:my-5">
         <MDX source={writing.content} />
       </article>
+      <WritingsNavigation writings={writings} />
+      {/* <TableOfContents /> */}
     </main>
   );
 }

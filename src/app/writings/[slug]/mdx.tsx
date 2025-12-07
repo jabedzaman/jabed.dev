@@ -2,90 +2,47 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
 import { Children, createElement, isValidElement } from "react";
 import { codeToHtml } from "shiki";
-
-function Table({ data }: { data: { headers: string[]; rows: string[][] } }) {
-  let headers = data.headers.map((header, index) => (
-    <th
-      key={index}
-      className="px-4 py-3 text-left text-sm font-semibold text-neutral-900 dark:text-neutral-100 bg-neutral-100 dark:bg-neutral-800"
-    >
-      {header}
-    </th>
-  ));
-  let rows = data.rows.map((row, index) => (
-    <tr
-      key={index}
-      className="border-b border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors"
-    >
-      {row.map((cell, cellIndex) => (
-        <td
-          key={cellIndex}
-          className="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300"
-        >
-          {cell}
-        </td>
-      ))}
-    </tr>
-  ));
-
-  return (
-    <div className="my-6 overflow-x-auto rounded-lg border border-neutral-200 dark:border-neutral-700">
-      <table className="w-full border-collapse text-left">
-        <thead>
-          <tr className="border-b border-neutral-200 dark:border-neutral-700">
-            {headers}
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </table>
-    </div>
-  );
-}
+import { cn } from "~/lib/utils";
 
 // Custom table elements for markdown tables
-function MarkdownTable({ children }: { children: React.ReactNode }) {
+function MarkdownTable({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLTableElement>) {
   return (
-    <div className="my-6 overflow-x-auto rounded-lg border border-neutral-200 dark:border-neutral-700">
-      <table className="w-full border-collapse text-left">{children}</table>
+    <div className="my-6 w-full overflow-hidden overflow-y-auto">
+      <table className={cn("w-full overflow-hidden", className)} {...props} />
     </div>
   );
 }
 
-function TableHead({ children }: { children: React.ReactNode }) {
+function TableHead({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLTableCellElement>) {
   return (
-    <thead className="bg-neutral-100 dark:bg-neutral-800">{children}</thead>
+    <th
+      className={cn(
+        "border border-border px-4 py-2 text-left font-bold [[align=center]]:text-center [[align=right]]:text-right",
+        className
+      )}
+      {...props}
+    />
   );
 }
 
-function TableBody({ children }: { children: React.ReactNode }) {
+function TableCell({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLTableCellElement>) {
   return (
-    <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700">
-      {children}
-    </tbody>
-  );
-}
-
-function TableRow({ children }: { children: React.ReactNode }) {
-  return (
-    <tr className="hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors">
-      {children}
-    </tr>
-  );
-}
-
-function TableHeader({ children }: { children: React.ReactNode }) {
-  return (
-    <th className="px-4 py-3 text-left text-sm font-semibold text-neutral-900 dark:text-neutral-100">
-      {children}
-    </th>
-  );
-}
-
-function TableCell({ children }: { children: React.ReactNode }) {
-  return (
-    <td className="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300">
-      {children}
-    </td>
+    <td
+      className={cn(
+        "border border-border px-4 py-2 text-left [[align=center]]:text-center [[align=right]]:text-right",
+        className
+      )}
+      {...props}
+    />
   );
 }
 
@@ -225,15 +182,9 @@ const components = {
   h5: createHeading(5),
   h6: createHeading(6),
   pre: Pre,
-  Table,
-  // Markdown table elements
   table: MarkdownTable,
-  thead: TableHead,
-  tbody: TableBody,
-  tr: TableRow,
-  th: TableHeader,
+  th: TableHead,
   td: TableCell,
-  // List elements
   ul: UnorderedList,
   ol: OrderedList,
   li: ListItem,

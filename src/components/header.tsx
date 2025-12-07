@@ -4,12 +4,13 @@ const entries = [
   { name: "writings", href: "/writings" },
   { name: "crafts", href: "/crafts" },
   { name: "stack", href: "/stack" },
+  { name: "cv", href: "https://cdn.jabed.dev/resume.pdf" },
 ];
 
 export function Header() {
   return (
     <div className="border-b">
-      <div className="max-w-6xl mx-auto md:border-x border-0 py-6 px-6 lg:border-x flex flex-row justify-between items-center">
+      <div className="max-w-5xl mx-auto md:border-x border-0 py-6 px-6 lg:border-x flex flex-row justify-between items-center">
         <Link href="/" className="font-serif">
           &gt; jabed.dev
         </Link>

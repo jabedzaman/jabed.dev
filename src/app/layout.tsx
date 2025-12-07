@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={`${poppins.className} antialiased`}>
         <Provider>
           <Header />
-          <div className="max-w-6xl mx-auto py-24 px-4 min-h-[80vh]">
+          <div className="max-w-5xl mx-auto py-24 px-4 min-h-[80vh]">
             {children}
           </div>
           <Footer />
